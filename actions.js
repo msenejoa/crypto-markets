@@ -1,4 +1,5 @@
-import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS } from './constants'
+import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS } from './constants';
+import Converter from './components/graphs/dateConverter';
 
 
 export function fetchCoinsFromAPI() {
@@ -64,10 +65,11 @@ export function fetchCoinHistoryFromAPI() {
   //console.log(name.marketCurrency);
   return (dispatch) => {
     //dispatch(getCoins())
-    fetch('https://min-api.cryptocompare.com/data/histohour?fsym=BTC&tsym=ETH&limit=30&aggregate=1&e=CCCAGG')
+    fetch('https://min-api.cryptocompare.com/data/histominute?fsym=BTC&tsym=USD&limit=60&aggregate=1&e=CCCAGG')
     .then(data => data.json())
     .then(json => {
       console.log(json.Data[1])
+      Converter(json.Data);
       console.log('json:', json)
       dispatch(getCoinHistorySuccess(json.Data))
     })
