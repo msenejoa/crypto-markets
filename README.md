@@ -19,6 +19,11 @@ Clone the repo:
 $ git clone https://github.com/msenejoa/crypto-markets crypto-markets 
 $ cd crypto-markets
 ```
+### Install node modules 
+```
+$ npm install
+```
+
 
 ### `npm start`
 
