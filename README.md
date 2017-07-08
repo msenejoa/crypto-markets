@@ -14,7 +14,11 @@ A react-native cryptomarket ticker using available api's. This project is a work
 
 ![](/screenshot-1.JPG?raw=true) ![](/screenshot-2.JPG?raw=true)
 
-
+Clone the repo: 
+```
+$ git clone https://github.com/msenejoa/crypto-markets crypto-markets 
+$ cd crypto-markets
+```
 
 ### `npm start`
 
