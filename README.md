@@ -3,6 +3,18 @@
 A react-native cryptomarket ticker using available api's 
 
 
+## Requirements
+- [node.js](https://nodejs.org/en/) 
+
+## Front End Tools 
+- [react.JS](https://facebook.github.io/react/) Front end Javascript framework
+- [react-native](https://facebook.github.io/react-native/) program mobile apps in react 
+- [react-native-pathjs-charts](https://github.com/capitalone/react-native-pathjs-charts) a charting library for react native
+- [react-redux](http://redux.js.org/docs/basics/UsageWithReact.html) for state management
+
+![](/Screenshot.png?raw=true)
+
+
 ### `npm start`
 
 Runs your app in development mode.
