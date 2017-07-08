@@ -1,6 +1,6 @@
 # crypto-markets 
 
-A react-native cryptomarket ticker using available api's 
+A react-native cryptomarket ticker using available api's. This project is a work in progress
 
 
 ## Requirements
@@ -12,7 +12,9 @@ A react-native cryptomarket ticker using available api's
 - [react-native-pathjs-charts](https://github.com/capitalone/react-native-pathjs-charts) a charting library for react native
 - [react-redux](http://redux.js.org/docs/basics/UsageWithReact.html) for state management
 
-![](/Screenshot.png?raw=true)
+![](/screenshot-1.jpg?raw=true)
+![](/screenshot-2.jpg?raw=true)
+
 
 
 ### `npm start`
