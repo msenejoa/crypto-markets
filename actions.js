@@ -37,8 +37,10 @@ export function getCoinsFailure() {
 
 export function fetchCoinInfoFromAPI(name) {
   //(name) => dispatch(fetchCoinHistoryFromAPI(name));
-  console.log(name.marketCurrency);
+  //console.log(name.marketCurrency);
+  console.log('anything');
   return (dispatch) => {
+    dispatch(fetchCoinHistoryFromAPI(name.marketCurrency))
     dispatch(getCoins())
     fetch('https://bittrex.com/api/v1.1/public/getticker?market=BTC-' + name.marketCurrency)
     .then(data => data.json())
@@ -61,17 +63,19 @@ export function getCoinInfoSuccess(data, name, symbol) {
   }
 }
 
-export function fetchCoinHistoryFromAPI() {
-  //console.log(name.marketCurrency);
+export function fetchCoinHistoryFromAPI(name) {
+  //console.log(name.marketCurrency);X
   return (dispatch) => {
     //dispatch(getCoins())
-    fetch('https://min-api.cryptocompare.com/data/histominute?fsym=BTC&tsym=USD&limit=60&aggregate=1&e=CCCAGG')
+    fetch('https://min-api.cryptocompare.com/data/histominute?fsym=' + name + '&tsym=USD&limit=60&aggregate=1&e=CCCAGG')
     .then(data => data.json())
     .then(json => {
-      console.log(json.Data[1])
-      Converter(json.Data);
-      console.log('json:', json)
-      dispatch(getCoinHistorySuccess(json.Data))
+      //console.log(json.Data[1])
+      var newData = Converter(json.Data);
+      console.log(newData)
+      //console.log('json:', json)
+      //dispatch(getCoinHistorySuccess(json.Data))
+      dispatch(getCoinHistorySuccess(newData))
     })
 
     .catch(err => dispatch(getCoinsFailure(err)))

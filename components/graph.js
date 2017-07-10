@@ -13,11 +13,14 @@ const styles = StyleSheet.create({
   },
 });
 
+//const newData = {this.props.graphing};
+
 class StockLineChartBasic extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: `StockLine - Basic`,
   });
   render() {
+    //var newData = {this.props.graphing};
     let data = [
       [{
         "x": 0,
@@ -72,10 +75,14 @@ class StockLineChartBasic extends Component {
         }
       }
     }
+    console.log(data)
 
     return (
       <View style={styles.container}>
-        <StockLine data={data} options={options} xKey='x' yKey='y' />
+        <Text>
+
+        </Text>
+        <StockLine data={this.props.graphing} options={options} xKey='x' yKey='y' />
       </View>
     )
   }

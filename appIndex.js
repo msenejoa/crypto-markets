@@ -44,13 +44,13 @@ const AppIndex = (props) => {
       {
         isFetching && <Text>Loading</Text>
       }
-      {isLoaded ? <Graphs/> : null}
+      {isLoaded ? <Graphs graphing = {props.coinData.Data} /> : null}
 
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
 
-      <TouchableHighlight style={button} onPress={() => props.getCoinHistory()}>
+      <TouchableHighlight style={button} onPress={() => props.getCoinHistory(props.coinInfo.symbol)}>
         <Text style={buttonText}>Print history</Text>
       </TouchableHighlight>
 
@@ -115,7 +115,7 @@ function mapDispatchToProps (dispatch) {
 
     getCoins: () => dispatch(fetchCoinsFromAPI()),
     getCoinInfo: (name) => dispatch(fetchCoinInfoFromAPI(name)),
-    getCoinHistory: () => dispatch(fetchCoinHistoryFromAPI())
+    getCoinHistory: (name) => dispatch(fetchCoinHistoryFromAPI(name))
   }
 }
 
