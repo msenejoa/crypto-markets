@@ -30,7 +30,7 @@ class StockLineChartBasic extends Component {
     let options = {
       width: 300,
       height: 250,
-      color: '#2980B9',
+      color: '#52c4a5',
       margin: {
         top: 10,
         left: 35,
@@ -43,9 +43,9 @@ class StockLineChartBasic extends Component {
       },
       axisX: {
         showAxis: true,
-        showLines: true,
-        showLabels: true,
-        showTicks: true,
+        showLines: false,
+        showLabels: false,
+        showTicks: false,
         zeroAxis: false,
         orient: 'bottom',
         tickValues: [],

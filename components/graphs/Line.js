@@ -58,7 +58,7 @@ export default class LineChart extends Component {
   color(i) {
     let color = this.props.options.color
     if (!_.isString(this.props.options.color)) color = color.color
-    let pallete = this.props.pallete || Colors.mix(color || '#9ac7f7')
+    let pallete = this.props.pallete || Colors.mix(color || '#bcc8d6')
     return Colors.string(cyclic(pallete, i))
   }
 
