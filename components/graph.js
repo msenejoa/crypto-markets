@@ -45,7 +45,7 @@ class StockLineChartBasic extends Component {
         duration: 200
       },
       axisX: {
-        showAxis: true,
+        showAxis: false,
         showLines: false,
         showLabels: false,
         showTicks: false,
@@ -55,12 +55,12 @@ class StockLineChartBasic extends Component {
         label: {
           fontFamily: 'Arial',
           fontSize: 8,
-          fontWeight: true,
+          fontWeight: false,
           fill: '#34495E'
         }
       },
       axisY: {
-        showAxis: true,
+        showAxis: false,
         showLines: true,
         showLabels: true,
         showTicks: true,
@@ -70,7 +70,7 @@ class StockLineChartBasic extends Component {
         label: {
           fontFamily: 'Arial',
           fontSize: 8,
-          fontWeight: true,
+          fontWeight: false,
           fill: '#34495E'
         }
       }
