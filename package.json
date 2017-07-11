@@ -21,6 +21,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "apsl-react-native-button": "^3.0.2",
     "es6-promise": "^4.1.1",
     "expo": "^18.0.3",
     "isomorphic-fetch": "^2.2.1",

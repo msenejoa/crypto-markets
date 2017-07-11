@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 
 import { StockLine } from 'react-native-pathjs-charts';
 
-import { Button } from 'react-native-elements'
+import Button from 'react-native-button';
 
 
 
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#C5EFF7',
   },
 });
 
@@ -37,7 +37,7 @@ class StockLineChartBasic extends Component {
     let options = {
       width: 300,
       height: 250,
-      color: '#52c4a5',
+      color: '#34495E',
       margin: {
         top: 10,
         left: 35,
@@ -83,19 +83,40 @@ class StockLineChartBasic extends Component {
 
     return (
       <View style={styles.container}>
-        <Text>
 
-        </Text>
         <StockLine data={this.props.graphing} options={options} xKey='x' yKey='y' />
 
-        <Button
-          raised
-          //icon={{name: 'home', size: 32}}
-          buttonStyle={{backgroundColor: '#34495E', borderRadius: 10}}
-          textStyle={{textAlign: 'center'}}
-          title={`Welcome to\nReact Native Elements`}
-        />
 
+        <View style={{flexDirection: 'row', marginBottom: 10}}>
+          <View style={{flex:4, alignItems:'center'}}>
+          <Button
+            containerStyle={{padding:3, height:20, width:50, overflow:'hidden', borderRadius:5, backgroundColor: '#81CFE0'}}
+            style={{fontSize: 12, color: '#2C3E50'}}>
+            day
+          </Button>
+          </View>
+          <View style={{flex:4, alignItems:'center'}}>
+          <Button
+            containerStyle={{padding:3, height:20, width:50, overflow:'hidden', borderRadius:5, backgroundColor: '#81CFE0'}}
+            style={{fontSize: 12, color: '#2C3E50'}}>
+            week
+          </Button>
+          </View>
+          <View style={{flex:4, alignItems:'center'}}>
+          <Button
+            containerStyle={{padding:3, height:20, width:50, overflow:'hidden', borderRadius:5, backgroundColor: '#81CFE0'}}
+            style={{fontSize: 12, color: '#2C3E50'}}>
+            month
+          </Button>
+          </View>
+          <View style={{flex:4, alignItems:'center'}}>
+          <Button
+            containerStyle={{padding:3, height:20, width:50, overflow:'hidden', borderRadius:5, backgroundColor: '#81CFE0'}}
+            style={{fontSize: 12, color: '#2C3E50'}}>
+            year
+          </Button>
+          </View>
+        </View>
       </View>
     )
   }
