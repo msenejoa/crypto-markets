@@ -2,7 +2,11 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-import { StockLine } from 'react-native-pathjs-charts'
+import { StockLine } from 'react-native-pathjs-charts';
+
+import { Button } from 'react-native-elements'
+
+
 
 const styles = StyleSheet.create({
   container: {
@@ -83,6 +87,15 @@ class StockLineChartBasic extends Component {
 
         </Text>
         <StockLine data={this.props.graphing} options={options} xKey='x' yKey='y' />
+
+        <Button
+          raised
+          //icon={{name: 'home', size: 32}}
+          buttonStyle={{backgroundColor: '#34495E', borderRadius: 10}}
+          textStyle={{textAlign: 'center'}}
+          title={`Welcome to\nReact Native Elements`}
+        />
+
       </View>
     )
   }

@@ -15,7 +15,8 @@ const AppIndex = (props) => {
     container,
     text,
     button,
-    buttonText
+    buttonText,
+    mainContainer
   } = styles
 
   const { coins, isFetching } = props.coins;
@@ -24,7 +25,7 @@ const AppIndex = (props) => {
 
 
   return (
-    <View style={container}>
+    <View style={mainContainer}>
 
     {
       !isLoaded ?
@@ -82,6 +83,10 @@ const AppIndex = (props) => {
 }
 
 styles = StyleSheet.create({
+  mainContainer: {
+    backgroundColor: '#81CFE0',
+    marginTop: 30
+  },
   container: {
     marginTop: 30,
     paddingLeft: 10,
@@ -94,7 +99,7 @@ styles = StyleSheet.create({
     height: 60,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#0b7eff'
+    backgroundColor: '#336E7B'
   },
   buttonText: {
     color: 'white'
@@ -109,6 +114,7 @@ function mapStateToProps (state) {
 
   }
 }
+
 
 function mapDispatchToProps (dispatch) {
   return {
