@@ -8,14 +8,6 @@ import Button from 'react-native-button';
 
 
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#C5EFF7',
-  },
-});
 
 //const newData = {this.props.graphing};
 
@@ -35,14 +27,14 @@ class StockLineChartBasic extends Component {
       }],
     ]
     let options = {
-      width: 300,
+      //width: 300,
       height: 250,
-      color: '#34495E',
+      color: '#03C9A9',
       margin: {
         top: 10,
-        left: 35,
+        left: 5,
         bottom: 30,
-        right: 10
+        right: 5
       },
       animate: {
         type: 'delayed',
@@ -65,9 +57,9 @@ class StockLineChartBasic extends Component {
       },
       axisY: {
         showAxis: false,
-        showLines: true,
-        showLabels: true,
-        showTicks: true,
+        showLines: false,
+        showLabels: false,
+        showTicks: false,
         zeroAxis: false,
         orient: 'left',
         tickValues: [],
@@ -88,37 +80,91 @@ class StockLineChartBasic extends Component {
 
 
         <View style={{flexDirection: 'row', marginBottom: 10}}>
-          <View style={{flex:4, alignItems:'center'}}>
+          <View style={styles.toolbar}>
           <Button
-            containerStyle={{padding:3, height:20, width:50, overflow:'hidden', borderRadius:5, backgroundColor: '#81CFE0'}}
-            style={{fontSize: 12, color: '#2C3E50'}}>
-            day
+            containerStyle={styles.toolbarbutton}
+            style={styles.toolbarbuttonActive}>
+            1h
           </Button>
           </View>
-          <View style={{flex:4, alignItems:'center'}}>
+          <View style={styles.toolbar}>
           <Button
-            containerStyle={{padding:3, height:20, width:50, overflow:'hidden', borderRadius:5, backgroundColor: '#81CFE0'}}
-            style={{fontSize: 12, color: '#2C3E50'}}>
-            week
+            containerStyle={styles.toolbarbutton}
+            style={{fontSize: 12, color: '#03C9A9'}}>
+            1d
           </Button>
           </View>
-          <View style={{flex:4, alignItems:'center'}}>
+          <View style={styles.toolbar}>
           <Button
-            containerStyle={{padding:3, height:20, width:50, overflow:'hidden', borderRadius:5, backgroundColor: '#81CFE0'}}
-            style={{fontSize: 12, color: '#2C3E50'}}>
-            month
+            containerStyle={styles.toolbarbutton}
+            style={{fontSize: 12, color: '#03C9A9'}}>
+            1w
           </Button>
           </View>
-          <View style={{flex:4, alignItems:'center'}}>
+          <View style={styles.toolbar}>
           <Button
-            containerStyle={{padding:3, height:20, width:50, overflow:'hidden', borderRadius:5, backgroundColor: '#81CFE0'}}
-            style={{fontSize: 12, color: '#2C3E50'}}>
-            year
+            containerStyle={styles.toolbarbutton}
+            style={{fontSize: 12, color: '#03C9A9'}}>
+            1m
+          </Button>
+          </View>
+          <View style={styles.toolbar}>
+          <Button
+            containerStyle={styles.toolbarbutton}
+            style={{fontSize: 12, color: '#03C9A9'}}>
+            1y
           </Button>
           </View>
         </View>
+        <View>
+          <Text style={styles.statsHeader}>
+            Stats
+          </Text>
+        </View>
       </View>
     )
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000000',
+  },
+  toolbar: {
+    flex: 4,
+    alignItems: 'center'
+  },
+  toolbarbutton: {
+    padding:3,
+    height:20,
+    width:50,
+    overflow:'hidden',
+    borderRadius:5,
+    backgroundColor:'#000000'
+  },
+  toolbarbuttonActive: {
+    fontSize: 12,
+    color: '#FFFFFF'
+  },
+  statsHeader: {
+    color: 'grey',
+    height: 300,
+    fontSize: 25,
+    fontFamily: 'HelveticaNeue-Thin',
+    //flex: 1,
+  }
+});
+
+
+function mapStateToProps (state) {
+  return {
+    coinInfo: state.coinInfo,
+    coins: state.coins,
+    coinData: state.coinData
+
   }
 }
 

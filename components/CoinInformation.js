@@ -13,26 +13,18 @@ export default class CoinInformation extends React.Component {
       render(){
       return (
 
-        <View style={{
-          flex: 1,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          //justifyContent: 'center',
-          height: 50,
-          alignItems: 'center',
-
-        }}>
+        <View style={styles.container}>
 
 
         <TouchableHighlight onPress={() => this.props.callbackParent(this.props)}>
-          <Text>
+          <Text style={styles.text}>
             {this.props.marketCurrency}
           </Text>
         </TouchableHighlight>
 
 
 
-          <Text>{this.props.name}</Text>
+          <Text style={styles.text}>{this.props.name}</Text>
 
 
         </View>
@@ -40,5 +32,19 @@ export default class CoinInformation extends React.Component {
       );
     }
 }
+
+const styles = StyleSheet.create({
+  container: {
+  flex: 1,
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+//justifyContent: 'center',
+  height: 50,
+  alignItems: 'center'
+  },
+  text: {
+    color: '#ffff'
+  }
+});
 
 

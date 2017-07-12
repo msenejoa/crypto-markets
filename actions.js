@@ -67,7 +67,7 @@ export function fetchCoinHistoryFromAPI(name) {
   //console.log(name.marketCurrency);X
   return (dispatch) => {
     //dispatch(getCoins())
-    fetch('https://min-api.cryptocompare.com/data/histominute?fsym=' + name + '&tsym=USD&limit=60&aggregate=1&e=CCCAGG')
+    fetch('https://min-api.cryptocompare.com/data/histominute?fsym=' + name + '&tsym=USD&limit=100&aggregate=1&e=CCCAGG')
     .then(data => data.json())
     .then(json => {
       //console.log(json.Data[1])

@@ -16,7 +16,9 @@ const AppIndex = (props) => {
     text,
     button,
     buttonText,
-    mainContainer
+    mainContainer,
+    textHeader,
+    textPrice
   } = styles
 
   const { coins, isFetching } = props.coins;
@@ -31,9 +33,9 @@ const AppIndex = (props) => {
       !isLoaded ?
         <Text style={text}>CryptoMarkets</Text> :
         <View>
-          <Text style={text}> {props.coinInfo.name} </Text>
+          <Text style={textHeader}> {props.coinInfo.name} </Text>
           <Text style={text}> {props.coinInfo.symbol}</Text>
-          <Text style={text}> {props.coinInfo.coinInfo.Last} </Text>
+          <Text style={textPrice}> {props.coinInfo.coinInfo.Last} BTC</Text>
         </View>
       }
       <ScrollView>
@@ -84,8 +86,8 @@ const AppIndex = (props) => {
 
 styles = StyleSheet.create({
   mainContainer: {
-    backgroundColor: '#81CFE0',
-    marginTop: 30
+    backgroundColor: '#000000',
+    marginTop: 18
   },
   container: {
     marginTop: 30,
@@ -93,7 +95,25 @@ styles = StyleSheet.create({
     paddingRight: 10
   },
   text: {
-    textAlign: 'center'
+    textAlign: 'center',
+    paddingTop: 5,
+    color: 'grey',
+    fontFamily: 'HelveticaNeue-Thin'
+
+  },
+  textHeader: {
+    textAlign: 'center',
+    fontSize: 20,
+    color: '#ffffff',
+    paddingTop: 10,
+    fontFamily: 'HelveticaNeue-Thin'
+  },
+  textPrice: {
+    textAlign: 'center',
+    fontSize: 35,
+    color: '#ffffff',
+    paddingTop: 22,
+    fontFamily: 'HelveticaNeue-Thin'
   },
   button: {
     height: 60,
