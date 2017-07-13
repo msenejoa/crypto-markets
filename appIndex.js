@@ -28,14 +28,17 @@ const AppIndex = (props) => {
 
   return (
     <View style={mainContainer}>
+      <TouchableHighlight style={button} onPress={() => console.log(props)}>
+        <Text style={buttonText}>Print Object</Text>
+      </TouchableHighlight>
 
     {
       !isLoaded ?
         <Text style={text}>CryptoMarkets</Text> :
         <View>
-          <Text style={textHeader}> {props.coinInfo.name} </Text>
-          <Text style={text}> {props.coinInfo.symbol}</Text>
-          <Text style={textPrice}> {props.coinInfo.coinInfo.Last} BTC</Text>
+          <Text style={textHeader}> {props.coinInfo.symbol} </Text>
+          <Text style={text}> {props.coinInfo.name}</Text>
+          <Text style={textPrice}> {props.coinInfo.coinInfo[0].price_btc} BTC</Text>
         </View>
       }
       <ScrollView>
@@ -47,7 +50,10 @@ const AppIndex = (props) => {
       {
         isFetching && <Text>Loading</Text>
       }
-      {isLoaded ? <Graphs graphing = {props.coinData.Data} /> : null}
+      {isLoaded ? <Graphs
+          graphing = {props.coinData.Data}
+          statistics ={props.coinInfo.coinInfo}
+          /> : null}
 
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>Print Object</Text>
@@ -65,8 +71,8 @@ const AppIndex = (props) => {
             return <View key={i} >
               <CoinInformation
                 callbackParent={(coin) => props.getCoinInfo(coin)}
-                marketCurrency = {coin.MarketCurrency}
-                name = {coin.MarketCurrencyLong}
+                symbol = {coin.symbol}
+                name = {coin.name}
               />
 
             </View>
@@ -97,22 +103,23 @@ styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     paddingTop: 5,
+    fontSize: 16,
     color: 'grey',
     fontFamily: 'HelveticaNeue-Thin'
 
   },
   textHeader: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 28,
     color: '#ffffff',
-    paddingTop: 10,
+    paddingTop: 15,
     fontFamily: 'HelveticaNeue-Thin'
   },
   textPrice: {
     textAlign: 'center',
     fontSize: 35,
     color: '#ffffff',
-    paddingTop: 22,
+    paddingTop: 18,
     fontFamily: 'HelveticaNeue-Thin'
   },
   button: {

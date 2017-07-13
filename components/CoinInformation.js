@@ -18,13 +18,13 @@ export default class CoinInformation extends React.Component {
 
         <TouchableHighlight onPress={() => this.props.callbackParent(this.props)}>
           <Text style={styles.text}>
-            {this.props.marketCurrency}
+            {this.props.name}
           </Text>
         </TouchableHighlight>
 
 
 
-          <Text style={styles.text}>{this.props.name}</Text>
+          <Text style={styles.text}>{this.props.symbol}</Text>
 
 
         </View>

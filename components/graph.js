@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
 import { StockLine } from 'react-native-pathjs-charts';
 
@@ -71,7 +71,6 @@ class StockLineChartBasic extends Component {
         }
       }
     }
-    console.log(data)
 
     return (
       <View style={styles.container}>
@@ -120,6 +119,13 @@ class StockLineChartBasic extends Component {
           <Text style={styles.statsHeader}>
             Stats
           </Text>
+          <Text style={styles.statsHeader}>
+            {this.props.statistics[0].name} test
+          </Text>
+
+      <TouchableHighlight onPress={() => console.log(this.props)}>
+        <Text style={styles.statsHeader}>Print statistic</Text>
+      </TouchableHighlight>
         </View>
       </View>
     )
@@ -155,6 +161,13 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontFamily: 'HelveticaNeue-Thin',
     //flex: 1,
+  },
+  statsBody: {
+    color: 'grey',
+    height: 300,
+    fontSize: 25,
+    fontFamily: 'HelveticaNeue-Thin',
+    //flex: 1,
   }
 });
 
@@ -167,5 +180,7 @@ function mapStateToProps (state) {
 
   }
 }
+
+
 
 export default StockLineChartBasic;

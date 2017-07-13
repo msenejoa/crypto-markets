@@ -2,7 +2,7 @@ const Converter = (data) => {
   var obj = [];
   data.forEach((a, i) => {
     var day = new Date(a.time *1000);
-    console.log(day);
+    //console.log(day);
     var hours = day.getHours();
     var minutes = "0" + day.getMinutes();
     var seconds = "0" + day.getSeconds();
@@ -14,8 +14,8 @@ const Converter = (data) => {
     });
     //var newObject = Object.assign(data, indexNumber);
     //console.log(newObject[i]);
-    console.log(a.time);
-    console.log(a.close);
+    //console.log(a.time);
+    //console.log(a.close);
   });
   //console.log(data[0].time * 1000);
   console.log('----------------------------------------------------------');
