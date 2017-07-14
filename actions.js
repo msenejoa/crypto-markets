@@ -112,9 +112,15 @@ export function fetchCoinHistoryFromAPI(name) {
     fetch('https://min-api.cryptocompare.com/data/' + timeline.time + '?fsym=' + name + '&tsym=USD&limit=' + timeline.limit + '&aggregate='+ timeline.agg + '&e=CCCAGG')
     .then(data => data.json())
     .then(json => {
+      //var newData, change = Converter(json.Data);
       var newData = Converter(json.Data);
+      var change = newData.change;
+      var timeseries = newData.data;
       //dispatch(getCoinHistorySuccess(json.Data))
-      dispatch(getCoinHistorySuccess(newData))
+      console.log(change);
+      var time = '1d';
+      //var change = 4;
+      dispatch(getCoinHistorySuccess(timeseries, time, change))
     })
 
     .catch(err => dispatch(getCoinsFailure(err)))
@@ -122,10 +128,12 @@ export function fetchCoinHistoryFromAPI(name) {
 }
 
 
-export function getCoinHistorySuccess(Data) {
+export function getCoinHistorySuccess(Data, time, change) {
   return {
     type: FETCHING_COIN_HISTORY_SUCCESS,
-    Data
+    Data,
+    time,
+    change
   }
 }
 

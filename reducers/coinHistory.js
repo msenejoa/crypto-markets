@@ -13,7 +13,9 @@ export default function coinsReducer (state = initialState, action) {
     case FETCHING_COIN_HISTORY_SUCCESS:
       return {
         ...state,
-        Data: action.Data
+        Data: action.Data,
+        time: action.time,
+        change: action.change
         //name: action.name,
         //symbol: action.symbol
       }
