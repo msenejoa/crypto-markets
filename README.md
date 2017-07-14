@@ -49,3 +49,13 @@ Runs the [jest](https://github.com/facebook/jest) test runner on your tests.
 #### `npm run ios`
 
 Like `npm start`, but also attempts to open your app in the iOS Simulator if you're on a Mac and have it installed.
+
+### Todo 
+
+-add timeline feature
+-add timeline active button view
+-add statistics 
+-add default btc view
+-add default state tree
+-BTC to USD converter
+-change scrollview to include prices
