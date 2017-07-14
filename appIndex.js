@@ -28,11 +28,13 @@ const AppIndex = (props) => {
 
 
   return (
+
     <View style={mainContainer}>
+    {/*
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
-
+*/}
     {
       !isLoaded ?
         <Text style={text}>CryptoMarkets</Text> :
