@@ -106,7 +106,7 @@ export function fetchCoinHistoryFromAPI(name) {
 export function fetchCoinHistoryFromAPI(name) {
   return (dispatch) => {
     //dispatch(getCoins())
-    var timeline = translate('1h');
+    var timeline = translate('1d');
 
     fetch('https://min-api.cryptocompare.com/data/' + timeline.time + '?fsym=' + name + '&tsym=USD&limit=' + timeline.limit + '&aggregate='+ timeline.agg + '&e=CCCAGG')
     .then(data => data.json())
