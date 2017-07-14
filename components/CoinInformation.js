@@ -7,8 +7,6 @@ import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
 
 export default class CoinInformation extends React.Component {
-      //const { text } = styles
-
 
       render(){
       return (
