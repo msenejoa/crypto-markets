@@ -12,7 +12,8 @@ A react-native cryptomarket ticker using available api's. This project is a work
 - [react-native-pathjs-charts](https://github.com/capitalone/react-native-pathjs-charts) a charting library for react native
 - [react-redux](http://redux.js.org/docs/basics/UsageWithReact.html) for state management
 
-![](/screenshot-1.jpg?raw=true) ![](/screenshot-2.JPG?raw=true)
+
+<img src="/screenshot-1.jpg" width="500">
 
 Clone the repo: 
 ```
