@@ -137,3 +137,10 @@ export function getCoinHistorySuccess(Data, time, change) {
   }
 }
 
+export function changeCoinHistorySuccess(time) {
+  return {
+    type: CHANGE_COIN_HISTORY_SUCCESS,
+    time
+  }
+}
+

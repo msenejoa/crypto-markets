@@ -21,12 +21,11 @@ const Converter = (data) => {
   });
 
   console.log('----------------------------------------------------------');
-  //console.log(change.toFixed(2));
   var obj2 = [];
   obj2.push(obj);
   return {
     data: obj2,
-    change: change
+    change: change.toFixed(2)
   };
 };
 

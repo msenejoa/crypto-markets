@@ -6,7 +6,7 @@ import Graphs from './components/graph';
 
 
 import { connect } from 'react-redux';
-import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI } from './actions';
+import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess } from './actions';
 
 let styles
 
@@ -39,6 +39,7 @@ const AppIndex = (props) => {
           <Text style={textHeader}> {props.coinInfo.symbol} </Text>
           <Text style={text}> {props.coinInfo.name}</Text>
           <Text style={textPrice}> {props.coinInfo.coinInfo[0].price_btc} BTC</Text>
+          <Text style={text}> {props.coinData.change}</Text>
         </View>
       }
       <ScrollView>
@@ -148,7 +149,8 @@ function mapDispatchToProps (dispatch) {
 
     getCoins: () => dispatch(fetchCoinsFromAPI()),
     getCoinInfo: (name) => dispatch(fetchCoinInfoFromAPI(name)),
-    getCoinHistory: (name) => dispatch(fetchCoinHistoryFromAPI(name))
+    getCoinHistory: (name) => dispatch(fetchCoinHistoryFromAPI(name)),
+    updateGetCoinHistory: (time) =>dispatch(changeCoinHistorySuccess(time))
   }
 }
 
