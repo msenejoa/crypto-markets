@@ -6,17 +6,11 @@ import { StockLine } from 'react-native-pathjs-charts';
 
 import Button from 'react-native-button';
 
-
-
-
-//const newData = {this.props.graphing};
-
 class StockLineChartBasic extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: `StockLine - Basic`,
   });
   render() {
-    //var newData = {this.props.graphing};
     let data = [
       [{
         "x": 0,
@@ -89,28 +83,28 @@ class StockLineChartBasic extends Component {
           <View style={styles.toolbar}>
           <Button
             containerStyle={styles.toolbarbutton}
-            style={{fontSize: 12, color: '#03C9A9'}}>
+            style={styles.buttonText}>
             1d
           </Button>
           </View>
           <View style={styles.toolbar}>
           <Button
             containerStyle={styles.toolbarbutton}
-            style={{fontSize: 12, color: '#03C9A9'}}>
+            style={styles.buttonText}>
             1w
           </Button>
           </View>
           <View style={styles.toolbar}>
           <Button
             containerStyle={styles.toolbarbutton}
-            style={{fontSize: 12, color: '#03C9A9'}}>
+            style={styles.buttonText}>
             1m
           </Button>
           </View>
           <View style={styles.toolbar}>
           <Button
             containerStyle={styles.toolbarbutton}
-            style={{fontSize: 12, color: '#03C9A9'}}>
+            style={styles.buttonText}>
             1y
           </Button>
           </View>
@@ -160,6 +154,11 @@ const styles = StyleSheet.create({
     height: 300,
     fontSize: 25,
     fontFamily: 'HelveticaNeue-Thin',
+    //flex: 1,
+  },
+  buttonText: {
+    fontSize: 12, 
+    color: '#03C9A9'
     //flex: 1,
   },
   statsBody: {
