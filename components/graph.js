@@ -75,6 +75,7 @@ class StockLineChartBasic extends Component {
         <View style={{flexDirection: 'row', marginBottom: 10}}>
           <View style={styles.toolbar}>
           <Button
+            onPress={()=>console.log('pressed')}
             containerStyle={styles.toolbarbutton}
             style={styles.toolbarbuttonActive}>
             1h
@@ -82,6 +83,12 @@ class StockLineChartBasic extends Component {
           </View>
           <View style={styles.toolbar}>
           <Button
+            //onPress= {() => this.props.callbackParent(this.props.)}
+            //        <TouchableHighlight onPress={() => this.props.callbackParent(this.props)}>
+         // <Text style={styles.text}>
+           // {this.props.name}
+          //</Text>
+        //</TouchableHighlight>
             containerStyle={styles.toolbarbutton}
             style={styles.buttonText}>
             1d
@@ -157,7 +164,7 @@ const styles = StyleSheet.create({
     //flex: 1,
   },
   buttonText: {
-    fontSize: 12, 
+    fontSize: 12,
     color: '#03C9A9'
     //flex: 1,
   },

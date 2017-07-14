@@ -1,5 +1,6 @@
 import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS } from './constants';
 import Converter from './components/graphs/dateConverter';
+import translate from './components/graphs/timelineConverter';
 
 /*
 export function fetchCoinsFromAPI() {
@@ -86,7 +87,7 @@ export function getCoinInfoSuccess(data, name, symbol) {
     symbol
   }
 }
-
+/*
 export function fetchCoinHistoryFromAPI(name) {
   return (dispatch) => {
     //dispatch(getCoins())
@@ -101,6 +102,24 @@ export function fetchCoinHistoryFromAPI(name) {
     .catch(err => dispatch(getCoinsFailure(err)))
   }
 }
+*/
+export function fetchCoinHistoryFromAPI(name) {
+  return (dispatch) => {
+    //dispatch(getCoins())
+    var timeline = translate('1h');
+
+    fetch('https://min-api.cryptocompare.com/data/' + timeline.time + '?fsym=' + name + '&tsym=USD&limit=' + timeline.limit + '&aggregate='+ timeline.agg + '&e=CCCAGG')
+    .then(data => data.json())
+    .then(json => {
+      var newData = Converter(json.Data);
+      //dispatch(getCoinHistorySuccess(json.Data))
+      dispatch(getCoinHistorySuccess(newData))
+    })
+
+    .catch(err => dispatch(getCoinsFailure(err)))
+  }
+}
+
 
 export function getCoinHistorySuccess(Data) {
   return {
