@@ -21,8 +21,6 @@ export function fetchCoinsFromAPI() {
     fetch('https://api.coinmarketcap.com/v1/ticker/?limit=10')
     .then(data => data.json())
     .then(json => {
-      //console.log('json:', json)
-      //console.log('info', json[1].name)
       dispatch(getCoinsSuccess(json))
     })
     .catch(err => dispatch(getCoinsFailure(err)))
@@ -50,8 +48,6 @@ export function getCoinsFailure() {
 }
 /*
 export function fetchCoinInfoFromAPI(name) {
-  //(name) => dispatch(fetchCoinHistoryFromAPI(name));
-  //console.log(name.marketCurrency);
   console.log('anything');
   return (dispatch) => {
     dispatch(fetchCoinHistoryFromAPI(name.symbol))
@@ -67,8 +63,6 @@ export function fetchCoinInfoFromAPI(name) {
 */
 
 export function fetchCoinInfoFromAPI(name) {
-  //(name) => dispatch(fetchCoinHistoryFromAPI(name));
-  //console.log(name.marketCurrency);
   console.log(name.name);
   return (dispatch) => {
     dispatch(fetchCoinHistoryFromAPI(name.symbol))
@@ -76,9 +70,6 @@ export function fetchCoinInfoFromAPI(name) {
     fetch('https://api.coinmarketcap.com/v1/ticker/' + name.name)
     .then(data => data.json())
     .then(json => {
-      //console.log('json:', json)
-      console.log('this is what your name is:')
-      console.log(json)
       dispatch(getCoinInfoSuccess(json, name.name, name.symbol))
 
     })
@@ -97,16 +88,12 @@ export function getCoinInfoSuccess(data, name, symbol) {
 }
 
 export function fetchCoinHistoryFromAPI(name) {
-  //console.log(name.marketCurrency);X
   return (dispatch) => {
     //dispatch(getCoins())
     fetch('https://min-api.cryptocompare.com/data/histominute?fsym=' + name + '&tsym=USD&limit=100&aggregate=1&e=CCCAGG')
     .then(data => data.json())
     .then(json => {
-      //console.log(json.Data[1])
       var newData = Converter(json.Data);
-      //console.log(newData)
-      //console.log('json:', json)
       //dispatch(getCoinHistorySuccess(json.Data))
       dispatch(getCoinHistorySuccess(newData))
     })
@@ -116,7 +103,6 @@ export function fetchCoinHistoryFromAPI(name) {
 }
 
 export function getCoinHistorySuccess(Data) {
-  //console.log(Data)
   return {
     type: FETCHING_COIN_HISTORY_SUCCESS,
     Data
