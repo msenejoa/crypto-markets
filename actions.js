@@ -102,6 +102,7 @@ export function fetchCoinHistoryFromAPI(name) {
     .catch(err => dispatch(getCoinsFailure(err)))
   }
 }
+
 */
 export function fetchCoinHistoryFromAPI(name) {
   return (dispatch) => {
