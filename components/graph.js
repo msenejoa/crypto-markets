@@ -11,6 +11,12 @@ class StockLineChartBasic extends Component {
     title: `StockLine - Basic`,
   });
   render() {
+    let hour = '1h';
+    let day = '1d';
+    let week = '1w';
+    let month = '1m';
+    let year = '1y';
+
     let data = [
       [{
         "x": 0,
@@ -75,7 +81,7 @@ class StockLineChartBasic extends Component {
         <View style={{flexDirection: 'row', marginBottom: 10}}>
           <View style={styles.toolbar}>
           <Button
-            onPress={()=>console.log('pressed')}
+            onPress= {() => this.props.callbackParent(hour)}
             containerStyle={styles.toolbarbutton}
             style={styles.toolbarbuttonActive}>
             1h
@@ -83,12 +89,7 @@ class StockLineChartBasic extends Component {
           </View>
           <View style={styles.toolbar}>
           <Button
-            //onPress= {() => this.props.callbackParent(this.props.)}
-            //        <TouchableHighlight onPress={() => this.props.callbackParent(this.props)}>
-         // <Text style={styles.text}>
-           // {this.props.name}
-          //</Text>
-        //</TouchableHighlight>
+            onPress= {() => this.props.callbackParent(day)}
             containerStyle={styles.toolbarbutton}
             style={styles.buttonText}>
             1d
@@ -96,6 +97,7 @@ class StockLineChartBasic extends Component {
           </View>
           <View style={styles.toolbar}>
           <Button
+            onPress= {() => this.props.callbackParent(week)}
             containerStyle={styles.toolbarbutton}
             style={styles.buttonText}>
             1w
@@ -103,6 +105,7 @@ class StockLineChartBasic extends Component {
           </View>
           <View style={styles.toolbar}>
           <Button
+            onPress= {() => this.props.callbackParent(month)}
             containerStyle={styles.toolbarbutton}
             style={styles.buttonText}>
             1m
@@ -110,6 +113,7 @@ class StockLineChartBasic extends Component {
           </View>
           <View style={styles.toolbar}>
           <Button
+            onPress= {() => this.props.callbackParent(year)}
             containerStyle={styles.toolbarbutton}
             style={styles.buttonText}>
             1y

@@ -10,7 +10,7 @@ const initialState = {
 }
 
 export default function coinsReducer (state = initialState, action) {
-  console.log(action.Data)
+  console.log(action.time)
   switch (action.type) {
     case FETCHING_COIN_HISTORY_SUCCESS:
       return {

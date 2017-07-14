@@ -1,4 +1,4 @@
-import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS } from './constants';
+import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS } from './constants';
 import Converter from './components/graphs/dateConverter';
 import translate from './components/graphs/timelineConverter';
 
@@ -63,10 +63,11 @@ export function fetchCoinInfoFromAPI(name) {
     })
 */
 
-export function fetchCoinInfoFromAPI(name) {
-  console.log(name.name);
+export function fetchCoinInfoFromAPI(name, time) {
+  console.log('this is your api info')
+  console.log(name.name, time);
   return (dispatch) => {
-    dispatch(fetchCoinHistoryFromAPI(name.symbol))
+    dispatch(fetchCoinHistoryFromAPI(name.symbol, time))
     dispatch(getCoins())
     fetch('https://api.coinmarketcap.com/v1/ticker/' + name.name)
     .then(data => data.json())
@@ -104,11 +105,15 @@ export function fetchCoinHistoryFromAPI(name) {
 }
 
 */
-export function fetchCoinHistoryFromAPI(name) {
+export function fetchCoinHistoryFromAPI(name, time) {
   return (dispatch) => {
+    //dispatch(changeCoinHistorySuccess(name, time))
+    console.log('this is your dispatch info');
+    console.log(name, time);
     //dispatch(getCoins())
-    var timeline = translate('1d');
-
+    var timeline = translate(time);
+    //console.log('this is your timeline series');
+    //console.log(time)
     fetch('https://min-api.cryptocompare.com/data/' + timeline.time + '?fsym=' + name + '&tsym=USD&limit=' + timeline.limit + '&aggregate='+ timeline.agg + '&e=CCCAGG')
     .then(data => data.json())
     .then(json => {
@@ -118,9 +123,9 @@ export function fetchCoinHistoryFromAPI(name) {
       var timeseries = newData.data;
       //dispatch(getCoinHistorySuccess(json.Data))
       console.log(change);
-      var time = '1d';
-      //var change = 4;
-      dispatch(getCoinHistorySuccess(timeseries, time, change))
+      //var time = '1d';
+      dispatch(getCoinHistorySuccess(timeseries, time, change));
+      //dispatch(changeCoinHistorySuccess(name, time))
     })
 
     .catch(err => dispatch(getCoinsFailure(err)))
@@ -137,10 +142,14 @@ export function getCoinHistorySuccess(Data, time, change) {
   }
 }
 
-export function changeCoinHistorySuccess(time) {
+/*
+export function changeCoinHistorySuccess(name, time) {
+  console.log(name);
+  console.log(time);
   return {
     type: CHANGE_COIN_HISTORY_SUCCESS,
     time
   }
 }
 
+*/

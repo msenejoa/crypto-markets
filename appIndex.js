@@ -23,7 +23,8 @@ const AppIndex = (props) => {
 
   const { coins, isFetching } = props.coins;
   const { coinInfo, isLoaded, name } = props.coinInfo;
-  const { coinData } = props.coinData;
+  const { coinData, time, change } = props.coinData;
+
 
 
   return (
@@ -54,13 +55,16 @@ const AppIndex = (props) => {
       {isLoaded ? <Graphs
           graphing = {props.coinData.Data}
           statistics ={props.coinInfo.coinInfo}
+          callbackParent={(time) => props.getCoinHistory(props.coinInfo.symbol, time)}
+          timeFrame = {props.coinData.time}
+
           /> : null}
 
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
 
-      <TouchableHighlight style={button} onPress={() => props.getCoinHistory(props.coinInfo.symbol)}>
+      <TouchableHighlight style={button} onPress={() => props.getCoinHistory(props.coinInfo.symbol, props.coinData.time)}>
         <Text style={buttonText}>Print history</Text>
       </TouchableHighlight>
 
@@ -71,7 +75,7 @@ const AppIndex = (props) => {
           coins.map((coin, i) => {
             return <View key={i} >
               <CoinInformation
-                callbackParent={(coin) => props.getCoinInfo(coin)}
+                callbackParent={(coin) => props.getCoinInfo(coin, props.coinData.time)}
                 symbol = {coin.symbol}
                 name = {coin.name}
               />
@@ -134,6 +138,8 @@ styles = StyleSheet.create({
   }
 })
 
+
+
 function mapStateToProps (state) {
   return {
     coinInfo: state.coinInfo,
@@ -148,9 +154,9 @@ function mapDispatchToProps (dispatch) {
   return {
 
     getCoins: () => dispatch(fetchCoinsFromAPI()),
-    getCoinInfo: (name) => dispatch(fetchCoinInfoFromAPI(name)),
-    getCoinHistory: (name) => dispatch(fetchCoinHistoryFromAPI(name)),
-    updateGetCoinHistory: (time) =>dispatch(changeCoinHistorySuccess(time))
+    getCoinInfo: (name, time) => dispatch(fetchCoinInfoFromAPI(name, time)),
+    getCoinHistory: (name, time) => dispatch(fetchCoinHistoryFromAPI(name, time)),
+    updateGetCoinHistory: (name, time) =>dispatch(changeCoinHistorySuccess(name, time))
   }
 }
 
