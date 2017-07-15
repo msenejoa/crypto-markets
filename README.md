@@ -52,8 +52,6 @@ Like `npm start`, but also attempts to open your app in the iOS Simulator if you
 
 ### Todo 
 
-- add timeline feature
-- add timeline active button view
 - add statistics 
 - add default btc view
 - add default state tree
