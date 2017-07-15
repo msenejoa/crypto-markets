@@ -13,7 +13,7 @@ A react-native cryptomarket ticker using available api's. This project is a work
 - [react-redux](http://redux.js.org/docs/basics/UsageWithReact.html) for state management
 
 
-<img src="/screenshot-1.jpg" width="300"><img src="/screenshot-2.jpg" width="300">
+<img src="/screenshot-1.jpg" width="300">    <img src="/screenshot-2.jpg" width="300">
 
 
 Clone the repo: 
