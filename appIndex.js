@@ -36,14 +36,9 @@ const AppIndex = (props) => {
       </TouchableHighlight>
 */}
     {
-      !isLoaded ?
-        <Text style={text}>CryptoMarkets</Text> :
-        <View>
-          <Text style={textHeader}> {props.coinInfo.symbol} </Text>
-          <Text style={text}> {props.coinInfo.name}</Text>
-          <Text style={textPrice}> {props.coinInfo.coinInfo[0].price_btc} BTC</Text>
-          <Text style={text}> {props.coinData.change}</Text>
-        </View>
+      !isLoaded &&
+        <Text style={text}>CryptoMarkets</Text>
+
       }
       <ScrollView>
       {!isFetching &&
@@ -55,12 +50,9 @@ const AppIndex = (props) => {
         isFetching && <Text>Loading</Text>
       }
       {isLoaded ? <Graphs
-          graphing = {props.coinData.Data}
-          statistics ={props.coinInfo.coinInfo}
+          coinData = {props.coinData}
+          coinInfo = {props.coinInfo}
           callbackParent={(time) => props.getCoinHistory(props.coinInfo.symbol, time)}
-          timeFrame = {props.coinData.time}
-          gains = {props.coinData.change}
-
           /> : null}
 
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
@@ -101,7 +93,7 @@ const AppIndex = (props) => {
 styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: '#000000',
-    marginTop: 18
+    marginTop: 0
   },
   container: {
     marginTop: 30,
@@ -111,7 +103,7 @@ styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     paddingTop: 5,
-    fontSize: 16,
+    fontSize: 20,
     color: 'grey',
     fontFamily: 'HelveticaNeue-Thin'
 

@@ -4,6 +4,8 @@ import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
 import { StockLine } from 'react-native-pathjs-charts';
 
+import CoininformationHeader from './CoinInformationHeader';
+
 import Button from 'react-native-button';
 
 class StockLineChartBasic extends Component {
@@ -11,8 +13,9 @@ class StockLineChartBasic extends Component {
     title: `StockLine - Basic`,
   });
   render() {
-    var timeFrame = this.props.timeFrame;
-    var gains = this.props.gains;
+    var timeFrame = this.props.coinData.time;
+    console.log(timeFrame)
+    var gains = this.props.coinData.change;
 
     var change = gains > 0 ? '#03C9A9' : '#D64541';
     console.log(gains, change);
@@ -93,7 +96,13 @@ class StockLineChartBasic extends Component {
       //var something = this.props.timeFrame;
       <View style={styles.container}>
 
-        <StockLine data={this.props.graphing} options={options} xKey='x' yKey='y' />
+        <CoininformationHeader
+          coinData = {this.props.coinData}
+          coinInfo = {this.props.coinInfo}/>
+
+        <StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' />
+
+
 
         <View style={{flexDirection: 'row', marginBottom: 10}}>
           <View style={styles.toolbar}>
@@ -143,7 +152,7 @@ class StockLineChartBasic extends Component {
             Stats
           </Text>
           <Text style={styles.statsHeader}>
-            {this.props.statistics[0].name} test
+            {this.props.coinInfo.coinInfo[0].name} test
           </Text>
 
       <TouchableHighlight onPress={() => console.log(this.props)}>
