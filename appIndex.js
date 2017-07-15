@@ -59,6 +59,7 @@ const AppIndex = (props) => {
           statistics ={props.coinInfo.coinInfo}
           callbackParent={(time) => props.getCoinHistory(props.coinInfo.symbol, time)}
           timeFrame = {props.coinData.time}
+          gains = {props.coinData.change}
 
           /> : null}
 

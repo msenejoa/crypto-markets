@@ -11,6 +11,20 @@ class StockLineChartBasic extends Component {
     title: `StockLine - Basic`,
   });
   render() {
+    var timeFrame = this.props.timeFrame;
+    var gains = this.props.gains;
+
+    var change = gains > 0 ? '#03C9A9' : '#D64541';
+    console.log(gains, change);
+
+    colorChange = function(change) {
+      console.log(change);
+      return {
+        color: change
+        }
+      }
+
+
     let hour = '1h';
     let day = '1d';
     let week = '1w';
@@ -29,7 +43,7 @@ class StockLineChartBasic extends Component {
     let options = {
       //width: 300,
       height: 250,
-      color: '#03C9A9',
+      color: change,
       margin: {
         top: 10,
         left: 5,
@@ -71,8 +85,9 @@ class StockLineChartBasic extends Component {
         }
       }
     }
-      var timeFrame = this.props.timeFrame;
-      console.log('this is your color ', timeFrame)
+
+
+
 
     return (
       //var something = this.props.timeFrame;
@@ -85,7 +100,8 @@ class StockLineChartBasic extends Component {
           <Button
             onPress= {() => this.props.callbackParent(hour)}
             containerStyle={styles.toolbarbutton}
-            style = {timeFrame === '1h'? styles.toolbarbuttonActive : styles.buttonText}>
+            //style = {timeFrame === '1h'? styles.toolbarbuttonActive : styles.buttonText}>
+            style = {timeFrame === '1h'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
             1h
           </Button>
           </View>
@@ -93,7 +109,7 @@ class StockLineChartBasic extends Component {
           <Button
             onPress= {() => this.props.callbackParent(day)}
             containerStyle={styles.toolbarbutton}
-            style = {timeFrame === '1d'? styles.toolbarbuttonActive : styles.buttonText}>
+            style = {timeFrame === '1d'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
             1d
           </Button>
           </View>
@@ -101,7 +117,7 @@ class StockLineChartBasic extends Component {
           <Button
             onPress= {() => this.props.callbackParent(week)}
             containerStyle={styles.toolbarbutton}
-            style = {timeFrame === '1w'? styles.toolbarbuttonActive : styles.buttonText}>
+            style = {timeFrame === '1w'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
             1w
           </Button>
           </View>
@@ -109,7 +125,7 @@ class StockLineChartBasic extends Component {
           <Button
             onPress= {() => this.props.callbackParent(month)}
             containerStyle={styles.toolbarbutton}
-            style = {timeFrame === '1m'? styles.toolbarbuttonActive : styles.buttonText}>
+            style = {timeFrame === '1m'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
             1m
           </Button>
           </View>
@@ -117,7 +133,7 @@ class StockLineChartBasic extends Component {
           <Button
             onPress= {() => this.props.callbackParent(year)}
             containerStyle={styles.toolbarbutton}
-            style = {timeFrame === '1y'? styles.toolbarbuttonActive : styles.buttonText}>
+            style = {timeFrame === '1y'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
             1y
           </Button>
           </View>
@@ -170,9 +186,10 @@ const styles = StyleSheet.create({
     //flex: 1,
   },
   buttonText: {
-    fontSize: 12,
-    color: '#03C9A9'
-    //flex: 1,
+    fontSize: 12
+  },
+  buttonTextGains: {
+    color: 'green'
   },
   statsBody: {
     color: 'grey',

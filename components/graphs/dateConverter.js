@@ -20,7 +20,6 @@ const Converter = (data) => {
 
   });
 
-  console.log('----------------------------------------------------------');
   var obj2 = [];
   obj2.push(obj);
   return {

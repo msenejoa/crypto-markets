@@ -8,8 +8,7 @@ const initialState = {
 }
 
 export default function coinsReducer (state = initialState, action) {
-  console.log('this is your action:')
-  console.log(action);
+
   switch (action.type) {
     case FETCHING_COIN_INFO_SUCCESS:
       return {
