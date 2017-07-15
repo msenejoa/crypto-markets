@@ -5,6 +5,7 @@ import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import { StockLine } from 'react-native-pathjs-charts';
 
 import CoininformationHeader from './CoinInformationHeader';
+import CoinInformationStatistics from './CoinInformationStatistics';
 
 import Button from 'react-native-button';
 
@@ -148,12 +149,11 @@ class StockLineChartBasic extends Component {
           </View>
         </View>
         <View>
-          <Text style={styles.statsHeader}>
-            Stats
-          </Text>
-          <Text style={styles.statsHeader}>
-            {this.props.coinInfo.coinInfo[0].name} test
-          </Text>
+
+          <CoinInformationStatistics
+          coinInfo = {this.props.coinInfo.coinInfo[0]}
+          />
+
 
       <TouchableHighlight onPress={() => console.log(this.props)}>
         <Text style={styles.statsHeader}>Print statistic</Text>
@@ -167,8 +167,8 @@ class StockLineChartBasic extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    //justifyContent: 'center',
+    //alignItems: 'center',
     backgroundColor: '#000000',
   },
   toolbar: {

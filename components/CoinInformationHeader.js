@@ -1,10 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
-//import Navbar from 'react-bootstrap/lib/Navbar';
-//let styles
-//var { getCoins } = props
-
 
 export default class CoinInformationHeader extends React.Component {
 
@@ -17,8 +13,6 @@ export default class CoinInformationHeader extends React.Component {
           <Text style={styles.text}> {this.props.coinInfo.name}</Text>
           <Text style={styles.textPrice}> {this.props.coinInfo.coinInfo[0].price_btc} BTC</Text>
           <Text style={styles.text}> {this.props.coinData.change} %</Text>
-
-
 
         </View>
 
