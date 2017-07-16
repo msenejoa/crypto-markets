@@ -25,6 +25,8 @@ const AppIndex = (props) => {
   const { coinInfo, isLoaded, name } = props.coinInfo;
   const { coinData, time, change } = props.coinData;
 
+  console.log(props.coinInfo);
+
 
 
   return (
