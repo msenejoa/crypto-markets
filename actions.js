@@ -6,7 +6,7 @@ import translate from './components/graphs/timelineConverter';
 export function fetchCoinsFromAPI() {
   return (dispatch) => {
     dispatch(getCoins())
-    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=30')
+    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=50')
     .then(data => data.json())
     .then(json => {
       dispatch(getCoinsSuccess(json))
@@ -44,9 +44,7 @@ export function fetchCoinInfoFromAPI(name, time) {
     .then(data => data.json())
     .then(json => {
       dispatch(getCoinInfoSuccess(json, name.name, name.symbol))
-
     })
-
     .catch(err => dispatch(getCoinsFailure(err)))
   }
 }
@@ -71,7 +69,6 @@ export function fetchCoinHistoryFromAPI(name, time) {
       var timeseries = newData.data;
       dispatch(getCoinHistorySuccess(timeseries, time, change));
     })
-
     .catch(err => dispatch(getCoinsFailure(err)))
   }
 }

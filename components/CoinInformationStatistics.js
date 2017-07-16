@@ -38,7 +38,7 @@ export default class CoinInformationStatistics extends React.Component {
             <View style={styles.statsBodyRowLeft}>
               <View style ={styles.statsBodyContent}>
                 <Text style={styles.text}>mkt cap</Text>
-                <Text style={styles.values}>${mkt_cap}B</Text>
+                <Text style={styles.values}>${mkt_cap}M</Text>
               </View>
             </View>
             <View style={styles.statsBodyRow}>

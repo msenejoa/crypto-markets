@@ -99,7 +99,8 @@ class StockLineChartBasic extends Component {
 
         <CoininformationHeader
           coinData = {this.props.coinData}
-          coinInfo = {this.props.coinInfo}/>
+          coinInfo = {this.props.coinInfo}
+          />
 
         <StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' />
 
@@ -148,17 +149,8 @@ class StockLineChartBasic extends Component {
           </Button>
           </View>
         </View>
-        <View>
-
           <CoinInformationStatistics
-          coinInfo = {this.props.coinInfo.coinInfo[0]}
-          />
-
-
-      <TouchableHighlight onPress={() => console.log(this.props)}>
-        <Text style={styles.statsHeader}>Print statistic</Text>
-      </TouchableHighlight>
-        </View>
+          coinInfo = {this.props.coinInfo.coinInfo[0]}/>
       </View>
     )
   }
