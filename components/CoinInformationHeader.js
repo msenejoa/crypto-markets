@@ -9,15 +9,33 @@ export default class CoinInformationHeader extends React.Component {
       }
 
       clickFunction() {
-        console.log('functioning');
         this.setState({switchValue: !this.state.switchValue});
-        console.log(this.state)
+      };
+
+      changeFunction(value){
+        if (this.props.coinData.time === '1h'){
+          return this.props.coinInfo.coinInfo[0].percent_change_1h;
+        }
+        if (this.props.coinData.time === '1d'){
+          return this.props.coinInfo.coinInfo[0].percent_change_24h;
+        }
+        if (this.props.coinData.time === '1w'){
+          return this.props.coinInfo.coinInfo[0].percent_change_7d;
+        }
+        else {
+          return value;
+        }
       };
 
       render(){
 
       var price_btc = this.props.coinInfo.coinInfo[0].price_btc;
       var price_usd = this.props.coinInfo.coinInfo[0].price_usd;
+
+      change = this.props.coinData.change;
+
+      this.changeFunction(this.props.coinData.time)
+
 
       return (
 
@@ -31,7 +49,8 @@ export default class CoinInformationHeader extends React.Component {
               {!this.state.switchValue?price_btc + ' BTC':'$' + price_usd}
             </Text>
           </TouchableHighlight>
-          <Text style={styles.text}> {this.props.coinData.change} %</Text>
+
+          <Text style={styles.text}> {this.changeFunction(change)} %</Text>
 
         </View>
 
