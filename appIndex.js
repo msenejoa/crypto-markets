@@ -45,6 +45,11 @@ const AppIndex = (props) => {
         <Text style={text}>CryptoMarkets</Text>
 
       }
+
+      {/*
+      <Text style = {text}> Always view</Text>
+*/}
+
       <ScrollView>
 
 
@@ -61,7 +66,7 @@ const AppIndex = (props) => {
           coinInfo = {props.coinInfo}
           callbackParent={(time) => props.getCoinHistory(props.coinInfo.symbol, time)}
           /> : null}
-
+{/*
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
@@ -69,8 +74,10 @@ const AppIndex = (props) => {
       <TouchableHighlight style={button} onPress={() => props.getCoinHistory(props.coinInfo.symbol, props.coinData.time)}>
         <Text style={buttonText}>Print history</Text>
       </TouchableHighlight>
+    */}
 
 </ScrollView>
+
       <ScrollView>
       {
         coins.length ? (
@@ -106,13 +113,14 @@ styles = StyleSheet.create({
     marginTop: 0
   },
   container: {
-    marginTop: 30,
+    marginTop: 20,
     paddingLeft: 10,
     paddingRight: 10
   },
   text: {
     textAlign: 'center',
-    paddingTop: 5,
+    height: 60,
+    paddingTop: 10,
     fontSize: 20,
     color: 'grey',
     fontFamily: 'HelveticaNeue-Thin'

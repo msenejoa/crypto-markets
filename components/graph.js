@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, ScrollView } from 'react-native';
 
 import { StockLine } from 'react-native-pathjs-charts';
 
@@ -45,7 +45,7 @@ class StockLineChartBasic extends Component {
     ]
     let options = {
       //width: 300,
-      height: 250,
+      height: 230,
       color: change,
       margin: {
         top: 10,
@@ -101,13 +101,14 @@ class StockLineChartBasic extends Component {
         <CoininformationHeader
           coinData = {this.props.coinData}
           coinInfo = {this.props.coinInfo}
+          gains = {this.gains}
           />
 
         { <StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' />}
 
+<ScrollView>
 
-
-        <View style={{flexDirection: 'row', marginBottom: 10}}>
+        <View style={{flexDirection: 'row', marginBottom: 5}}>
           <View style={styles.toolbar}>
           <Button
             onPress= {() => this.props.callbackParent(hour)}
@@ -152,6 +153,8 @@ class StockLineChartBasic extends Component {
         </View>
           <CoinInformationStatistics
           coinInfo = {this.props.coinInfo.coinInfo[0]}/>
+
+          </ScrollView>
       </View>
     )
   }

@@ -1,6 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, Switch } from 'react-native';
 
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+
+
 
 export default class CoinInformationHeader extends React.Component {
 
@@ -36,12 +40,36 @@ export default class CoinInformationHeader extends React.Component {
 
       this.changeFunction(this.props.coinData.time)
 
+      console.log(change)
+
+      var colorGains = change > 0 ? '#03C9A9' : '#D64541';
+
 
       return (
 
-        <View style={styles.container}>
 
-          <Text style={styles.textHeader}> {this.props.coinInfo.symbol} </Text>
+
+        <View style={styles.container}>
+          <View style = {styles.containerTop}>
+
+              <View style = {styles.containerTopLeft}>
+                <TouchableHighlight
+                  onPress = {()=> {}}
+                  >
+                  <Ionicons name="ios-list-outline" size={32} color={colorGains}/>
+                </TouchableHighlight>
+              </View>
+
+            <View style = {styles.containerTopCenter}>
+              <Text style={styles.textHeader}> {this.props.coinInfo.symbol} </Text>
+            </View>
+
+            <View style = {styles.containerTopRight}>
+                  <Ionicons name="ios-add-circle-outline" size={32} color={colorGains} />
+            </View>
+
+
+          </View>
           <Text style={styles.text}> {this.props.coinInfo.name}</Text>
           <TouchableHighlight
             onPress = {() => this.clickFunction()}>
@@ -52,6 +80,13 @@ export default class CoinInformationHeader extends React.Component {
 
           <Text style={styles.text}> {this.changeFunction(change)} %</Text>
 
+{/*
+      <Ionicons name="ios-add-circle-outline" size={32} color="green" />
+      <Ionicons name="ios-checkmark-circle" size={32} color="green" />
+      <Ionicons name="ios-list-outline" size={32} color="green" />
+*/}
+
+
         </View>
 
       );
@@ -59,26 +94,45 @@ export default class CoinInformationHeader extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  containerTop: {
+    flexDirection: 'row',
+    paddingTop:10,
+    paddingBottom: 10,
+    paddingLeft: 10,
+    paddingRight: 10,
+  },
   container: {
-    //flex: 1,
-    //flexDirection: 'row',
-    //justifyContent: 'space-between',
-//justifyContent: 'center',
-    //height: 50,
-    //alignItems: 'center'
+
+  },
+  containerTopLeft: {
+    flex:3,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    paddingLeft: 10
+  },
+  containerTopCenter:{
+    flex:3,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  containerTopRight: {
+    flex:3,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingRight: 10
   },
   textHeader: {
     textAlign: 'center',
     fontSize: 28,
     color: '#ffffff',
-    paddingTop: 15,
+    //paddingTop: 15,
     fontFamily: 'HelveticaNeue-Thin'
   },
   textPrice: {
     textAlign: 'center',
     fontSize: 35,
     color: '#ffffff',
-    paddingTop: 18,
+    paddingTop: 10,
     fontFamily: 'HelveticaNeue-Thin'
   },
   text: {
