@@ -7,8 +7,6 @@ import { StockLine } from 'react-native-pathjs-charts';
 import CoininformationHeader from './CoinInformationHeader';
 import CoinInformationStatistics from './CoinInformationStatistics';
 
-import SmallGraph from './SmallGraph';
-
 import Button from 'react-native-button';
 
 class StockLineChartBasic extends Component {
@@ -96,14 +94,12 @@ class StockLineChartBasic extends Component {
       //var something = this.props.timeFrame;
       <View style={styles.container}>
 
-
-
         <CoininformationHeader
           coinData = {this.props.coinData}
           coinInfo = {this.props.coinInfo}
           />
 
-        { /*<StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' />*/}
+        <StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' />
 
 
 

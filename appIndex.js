@@ -4,6 +4,8 @@ import CoinInformation from './components/CoinInformation';
 
 import Graphs from './components/graph';
 
+import SmallGraph from './components/SmallGraph';
+
 
 import { connect } from 'react-redux';
 import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess } from './actions';
@@ -32,7 +34,8 @@ const AppIndex = (props) => {
   return (
 
     <View style={mainContainer}>
-    {/*
+
+      {/*
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
@@ -43,6 +46,8 @@ const AppIndex = (props) => {
 
       }
       <ScrollView>
+
+
       {!isFetching &&
       <TouchableHighlight style={button} onPress={() => props.getCoins()}>
         <Text style={buttonText}>Load Coins</Text>
@@ -76,6 +81,8 @@ const AppIndex = (props) => {
                 symbol = {coin.symbol}
                 name = {coin.name}
               />
+
+
 
             </View>
           })

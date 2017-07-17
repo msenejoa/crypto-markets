@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import SmallGraph from './SmallGraph';
 
 //import Navbar from 'react-bootstrap/lib/Navbar';
 //let styles
@@ -20,7 +21,7 @@ export default class CoinInformation extends React.Component {
           </Text>
         </TouchableHighlight>
 
-
+          <SmallGraph />
 
           <Text style={styles.text}>{this.props.symbol}</Text>
 
