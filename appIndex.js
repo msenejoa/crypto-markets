@@ -80,6 +80,7 @@ const AppIndex = (props) => {
                 callbackParent={(coin) => props.getCoinInfo(coin, props.coinData.time)}
                 symbol = {coin.symbol}
                 name = {coin.name}
+                difference ={coin.percent_change_24h}
               />
 
 

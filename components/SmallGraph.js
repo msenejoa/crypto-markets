@@ -81,7 +81,7 @@ class StockLineSmall extends Component {
       }]
     ]
     let options = {
-      width: 60,
+      width: 80,
       height: 20,
       color: '#34495E',
       margin: {

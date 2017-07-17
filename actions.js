@@ -6,7 +6,7 @@ import translate from './components/graphs/timelineConverter';
 export function fetchCoinsFromAPI() {
   return (dispatch) => {
     dispatch(getCoins())
-    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=50')
+    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=25')
     .then(data => data.json())
     .then(json => {
       dispatch(getCoinsSuccess(json))

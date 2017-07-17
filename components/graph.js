@@ -103,7 +103,7 @@ class StockLineChartBasic extends Component {
           coinInfo = {this.props.coinInfo}
           />
 
-        { /*<StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' />*/}
+        { <StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' />}
 
 
 
