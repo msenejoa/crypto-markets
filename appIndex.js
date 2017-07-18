@@ -6,6 +6,8 @@ import Graphs from './components/graph';
 
 import SmallGraph from './components/SmallGraph';
 
+import Header from './components/Header';
+
 
 import { connect } from 'react-redux';
 import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess } from './actions';
@@ -34,6 +36,7 @@ const AppIndex = (props) => {
   return (
 
     <View style={mainContainer}>
+    <Header/>
 
       {/*
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
