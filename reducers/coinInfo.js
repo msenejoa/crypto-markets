@@ -2,8 +2,8 @@ import { FETCHING_COIN_INFO_SUCCESS } from '../constants'
 const initialState = {
   coinInfo: [],
   isLoaded: false,
-  name: "",
-  symbol: ""
+  name: "Bitcoin",
+  symbol: "BTC"
   //error: false
 }
 

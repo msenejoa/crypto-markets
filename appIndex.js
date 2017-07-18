@@ -10,7 +10,7 @@ import Header from './components/Header';
 
 
 import { connect } from 'react-redux';
-import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess } from './actions';
+import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView } from './actions';
 
 let styles
 
@@ -28,6 +28,7 @@ const AppIndex = (props) => {
   const { coins, isFetching } = props.coins;
   const { coinInfo, isLoaded, name } = props.coinInfo;
   const { coinData, time, change } = props.coinData;
+  const { view } = props.userInfo;
 
   console.log(props.coinInfo);
 
@@ -38,11 +39,24 @@ const AppIndex = (props) => {
     <View style={mainContainer}>
     <Header/>
 
-      {/*
+      {/*  */}
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
-*/}
+
+      <TouchableHighlight style={button} onPress={() => props.getHomeView()}>
+        <Text style={buttonText}>ReturnHomeView</Text>
+      </TouchableHighlight>
+
+      <TouchableHighlight style={button} onPress={() => props.getCoinHistory(props.coins.coins[0].symbol, props.coinData.time)}>
+        <Text style={buttonText}>DEFAULT</Text>
+      </TouchableHighlight>
+
+      <TouchableHighlight style={button} onPress={() => props.getCoinInfo(props.coinInfo, props.coinData.time)}>
+        <Text style={buttonText}>DEFAULT</Text>
+      </TouchableHighlight>
+
+
     {
       !isLoaded &&
         <Text style={text}>CryptoMarkets</Text>
@@ -74,7 +88,7 @@ const AppIndex = (props) => {
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
 
-      <TouchableHighlight style={button} onPress={() => props.getCoinHistory(props.coinInfo.symbol, props.coinData.time)}>
+      <TouchableHighlight style={button} onPress={() => props.getCoinHistory(props.coinInfo, props.coinData.time)}>
         <Text style={buttonText}>Print history</Text>
       </TouchableHighlight>
     */}
@@ -160,7 +174,8 @@ function mapStateToProps (state) {
   return {
     coinInfo: state.coinInfo,
     coins: state.coins,
-    coinData: state.coinData
+    coinData: state.coinData,
+    userInfo: state.userInfo
 
   }
 }
@@ -172,7 +187,9 @@ function mapDispatchToProps (dispatch) {
     getCoins: () => dispatch(fetchCoinsFromAPI()),
     getCoinInfo: (name, time) => dispatch(fetchCoinInfoFromAPI(name, time)),
     getCoinHistory: (name, time) => dispatch(fetchCoinHistoryFromAPI(name, time)),
-    updateGetCoinHistory: (name, time) =>dispatch(changeCoinHistorySuccess(name, time))
+//    updateGetCoinHistory: (name, time) =>dispatch(changeCoinHistorySuccess(name, time))
+    getHomeView: () => dispatch(fetchHomeView()),
+
   }
 }
 

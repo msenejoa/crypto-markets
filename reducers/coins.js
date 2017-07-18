@@ -1,6 +1,9 @@
 import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE } from '../constants'
 const initialState = {
-  coins: [],
+  coins: [{
+    symbol: 'BTC',
+    name: 'bitcoin'
+  }],
   isFetching: false,
   error: false
 }
