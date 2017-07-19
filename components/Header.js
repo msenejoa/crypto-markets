@@ -30,7 +30,7 @@ class Header extends Component {
           </View>
 
           <View style={styles.containerTopCenter}>
-            <Text style={styles.textHeader}>NAME</Text>
+            <Text style={styles.textHeader}>{this.props.symbol}</Text>
           </View>
 
           <View style={styles.containerTopRight}>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   containerTop: {
     flexDirection: 'row',
     paddingTop:34,
-    paddingBottom: 10,
+    paddingBottom: 3,
     paddingLeft: 10,
     paddingRight: 10,
   },

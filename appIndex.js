@@ -8,6 +8,8 @@ import SmallGraph from './components/SmallGraph';
 
 import Header from './components/Header';
 
+import CoinInformationStatistics from './components/CoinInformationStatistics';
+
 
 import { connect } from 'react-redux';
 import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView } from './actions';
@@ -37,20 +39,22 @@ const AppIndex = (props) => {
   };
 
   //getInitialData();
-
+  console.log(props.userInfo.view)
 
   return (
 
     <View style={mainContainer}>
+
     <Header
-      callbackParent = {() => props.getCoinInfo(props.coinInfo, props.coinData.time)}
+      symbol = {props.coinInfo.symbol}
+      callbackParent = {() => {props.getHomeView(); props.getCoinInfo(props.coinInfo, props.coinData.time);}}
     />
 
-          {/*
-      <TouchableHighlight style={button} onPress={() => console.log(props)}>
+
+      <TouchableHighlight style={button} onPress={() => console.log(props.coinInfo.coinInfo[0])}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
-
+ {/*
       <TouchableHighlight style={button} onPress={() => props.getHomeView()}>
         <Text style={buttonText}>ReturnHomeView</Text>
       </TouchableHighlight>
@@ -90,6 +94,14 @@ const AppIndex = (props) => {
           coinInfo = {props.coinInfo}
           callbackParent={(time) => props.getCoinHistory(props.coinInfo.symbol, time)}
           /> : null}
+
+      {isLoaded && (props.userInfo.view != 'home') &&
+
+      <CoinInformationStatistics
+          coinInfo = {props.coinInfo.coinInfo[0]}/>
+
+      }
+
 {/*
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>Print Object</Text>
@@ -134,10 +146,11 @@ const AppIndex = (props) => {
 styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: '#000000',
-    marginTop: 0
+    marginTop: 0,
+    flex: 1
   },
   container: {
-    marginTop: 20,
+    marginTop: 10,
     paddingLeft: 10,
     paddingRight: 10
   },

@@ -50,26 +50,7 @@ export default class CoinInformationHeader extends React.Component {
 
 
         <View style={styles.container}>
-          <View style = {styles.containerTop}>
 
-              <View style = {styles.containerTopLeft}>
-                <TouchableHighlight
-                  onPress = {()=> {}}
-                  >
-                  <Ionicons name="ios-list-outline" size={32} color={colorGains}/>
-                </TouchableHighlight>
-              </View>
-
-            <View style = {styles.containerTopCenter}>
-              <Text style={styles.textHeader}> {this.props.coinInfo.symbol} </Text>
-            </View>
-
-            <View style = {styles.containerTopRight}>
-                  <Ionicons name="ios-add-circle-outline" size={32} color={colorGains} />
-            </View>
-
-
-          </View>
           <Text style={styles.text}> {this.props.coinInfo.name}</Text>
           <TouchableHighlight
             onPress = {() => this.clickFunction()}>
@@ -96,7 +77,7 @@ export default class CoinInformationHeader extends React.Component {
 const styles = StyleSheet.create({
   containerTop: {
     flexDirection: 'row',
-    paddingTop:10,
+    paddingTop: 0,
     paddingBottom: 10,
     paddingLeft: 10,
     paddingRight: 10,
@@ -132,12 +113,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 35,
     color: '#ffffff',
-    paddingTop: 10,
+    paddingTop: 5,
     fontFamily: 'HelveticaNeue-Thin'
   },
   text: {
     textAlign: 'center',
-    paddingTop: 5,
+    //paddingTop: 5,
     fontSize: 20,
     color: 'grey',
     fontFamily: 'HelveticaNeue-Thin'

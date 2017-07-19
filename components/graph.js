@@ -45,7 +45,7 @@ class StockLineChartBasic extends Component {
     ]
     let options = {
       //width: 300,
-      height: 230,
+      height: 210,
       color: change,
       margin: {
         top: 10,
@@ -151,9 +151,10 @@ class StockLineChartBasic extends Component {
           </Button>
           </View>
         </View>
+        {/*
           <CoinInformationStatistics
           coinInfo = {this.props.coinInfo.coinInfo[0]}/>
-
+        */}
           </ScrollView>
       </View>
     )
