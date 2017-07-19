@@ -7,7 +7,12 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 class Header extends Component {
 
+  componentDidMount() {
+      this.props.callbackParent();
+    }
+
   render() {
+
 
     var colorGains = '#03C9A9';
 

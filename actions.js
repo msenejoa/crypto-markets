@@ -51,12 +51,14 @@ export function getCoinsFailure() {
 export function fetchCoinInfoFromAPI(name, time) {
   return (dispatch) => {
     console.log("this is your input " + name)
-    dispatch(fetchCoinHistoryFromAPI(name.symbol, time))
+    //dispatch(fetchCoinHistoryFromAPI(name.symbol, time))
     dispatch(getCoins())
     fetch('https://api.coinmarketcap.com/v1/ticker/' + name.name)
     .then(data => data.json())
     .then(json => {
       dispatch(getCoinInfoSuccess(json, name.name, name.symbol))
+      dispatch(fetchCoinHistoryFromAPI(name.symbol, time))
+
     })
     .catch(err => dispatch(getCoinsFailure(err)))
   }

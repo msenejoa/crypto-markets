@@ -9,7 +9,13 @@ import AppIndex from './appIndex'
 
 const store = configureStore()
 
+
 export default class App extends React.Component {
+
+  componentDidMount() {
+    console.log('mounted')
+  }
+
   render() {
     return (
       <Provider store={store}>

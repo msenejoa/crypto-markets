@@ -14,6 +14,7 @@ import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, chang
 
 let styles
 
+
 const AppIndex = (props) => {
   const {
     container,
@@ -25,21 +26,27 @@ const AppIndex = (props) => {
     textPrice
   } = styles
 
+
   const { coins, isFetching } = props.coins;
   const { coinInfo, isLoaded, name } = props.coinInfo;
   const { coinData, time, change } = props.coinData;
   const { view } = props.userInfo;
 
-  console.log(props.coinInfo);
+  function getInitialData () {
+    props.getCoinInfo(props.coinInfo, props.coinData.time);
+  };
 
+  //getInitialData();
 
 
   return (
 
     <View style={mainContainer}>
-    <Header/>
+    <Header
+      callbackParent = {() => props.getCoinInfo(props.coinInfo, props.coinData.time)}
+    />
 
-      {/*  */}
+          {/*
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
@@ -55,7 +62,7 @@ const AppIndex = (props) => {
       <TouchableHighlight style={button} onPress={() => props.getCoinInfo(props.coinInfo, props.coinData.time)}>
         <Text style={buttonText}>DEFAULT</Text>
       </TouchableHighlight>
-
+ */}
 
     {
       !isLoaded &&
