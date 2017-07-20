@@ -12,7 +12,7 @@ import CoinInformationStatistics from './components/CoinInformationStatistics';
 
 
 import { connect } from 'react-redux';
-import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView } from './actions';
+import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData } from './actions';
 
 let styles
 
@@ -35,11 +35,13 @@ const AppIndex = (props) => {
   const { view } = props.userInfo;
 
   function getInitialData () {
+    props.getCoinList();
     props.getCoinInfo(props.coinInfo, props.coinData.time);
+
   };
 
   //getInitialData();
-  console.log(props.userInfo.view)
+  console.log(props)
 
   return (
 
@@ -51,18 +53,18 @@ const AppIndex = (props) => {
     />
 
 
-      <TouchableHighlight style={button} onPress={() => console.log(props.coinInfo.coinInfo[0])}>
+      <TouchableHighlight style={button} onPress={() => props.getCoinList()}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
- {/*
-      <TouchableHighlight style={button} onPress={() => props.getHomeView()}>
-        <Text style={buttonText}>ReturnHomeView</Text>
+
+      <TouchableHighlight style={button} onPress={() => props.getCoins()}>
+        <Text style={buttonText}>Get List</Text>
       </TouchableHighlight>
 
-      <TouchableHighlight style={button} onPress={() => props.getCoinHistory(props.coins.coins[0].symbol, props.coinData.time)}>
+      <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>DEFAULT</Text>
       </TouchableHighlight>
-
+ {/*
       <TouchableHighlight style={button} onPress={() => props.getCoinInfo(props.coinInfo, props.coinData.time)}>
         <Text style={buttonText}>DEFAULT</Text>
       </TouchableHighlight>
@@ -112,10 +114,8 @@ const AppIndex = (props) => {
       </TouchableHighlight>
     */}
 
-</ScrollView>
 
-      <ScrollView>
-      {
+{
         coins.length ? (
           coins.map((coin, i) => {
             return <View key={i} >
@@ -130,12 +130,10 @@ const AppIndex = (props) => {
 
             </View>
           })
-        ) : null
+        ) : <Text style={styles.text}>SOME TEXT</Text>
       }
 
-
-      </ScrollView>
-
+</ScrollView>
 
 
 
@@ -205,10 +203,12 @@ function mapDispatchToProps (dispatch) {
   return {
 
     getCoins: () => dispatch(fetchCoinsFromAPI()),
+    onInitialization:(name, time) => dispatch(fetchInitialData(name.time)),
     getCoinInfo: (name, time) => dispatch(fetchCoinInfoFromAPI(name, time)),
     getCoinHistory: (name, time) => dispatch(fetchCoinHistoryFromAPI(name, time)),
 //    updateGetCoinHistory: (name, time) =>dispatch(changeCoinHistorySuccess(name, time))
     getHomeView: () => dispatch(fetchHomeView()),
+    getCoinList: () => dispatch(fetchCoinListFromAPI())
 
   }
 }

@@ -6,7 +6,6 @@ import SmallGraph from './SmallGraph';
 //let styles
 //var { getCoins } = props
 
-
 export default class CoinInformation extends React.Component {
       render(){
       var change =this.props.difference;

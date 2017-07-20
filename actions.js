@@ -3,6 +3,17 @@ import Converter from './components/graphs/dateConverter';
 import translate from './components/graphs/timelineConverter';
 
 
+export function fetchInitialData(name, time) {
+  return (dispatch) => {
+    //dispatch(getCoins())
+    //dispatch(fetchCoinListFromAPI());
+   // dispatch(fetchCoinInfoFromAPI(name, time));
+   // console.log('indispatch')
+    //fetch('https://api.coinmarketcap.com/v1/ticker/?limit=25')
+  }
+}
+
+
 export function fetchCoinsFromAPI() {
   return (dispatch) => {
     dispatch(getCoins())
@@ -12,6 +23,40 @@ export function fetchCoinsFromAPI() {
       dispatch(getCoinsSuccess(json))
     })
     .catch(err => dispatch(getCoinsFailure(err)))
+  }
+}
+
+export function appendCoin(data){
+  console.log(data[0]);
+  //list.push(info);
+  //console.log(list)
+
+}
+
+export function fetchCoinListFromAPI() {
+  return (dispatch) => {
+    //dispatch(getCoins())
+
+    list = ['bitcoin', 'litecoin', 'ethereum'];
+    console.log('what')
+    var newMap = []
+    list.map((i, f) => {
+      fetch('https://api.coinmarketcap.com/v1/ticker/' + i)
+      .then(data=> data.json())
+      .then(data=>newMap.push(data[0]))
+      .then( () => (newMap.length == list.length)? dispatch(getCoinsSuccess(newMap)):console.log("false" + i + f))
+      //the error here is its doing all these at once
+    })
+    //console.log(newMap)
+    //console.log(newList)
+    //console.log("this is your input " + name)
+    //dispatch(fetchCoinHistoryFromAPI(name.symbol, time))
+    //dispatch(getCoins())
+    //fetch('https://api.coinmarketcap.com/v1/ticker/' + name.name)
+    //.then(data => data.json())
+    //.then(json => {
+    //  newList.push(json).
+    //.catch(err => dispatch(getCoinsFailure(err)))
   }
 }
 
@@ -35,6 +80,7 @@ export function getCoins() {
 }
 
 export function getCoinsSuccess(data) {
+  console.log(data);
   return {
     type: FETCHING_COINS_SUCCESS,
     data,
@@ -50,9 +96,10 @@ export function getCoinsFailure() {
 
 export function fetchCoinInfoFromAPI(name, time) {
   return (dispatch) => {
-    console.log("this is your input " + name)
+    //console.log("this is your input " + name)
     //dispatch(fetchCoinHistoryFromAPI(name.symbol, time))
     dispatch(getCoins())
+    //dispatch(fetchCoinListFromAPI())
     fetch('https://api.coinmarketcap.com/v1/ticker/' + name.name)
     .then(data => data.json())
     .then(json => {
