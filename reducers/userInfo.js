@@ -1,4 +1,4 @@
-import { ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME } from '../constants'
+import { ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN} from '../constants'
 const initialState = {
   view: '',
   userCoinList: [],
@@ -14,6 +14,12 @@ export default function userInfoReducer (state = initialState, action) {
       return {
         ...state,
         view: 'home'
+      }
+    case COIN:
+      console.log('youre in coin view');
+      return {
+        ...state,
+        view: 'coin'
       }
     default:
       return state

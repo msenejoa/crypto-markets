@@ -1,4 +1,4 @@
-import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME } from './constants';
+import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN } from './constants';
 import Converter from './components/graphs/dateConverter';
 import translate from './components/graphs/timelineConverter';
 
@@ -7,7 +7,8 @@ export function fetchInitialData(name, time) {
   return (dispatch) => {
     //dispatch(getCoins())
     //dispatch(fetchCoinListFromAPI());
-   // dispatch(fetchCoinInfoFromAPI(name, time));
+    dispatch(fetchCoinInfoFromAPI(name, time))
+    dispatch(fetchCoinListFromAPI())
    // console.log('indispatch')
     //fetch('https://api.coinmarketcap.com/v1/ticker/?limit=25')
   }
@@ -63,6 +64,12 @@ export function fetchCoinListFromAPI() {
 export function fetchHomeView() {
   return {
     type: HOME
+  }
+}
+
+export function fetchCoinView() {
+  return {
+    type: COIN
   }
 }
 

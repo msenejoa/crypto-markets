@@ -12,7 +12,7 @@ import CoinInformationStatistics from './components/CoinInformationStatistics';
 
 
 import { connect } from 'react-redux';
-import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData } from './actions';
+import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView } from './actions';
 
 let styles
 
@@ -49,10 +49,10 @@ const AppIndex = (props) => {
 
     <Header
       symbol = {props.coinInfo.symbol}
-      callbackParent = {() => {props.getHomeView(); props.getCoinInfo(props.coinInfo, props.coinData.time);}}
+      callbackParent = {() => {props.getHomeView(); props.onInitialization(props.coinInfo, props.coinData.time);}}
     />
 
-
+ {/*
       <TouchableHighlight style={button} onPress={() => props.getCoinList()}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
@@ -60,15 +60,15 @@ const AppIndex = (props) => {
       <TouchableHighlight style={button} onPress={() => props.getCoins()}>
         <Text style={buttonText}>Get List</Text>
       </TouchableHighlight>
-
+ */}
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>DEFAULT</Text>
       </TouchableHighlight>
- {/*
+
       <TouchableHighlight style={button} onPress={() => props.getCoinInfo(props.coinInfo, props.coinData.time)}>
         <Text style={buttonText}>DEFAULT</Text>
       </TouchableHighlight>
- */}
+
 
     {
       !isLoaded &&
@@ -120,7 +120,7 @@ const AppIndex = (props) => {
           coins.map((coin, i) => {
             return <View key={i} >
               <CoinInformation
-                callbackParent={(coin) => props.getCoinInfo(coin, props.coinData.time)}
+                callbackParent={(coin) => {props.getCoinInfo(coin, props.coinData.time); props.getCoinView();}}
                 symbol = {coin.symbol}
                 name = {coin.name}
                 difference ={coin.percent_change_24h}
@@ -203,11 +203,12 @@ function mapDispatchToProps (dispatch) {
   return {
 
     getCoins: () => dispatch(fetchCoinsFromAPI()),
-    onInitialization:(name, time) => dispatch(fetchInitialData(name.time)),
+    onInitialization:(name, time) => dispatch(fetchInitialData(name, time)),
     getCoinInfo: (name, time) => dispatch(fetchCoinInfoFromAPI(name, time)),
     getCoinHistory: (name, time) => dispatch(fetchCoinHistoryFromAPI(name, time)),
 //    updateGetCoinHistory: (name, time) =>dispatch(changeCoinHistorySuccess(name, time))
     getHomeView: () => dispatch(fetchHomeView()),
+    getCoinView: () => dispatch(fetchCoinView()),
     getCoinList: () => dispatch(fetchCoinListFromAPI())
 
   }
