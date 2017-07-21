@@ -22,11 +22,13 @@ class Header extends Component {
         <View style={styles.containerTop}>
 
           <View style={styles.containerTopLeft}>
+          {(this.props.userInfo.view != 'home') &&
                 <TouchableHighlight
-                  onPress = {()=> {}}
+                  onPress = {()=> {this.props.callbackHomeView()}}
                   >
                   <Ionicons name="ios-list-outline" size={32} color={colorGains}/>
                 </TouchableHighlight>
+    }
           </View>
 
           <View style={styles.containerTopCenter}>

@@ -38,7 +38,7 @@ export function fetchCoinListFromAPI() {
   return (dispatch) => {
     //dispatch(getCoins())
 
-    list = ['bitcoin', 'litecoin', 'ethereum'];
+    list = ['bitcoin', 'litecoin', 'ethereum', 'monero'];
     console.log('what')
     var newMap = []
     list.map((i, f) => {

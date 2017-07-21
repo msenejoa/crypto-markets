@@ -1,6 +1,6 @@
 import { ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN} from '../constants'
 const initialState = {
-  view: '',
+  view: 'home',
   userCoinList: [],
   coinList: []
   //error: false

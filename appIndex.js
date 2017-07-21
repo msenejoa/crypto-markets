@@ -49,8 +49,11 @@ const AppIndex = (props) => {
 
     <Header
       symbol = {props.coinInfo.symbol}
+      callbackHomeView = {() => {props.getHomeView(); props.getCoinList();}}
       callbackParent = {() => {props.getHomeView(); props.onInitialization(props.coinInfo, props.coinData.time);}}
+      userInfo= {props.userInfo}
     />
+
 
  {/*
       <TouchableHighlight style={button} onPress={() => props.getCoinList()}>
@@ -60,7 +63,7 @@ const AppIndex = (props) => {
       <TouchableHighlight style={button} onPress={() => props.getCoins()}>
         <Text style={buttonText}>Get List</Text>
       </TouchableHighlight>
- */}
+
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>DEFAULT</Text>
       </TouchableHighlight>
@@ -69,7 +72,7 @@ const AppIndex = (props) => {
         <Text style={buttonText}>DEFAULT</Text>
       </TouchableHighlight>
 
-
+ */}
     {
       !isLoaded &&
         <Text style={text}>CryptoMarkets</Text>
@@ -82,12 +85,16 @@ const AppIndex = (props) => {
 
       <ScrollView>
 
+{/*
 
       {!isFetching &&
+
       <TouchableHighlight style={button} onPress={() => props.getCoins()}>
         <Text style={buttonText}>Load Coins</Text>
       </TouchableHighlight>
     }
+*/}
+
       {
         isFetching && <Text>Loading</Text>
       }
