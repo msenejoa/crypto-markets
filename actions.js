@@ -18,17 +18,37 @@ export function fetchInitialData(name, time) {
 export function fetchCoinsFromAPI() {
   return (dispatch) => {
     dispatch(getCoins())
+    newList = []
     fetch('https://api.coinmarketcap.com/v1/ticker/?limit=25')
     .then(data => data.json())
-    .then(json => {
-      dispatch(getCoinsSuccess(json))
-    })
+    //.then(data => console.log(data[0].name))
+    .then(data => data.map((i, f) => {newList.push(i.name)}
+      ))
+    .then(() => console.log(newList))
+    //.then(json => {
+      //dispatch(getCoinsSuccess(json))
+    //})
     .catch(err => dispatch(getCoinsFailure(err)))
   }
 }
+/*
+export function fetchCoinsFromAPI() {
+  return (dispatch) => {
+    dispatch(getCoins())
+    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=25')
+    .then(data => data.json())
+    .then(data => console.log(data[0].name))
+    //.then(json => {
+      //dispatch(getCoinsSuccess(json))
+    //})
+    .catch(err => dispatch(getCoinsFailure(err)))
+  }
+}
+*/
+
 
 export function appendCoin(data){
-  console.log(data[0]);
+  console.log(data);
   //list.push(info);
   //console.log(list)
 

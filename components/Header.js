@@ -13,8 +13,12 @@ class Header extends Component {
 
   render() {
 
+    var gains = this.props.change;
+    console.log(gains)
+    var colorGains = gains > 0 ? '#03C9A9' : '#D64541';
 
-    var colorGains = '#03C9A9';
+
+    //var colorGains = '#03C9A9';
 
 
     return (
@@ -36,11 +40,19 @@ class Header extends Component {
           </View>
 
           <View style={styles.containerTopRight}>
+
+          { (this.props.userInfo.view == 'coin') ?
                 <TouchableHighlight
                   onPress = {()=> {}}
                   >
                   <Ionicons name="ios-add-circle-outline" size={32} color={colorGains}/>
+                </TouchableHighlight>:
+                <TouchableHighlight
+                  onPress = {()=> {}}
+                  >
+                  <Ionicons name="ios-search-outline" size={32} color={colorGains}/>
                 </TouchableHighlight>
+}
           </View>
 
         </View>

@@ -52,6 +52,7 @@ const AppIndex = (props) => {
       callbackHomeView = {() => {props.getHomeView(); props.getCoinList();}}
       callbackParent = {() => {props.getHomeView(); props.onInitialization(props.coinInfo, props.coinData.time);}}
       userInfo= {props.userInfo}
+      change = {props.coinData.change}
     />
 
 
@@ -59,11 +60,11 @@ const AppIndex = (props) => {
       <TouchableHighlight style={button} onPress={() => props.getCoinList()}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
-
+*/}
       <TouchableHighlight style={button} onPress={() => props.getCoins()}>
         <Text style={buttonText}>Get List</Text>
       </TouchableHighlight>
-
+{/*
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>DEFAULT</Text>
       </TouchableHighlight>
@@ -71,8 +72,8 @@ const AppIndex = (props) => {
       <TouchableHighlight style={button} onPress={() => props.getCoinInfo(props.coinInfo, props.coinData.time)}>
         <Text style={buttonText}>DEFAULT</Text>
       </TouchableHighlight>
-
  */}
+
     {
       !isLoaded &&
         <Text style={text}>CryptoMarkets</Text>
@@ -83,7 +84,8 @@ const AppIndex = (props) => {
       <Text style = {text}> Always view</Text>
 */}
 
-      <ScrollView>
+      <ScrollView >
+
 
 {/*
 
@@ -137,9 +139,8 @@ const AppIndex = (props) => {
 
             </View>
           })
-        ) : <Text style={styles.text}>SOME TEXT</Text>
+        ) : null
       }
-
 </ScrollView>
 
 
@@ -153,6 +154,9 @@ styles = StyleSheet.create({
     backgroundColor: '#000000',
     marginTop: 0,
     flex: 1
+  },
+  bodyContainer: {
+    paddingTop: 50
   },
   container: {
     marginTop: 10,
