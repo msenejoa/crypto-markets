@@ -1,20 +1,31 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, AsyncStorage } from 'react-native';
+import { persistStore } from 'redux-persist'
+
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
+
+import configureStore from '../configureStore'
+import { createPersistor } from 'redux-persist'
+
+
+
+//const store = configureStore()
+//let persistor = createPersistor(store, {storage: AsyncStorage, whitelist: ['userInfo']})
 
 
 class Header extends Component {
 
   componentDidMount() {
+      //persistor.rehydrate();
       this.props.callbackParent();
+
     }
 
   render() {
 
     var gains = this.props.change;
-    console.log(gains)
     var colorGains = gains > 0 ? '#03C9A9' : '#D64541';
 
 
@@ -36,19 +47,24 @@ class Header extends Component {
           </View>
 
           <View style={styles.containerTopCenter}>
-            <Text style={styles.textHeader}>{this.props.symbol}</Text>
+          {(this.props.userInfo.view != 'search') ?
+            <Text style={styles.textHeader}>{this.props.symbol}</Text>:<Text style={styles.textHeader}>search</Text>
+          }
           </View>
 
           <View style={styles.containerTopRight}>
 
-          { (this.props.userInfo.view == 'coin') ?
+          { (this.props.userInfo.view == 'coin') &&
                 <TouchableHighlight
                   onPress = {()=> {}}
                   >
                   <Ionicons name="ios-add-circle-outline" size={32} color={colorGains}/>
-                </TouchableHighlight>:
+                </TouchableHighlight>
+}
+              { (this.props.userInfo.view == 'home') &&
+
                 <TouchableHighlight
-                  onPress = {()=> {}}
+                  onPress = {()=> {this.props.callbackSearchView()}}
                   >
                   <Ionicons name="ios-search-outline" size={32} color={colorGains}/>
                 </TouchableHighlight>

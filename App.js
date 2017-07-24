@@ -1,19 +1,24 @@
 import React from 'react';
 
-import { StyleSheet, Text, View } from 'react-native';
+import { app, StyleSheet, Text, View, AsyncStorage } from 'react-native';
 
+import { autoRehydrate, persistStore } from 'redux-persist'
 
 import { Provider } from 'react-redux';
+
 import configureStore from './configureStore'
 import AppIndex from './appIndex'
 
 const store = configureStore()
 
+//persistStore(store, {storage: AsyncStorage});
 
 export default class App extends React.Component {
 
-  componentDidMount() {
-    console.log('mounted')
+  componentWillMount() {
+    persistStore(store, {storage: AsyncStorage});
+    //console.log(store)
+    console.log('--------------------------------------')
   }
 
   render() {

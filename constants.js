@@ -14,5 +14,6 @@ export const VIEW_COIN = 'VIEW_COIN'
 export const SEARCH_COIN = 'SEARCH_COIN'
 export const HOME = 'HOME'
 export const COIN = 'COIN'
+export const SEARCH = 'SEARCH'
 
 export const MARKETCAP = 'MARKETCAP'

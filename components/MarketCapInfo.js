@@ -15,55 +15,46 @@ export default class MarketCapInfo extends React.Component {
         vol = vol.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
 
-        //var total_supply = this.props.coinInfo.total_supply;
-        //total_supply = total_supply/1000000;
-        //
-        //total_supply = total_supply.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        //console.log(total_supply);
 
       return (
-<View>
+      <View>
         <View style={styles.container}>
-
           <Text style={styles.textHeader}>stats</Text>
-</View>
+        </View>
 
-          <View style={styles.bottomBorder}/>
+        <View style={styles.bottomBorder}/>
 
-<View style = {styles.container}>
+          <View style = {styles.container}>
 
-          <View style={styles.statsBody}>
-            <View style={styles.statsBodyRowLeft}>
-              <View style ={styles.statsBodyContent}>
-                <Text style={styles.text}>total market cap</Text>
-                <Text style={styles.values}>${mkt_cap}M</Text>
-              </View>
-            </View>
-          </View>
-
-
-          <View style={styles.statsBody}>
-            <View style={styles.statsBodyRowLeft}>
-              <View style ={styles.statsBodyContent}>
-                <Text style={styles.text}>24hr volume</Text>
-                <Text style={styles.values}>${vol}M</Text>
+            <View style={styles.statsBody}>
+              <View style={styles.statsBodyRowLeft}>
+                <View style ={styles.statsBodyContent}>
+                  <Text style={styles.text}>total market cap</Text>
+                  <Text style={styles.values}>${mkt_cap}M</Text>
+                </View>
               </View>
             </View>
 
-          </View>
 
-          <View style={styles.statsBody}>
-            <View style={styles.statsBodyRowLeft}>
-              <View style ={styles.statsBodyContent}>
-                <Text style={styles.text}>btc dominance</Text>
-                <Text style={styles.values}>{this.props.coins.marketCap.bitcoin_percentage_of_market_cap}%</Text>
+            <View style={styles.statsBody}>
+              <View style={styles.statsBodyRowLeft}>
+                <View style ={styles.statsBodyContent}>
+                  <Text style={styles.text}>24hr volume</Text>
+                  <Text style={styles.values}>${vol}M</Text>
+                </View>
               </View>
             </View>
 
+            <View style={styles.statsBody}>
+              <View style={styles.statsBodyRowLeft}>
+                <View style ={styles.statsBodyContent}>
+                  <Text style={styles.text}>btc dominance</Text>
+                  <Text style={styles.values}>{this.props.coins.marketCap.bitcoin_percentage_of_market_cap}%</Text>
+                </View>
+              </View>
+            </View>
           </View>
-</View>
-
-</View>
+      </View>
 
 
       );

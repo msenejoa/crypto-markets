@@ -1,4 +1,6 @@
 import { FETCHING_COIN_INFO_SUCCESS } from '../constants'
+import {REHYDRATE} from 'redux-persist/constants'
+
 const initialState = {
   coinInfo: [],
   isLoaded: false,
@@ -18,6 +20,7 @@ export default function coinsReducer (state = initialState, action) {
         name: action.name,
         symbol: action.symbol
       }
+
     default:
       return state
   }

@@ -1,4 +1,4 @@
-import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, MARKETCAP } from './constants';
+import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, MARKETCAP, SEARCH } from './constants';
 import Converter from './components/graphs/dateConverter';
 import translate from './components/graphs/timelineConverter';
 
@@ -25,7 +25,7 @@ export function fetchCoinsFromAPI() {
     //.then(data => console.log(data[0].name))
     .then(data => data.map((i, f) => newList.push({name: i.name, symbol: i.symbol})))
     //.then(() => dispatch(fetchCoinListFromAPI(newList)))
-    .then(() => {fetchCoinListFromAPI(newList); console.log(newList)})
+    .then(() => fetchCoinListFromAPI(newList))
 
     .catch(err => dispatch(getCoinsFailure(err)))
   }
@@ -49,19 +49,18 @@ export function fetchCoinsFromAPI() {
 
 
 export function appendCoin(data){
-  console.log(data);
+  //console.log(data);
   //list.push(info);
   //console.log(list)
 
 }
 
 export function fetchCoinListFromAPI(list= [{name:'bitcoin', symbol:'btc'}, {name:'litecoin', symbol: 'ltc'}, {name:'ethereum', symbol:'eth'}] ) {
-  console.log(list)
   return (dispatch) => {
     //dispatch(getCoins())
 
     //list = [{name:'bitcoin', symbol:'btc'}, {name:'litecoin', symbol: 'ltc'}, {name:'ethereum', symbol:'eth'}];
-    console.log('==========================' + list)
+    //console.log('==========================' + list)
     var newMap = []
     list.map((i, f) => {
       fetch('https://api.coinmarketcap.com/v1/ticker/' + i.name)
@@ -90,8 +89,6 @@ export function fetchHomeView() {
 }
 
 export function fetchMarketCap(data) {
-  console.log('----------------------------------')
-  console.log(data)
   return {
     type: MARKETCAP,
     data,
@@ -111,6 +108,12 @@ export function getHomeView() {
   }
 }
 
+export function getSearchView() {
+  return {
+    type: SEARCH
+  }
+}
+
 export function getCoins() {
   return {
     type: FETCHING_COINS
@@ -118,7 +121,6 @@ export function getCoins() {
 }
 
 export function getCoinsSuccess(data) {
-  console.log("this is it!!!!" + data);
   return {
     type: FETCHING_COINS_SUCCESS,
     data,

@@ -40,7 +40,6 @@ export default class CoinInformationHeader extends React.Component {
 
       this.changeFunction(this.props.coinData.time)
 
-      console.log(change)
 
       var colorGains = change > 0 ? '#03C9A9' : '#D64541';
 

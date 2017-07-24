@@ -11,9 +11,11 @@ import Header from './components/Header';
 import CoinInformationStatistics from './components/CoinInformationStatistics';
 import MarketCapInfo from './components/MarketCapInfo';
 
+import SearchView from './components/SearchView';
+
 
 import { connect } from 'react-redux';
-import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView, fetchMarketCapFromAPI} from './actions';
+import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView, fetchMarketCapFromAPI, getSearchView} from './actions';
 
 let styles
 
@@ -42,7 +44,7 @@ const AppIndex = (props) => {
   };
 
   //getInitialData();
-  console.log(props)
+  //console.log(props)
 
   return (
 
@@ -51,11 +53,14 @@ const AppIndex = (props) => {
     <Header
       symbol = {props.coinInfo.symbol}
       callbackHomeView = {() => {props.getHomeView(); props.getCoinList();}}
+      callbackSearchView = {() => props.getSearchView()}
       callbackParent = {() => {props.getHomeView(); props.onInitialization(props.coinInfo, props.coinData.time);}}
       userInfo= {props.userInfo}
       change = {props.coinData.change}
     />
-
+{ props.userInfo.view == 'search' &&
+    <SearchView />
+}
 
  {/*
       <TouchableHighlight style={button} onPress={() => props.getCoinList()}>
@@ -102,13 +107,13 @@ const AppIndex = (props) => {
       {
         isFetching && <Text>Loading</Text>
       }
-      {isLoaded ? <Graphs
+      {isLoaded && (props.userInfo.view != 'search') ? <Graphs
           coinData = {props.coinData}
           coinInfo = {props.coinInfo}
           callbackParent={(time) => props.getCoinHistory(props.coinInfo.symbol, time)}
           /> : null}
 
-      {isLoaded && (props.userInfo.view != 'home') &&
+      {isLoaded && (props.userInfo.view == 'coin') &&
 
       <CoinInformationStatistics
           coinInfo = {props.coinInfo.coinInfo[0]}/>
@@ -131,7 +136,7 @@ const AppIndex = (props) => {
       </TouchableHighlight>
     */}
 
-{coins.length ?
+{(coins.length && props.userInfo.view == 'home') ?
   <View>
   <Text style = {styles.textHeader}>coins</Text>
   <View style={styles.bottomBorder}/>
@@ -140,7 +145,7 @@ const AppIndex = (props) => {
 
 : null}
 {
-        coins.length ? (
+        (coins.length && props.userInfo.view == 'home') ? (
           coins.map((coin, i) => {
             return <View key={i} >
               <CoinInformation
@@ -249,7 +254,8 @@ function mapDispatchToProps (dispatch) {
     getHomeView: () => dispatch(fetchHomeView()),
     getCoinView: () => dispatch(fetchCoinView()),
     getCoinList: () => dispatch(fetchCoinListFromAPI()),
-    getMarketCap: () => dispatch(fetchMarketCapFromAPI())
+    getMarketCap: () => dispatch(fetchMarketCapFromAPI()),
+    getSearchView: () => dispatch(getSearchView())
 
   }
 }
