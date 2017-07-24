@@ -61,10 +61,11 @@ const AppIndex = (props) => {
       <TouchableHighlight style={button} onPress={() => props.getCoinList()}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
-*/}
+
       <TouchableHighlight style={button} onPress={() => props.getMarketCap()}>
         <Text style={buttonText}>Get List</Text>
       </TouchableHighlight>
+      */}
 {/*
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>DEFAULT</Text>
@@ -187,7 +188,7 @@ styles = StyleSheet.create({
 
   },
   textHeader: {
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: 28,
     color: '#ffffff',
     paddingTop: 15,
@@ -210,8 +211,9 @@ styles = StyleSheet.create({
     color: 'white'
   },
   textHeader: {
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: 24,
+    paddingLeft: 10,
     color: 'white',
     paddingTop: 20,
     fontFamily: 'HelveticaNeue-Thin'

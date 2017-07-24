@@ -6,9 +6,14 @@ export default class MarketCapInfo extends React.Component {
 
       render(){
 
-        //var mkt_cap = this.props.coinInfo.market_cap_usd;
-        //mkt_cap = mkt_cap/1000000;
-        //mkt_cap = mkt_cap.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        var mkt_cap = this.props.coins.marketCap.total_market_cap_usd;
+        mkt_cap = mkt_cap/1000000;
+        mkt_cap = mkt_cap.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        var vol = this.props.coins.marketCap.total_24h_volume_usd;
+        vol = vol/1000000;
+        vol = vol.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
 
         //var total_supply = this.props.coinInfo.total_supply;
         //total_supply = total_supply/1000000;
@@ -31,7 +36,7 @@ export default class MarketCapInfo extends React.Component {
             <View style={styles.statsBodyRowLeft}>
               <View style ={styles.statsBodyContent}>
                 <Text style={styles.text}>total market cap</Text>
-                <Text style={styles.values}>{this.props.coins.marketCap.total_market_cap_usd}</Text>
+                <Text style={styles.values}>${mkt_cap}M</Text>
               </View>
             </View>
           </View>
@@ -41,7 +46,7 @@ export default class MarketCapInfo extends React.Component {
             <View style={styles.statsBodyRowLeft}>
               <View style ={styles.statsBodyContent}>
                 <Text style={styles.text}>24hr volume</Text>
-                <Text style={styles.values}>{this.props.coins.marketCap.total_24h_volume_usd}</Text>
+                <Text style={styles.values}>${vol}M</Text>
               </View>
             </View>
 
@@ -104,7 +109,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: .75
   },
   textHeader: {
-    textAlign: 'center',
+    textAlign: 'left',
     fontSize: 24,
     color: 'white',
     paddingTop: 15,

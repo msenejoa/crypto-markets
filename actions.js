@@ -9,6 +9,7 @@ export function fetchInitialData(name, time) {
     //dispatch(fetchCoinListFromAPI());
     dispatch(fetchCoinInfoFromAPI(name, time))
     dispatch(fetchCoinListFromAPI())
+    dispatch(fetchMarketCapFromAPI())
    // console.log('indispatch')
     //fetch('https://api.coinmarketcap.com/v1/ticker/?limit=25')
   }
