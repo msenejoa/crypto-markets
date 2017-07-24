@@ -1,0 +1,136 @@
+import React from 'react';
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+//import Feed from 'rss-to-json';
+
+export default class MarketCapInfo extends React.Component {
+
+      render(){
+
+        //var mkt_cap = this.props.coinInfo.market_cap_usd;
+        //mkt_cap = mkt_cap/1000000;
+        //mkt_cap = mkt_cap.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+        //var total_supply = this.props.coinInfo.total_supply;
+        //total_supply = total_supply/1000000;
+        //
+        //total_supply = total_supply.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        //console.log(total_supply);
+
+      return (
+<View>
+        <View style={styles.container}>
+
+          <Text style={styles.textHeader}>stats</Text>
+</View>
+
+          <View style={styles.bottomBorder}/>
+
+<View style = {styles.container}>
+
+          <View style={styles.statsBody}>
+            <View style={styles.statsBodyRowLeft}>
+              <View style ={styles.statsBodyContent}>
+                <Text style={styles.text}>total market cap</Text>
+                <Text style={styles.values}>{this.props.coins.marketCap.total_market_cap_usd}</Text>
+              </View>
+            </View>
+          </View>
+
+
+          <View style={styles.statsBody}>
+            <View style={styles.statsBodyRowLeft}>
+              <View style ={styles.statsBodyContent}>
+                <Text style={styles.text}>24hr volume</Text>
+                <Text style={styles.values}>{this.props.coins.marketCap.total_24h_volume_usd}</Text>
+              </View>
+            </View>
+
+          </View>
+
+          <View style={styles.statsBody}>
+            <View style={styles.statsBodyRowLeft}>
+              <View style ={styles.statsBodyContent}>
+                <Text style={styles.text}>btc dominance</Text>
+                <Text style={styles.values}>{this.props.coins.marketCap.bitcoin_percentage_of_market_cap}%</Text>
+              </View>
+            </View>
+
+          </View>
+</View>
+
+</View>
+
+
+      );
+    }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  bottomBorder: {
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1,
+    paddingBottom: 10,
+  },
+  bottomBorderHalf: {
+    borderBottomColor: 'grey',
+    borderBottomWidth: .5,
+  },
+  statsBody: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  statsBodyRowLeft: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  statsBodyRow: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  statsBodyContent: {
+    justifyContent: 'space-between',
+    flex: 1,
+    flexDirection: 'row',
+    //paddingRight: 12,
+    borderBottomColor: 'grey',
+    paddingBottom: 12,
+    paddingTop: 12,
+    borderBottomWidth: .75
+  },
+  textHeader: {
+    textAlign: 'center',
+    fontSize: 24,
+    color: 'white',
+    paddingTop: 15,
+    fontFamily: 'HelveticaNeue-Thin'
+  },
+  textPrice: {
+    textAlign: 'center',
+    fontSize: 35,
+    color: '#ffffff',
+    paddingTop: 18,
+    fontFamily: 'HelveticaNeue-Thin'
+  },
+  text: {
+    textAlign: 'left',
+    //paddingTop: 5,
+    fontSize: 16,
+    color: 'grey',
+    fontFamily: 'HelveticaNeue-Thin'
+  },
+  values: {
+    textAlign: 'right',
+    color: 'white',
+    //paddingTop: 5,
+    fontSize: 16,
+    fontFamily: 'HelveticaNeue-Thin'
+  }
+});
+
+

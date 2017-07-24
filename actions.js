@@ -1,4 +1,4 @@
-import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN } from './constants';
+import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, MARKETCAP } from './constants';
 import Converter from './components/graphs/dateConverter';
 import translate from './components/graphs/timelineConverter';
 
@@ -17,20 +17,20 @@ export function fetchInitialData(name, time) {
 
 export function fetchCoinsFromAPI() {
   return (dispatch) => {
-    dispatch(getCoins())
+    //dispatch(getCoins())
     newList = []
     fetch('https://api.coinmarketcap.com/v1/ticker/?limit=25')
     .then(data => data.json())
     //.then(data => console.log(data[0].name))
-    .then(data => data.map((i, f) => {newList.push(i.name)}
-      ))
-    .then(() => console.log(newList))
-    //.then(json => {
-      //dispatch(getCoinsSuccess(json))
-    //})
+    .then(data => data.map((i, f) => newList.push({name: i.name, symbol: i.symbol})))
+    //.then(() => dispatch(fetchCoinListFromAPI(newList)))
+    .then(() => {fetchCoinListFromAPI(newList); console.log(newList)})
+
     .catch(err => dispatch(getCoinsFailure(err)))
   }
 }
+
+
 /*
 export function fetchCoinsFromAPI() {
   return (dispatch) => {
@@ -54,15 +54,16 @@ export function appendCoin(data){
 
 }
 
-export function fetchCoinListFromAPI() {
+export function fetchCoinListFromAPI(list= [{name:'bitcoin', symbol:'btc'}, {name:'litecoin', symbol: 'ltc'}, {name:'ethereum', symbol:'eth'}] ) {
+  console.log(list)
   return (dispatch) => {
     //dispatch(getCoins())
 
-    list = ['bitcoin', 'litecoin', 'ethereum', 'monero'];
-    console.log('what')
+    //list = [{name:'bitcoin', symbol:'btc'}, {name:'litecoin', symbol: 'ltc'}, {name:'ethereum', symbol:'eth'}];
+    console.log('==========================' + list)
     var newMap = []
     list.map((i, f) => {
-      fetch('https://api.coinmarketcap.com/v1/ticker/' + i)
+      fetch('https://api.coinmarketcap.com/v1/ticker/' + i.name)
       .then(data=> data.json())
       .then(data=>newMap.push(data[0]))
       .then( () => (newMap.length == list.length)? dispatch(getCoinsSuccess(newMap)):console.log("false" + i + f))
@@ -87,6 +88,15 @@ export function fetchHomeView() {
   }
 }
 
+export function fetchMarketCap(data) {
+  console.log('----------------------------------')
+  console.log(data)
+  return {
+    type: MARKETCAP,
+    data,
+  }
+}
+
 export function fetchCoinView() {
   return {
     type: COIN
@@ -107,7 +117,7 @@ export function getCoins() {
 }
 
 export function getCoinsSuccess(data) {
-  console.log(data);
+  console.log("this is it!!!!" + data);
   return {
     type: FETCHING_COINS_SUCCESS,
     data,
@@ -157,6 +167,17 @@ export function fetchCoinHistoryFromAPI(name, time) {
       var change = newData.change;
       var timeseries = newData.data;
       dispatch(getCoinHistorySuccess(timeseries, time, change));
+    })
+    .catch(err => dispatch(getCoinsFailure(err)))
+  }
+}
+
+export function fetchMarketCapFromAPI() {
+  return (dispatch) => {
+    fetch('https://api.coinmarketcap.com/v1/global/')
+    .then(data => data.json())
+    .then(json => {
+    dispatch(fetchMarketCap(json))
     })
     .catch(err => dispatch(getCoinsFailure(err)))
   }

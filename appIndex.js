@@ -9,10 +9,11 @@ import SmallGraph from './components/SmallGraph';
 import Header from './components/Header';
 
 import CoinInformationStatistics from './components/CoinInformationStatistics';
+import MarketCapInfo from './components/MarketCapInfo';
 
 
 import { connect } from 'react-redux';
-import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView } from './actions';
+import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView, fetchMarketCapFromAPI} from './actions';
 
 let styles
 
@@ -61,7 +62,7 @@ const AppIndex = (props) => {
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
 */}
-      <TouchableHighlight style={button} onPress={() => props.getCoins()}>
+      <TouchableHighlight style={button} onPress={() => props.getMarketCap()}>
         <Text style={buttonText}>Get List</Text>
       </TouchableHighlight>
 {/*
@@ -112,6 +113,12 @@ const AppIndex = (props) => {
           coinInfo = {props.coinInfo.coinInfo[0]}/>
 
       }
+      { (props.userInfo.view == 'home') &&
+      <MarketCapInfo
+        coins = {props.coins}
+      />
+
+}
 
 {/*
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
@@ -123,7 +130,14 @@ const AppIndex = (props) => {
       </TouchableHighlight>
     */}
 
+{coins.length ?
+  <View>
+  <Text style = {styles.textHeader}>coins</Text>
+  <View style={styles.bottomBorder}/>
+</View>
 
+
+: null}
 {
         coins.length ? (
           coins.map((coin, i) => {
@@ -194,7 +208,19 @@ styles = StyleSheet.create({
   },
   buttonText: {
     color: 'white'
-  }
+  },
+  textHeader: {
+    textAlign: 'center',
+    fontSize: 24,
+    color: 'white',
+    paddingTop: 20,
+    fontFamily: 'HelveticaNeue-Thin'
+  },
+  bottomBorder: {
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1,
+    paddingBottom: 10,
+  },
 })
 
 
@@ -220,7 +246,8 @@ function mapDispatchToProps (dispatch) {
 //    updateGetCoinHistory: (name, time) =>dispatch(changeCoinHistorySuccess(name, time))
     getHomeView: () => dispatch(fetchHomeView()),
     getCoinView: () => dispatch(fetchCoinView()),
-    getCoinList: () => dispatch(fetchCoinListFromAPI())
+    getCoinList: () => dispatch(fetchCoinListFromAPI()),
+    getMarketCap: () => dispatch(fetchMarketCapFromAPI())
 
   }
 }
