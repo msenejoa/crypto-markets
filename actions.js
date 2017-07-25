@@ -1,4 +1,4 @@
-import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, MARKETCAP, SEARCH } from './constants';
+import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, MARKETCAP, SEARCH, COINLIST } from './constants';
 import Converter from './components/graphs/dateConverter';
 import translate from './components/graphs/timelineConverter';
 
@@ -20,12 +20,13 @@ export function fetchCoinsFromAPI() {
   return (dispatch) => {
     //dispatch(getCoins())
     newList = []
-    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=25')
+    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=50')
     .then(data => data.json())
     //.then(data => console.log(data[0].name))
-    .then(data => data.map((i, f) => newList.push({name: i.name, symbol: i.symbol})))
+    .then(data => data.map((i, f) => newList.push({name: i.name, symbol: i.symbol, key: f})))
     //.then(() => dispatch(fetchCoinListFromAPI(newList)))
-    .then(() => fetchCoinListFromAPI(newList))
+    //.then(() => fetchCoinListFromAPI(newList))
+    .then(() => dispatch(fetchCoinList(newList)))
 
     .catch(err => dispatch(getCoinsFailure(err)))
   }
@@ -91,6 +92,13 @@ export function fetchHomeView() {
 export function fetchMarketCap(data) {
   return {
     type: MARKETCAP,
+    data,
+  }
+}
+
+export function fetchCoinList(data) {
+  return {
+    type: COINLIST,
     data,
   }
 }

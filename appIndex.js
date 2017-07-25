@@ -59,17 +59,20 @@ const AppIndex = (props) => {
       change = {props.coinData.change}
     />
 { props.userInfo.view == 'search' &&
-    <SearchView />
+    <SearchView
+      data = {props.userInfo.coinList}
+    />
 }
 
- {/*
-      <TouchableHighlight style={button} onPress={() => props.getCoinList()}>
+       {/*
+      <TouchableHighlight style={button} onPress={() => props.getCoins()}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
 
-      <TouchableHighlight style={button} onPress={() => props.getMarketCap()}>
+      <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>Get List</Text>
       </TouchableHighlight>
+
       */}
 {/*
       <TouchableHighlight style={button} onPress={() => console.log(props)}>

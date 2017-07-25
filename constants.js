@@ -17,3 +17,4 @@ export const COIN = 'COIN'
 export const SEARCH = 'SEARCH'
 
 export const MARKETCAP = 'MARKETCAP'
+export const COINLIST = 'COINLIST'

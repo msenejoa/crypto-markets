@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight,TextInput, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight,TextInput, FlatList, ScrollView } from 'react-native';
 //import { persistStore } from 'redux-persist'
 
 
@@ -9,12 +9,12 @@ import { View, Text, StyleSheet, TouchableHighlight,TextInput, FlatList } from '
 class SearchView extends Component {
 
 
-
   render() {
 
     return (
 
-<View>
+<View style ={styles.mainContainer}>
+
     <TextInput
         style={{height: 40, borderColor: 'gray', borderWidth: 1, color: 'white'}}
         //onChangeText={(text) => this.setState({text})}
@@ -23,22 +23,23 @@ class SearchView extends Component {
 
       <View style={styles.container}>
         <FlatList
-          data={[
-            {key: 'Devin'},
-            {key: 'Jackson'},
-            {key: 'James'},
-            {key: 'Joel'},
-            {key: 'John'},
-            {key: 'Jillian'},
-            {key: 'Jimmy'},
-            {key: 'Julie'},
-          ]}
-          renderItem={({item}) => <Text style={styles.text} onPress={()=> console.log('clicked')}>{item.key}</Text>}
+          data={this.props.data}
+          renderItem={({item}) =>(
+            <View style ={styles.textField}>
+              <Text
+                style={styles.text}
+                onPress={()=> console.log('clicked')}>
+                  {item.name} {item.symbol}
+              </Text>
+            </View>
+              )
+          }
         />
       </View>
 
-      <View style={styles.container}>
-        <Text style = {styles.textHeader}>some text</Text>
+
+      <View style={styles.containerBottom}>
+        <Text style = {styles.textBottom}>sync coins</Text>
       </View>
       </View>
     )
@@ -46,15 +47,25 @@ class SearchView extends Component {
 }
 
 const styles = StyleSheet.create({
-  containerTop: {
-    flexDirection: 'row',
-    paddingTop:34,
-    paddingBottom: 3,
-    paddingLeft: 10,
-    paddingRight: 10,
+  mainContainer: {
+    //flexDirection: 'row',
+    //paddingTop:34,
+    //paddingBottom: 3,
+    //paddingLeft: 10,
+    //paddingRight: 10,
+    //flex:1
+  },
+  textField: {
+    borderBottomColor: 'grey',
+    borderBottomWidth: .75
   },
   container: {
-
+    height: 520
+    //flex: 1
+  },
+  containerBottom:{
+    height: 50,
+    flex: 1
   },
   containerTopLeft: {
     flex:3,
@@ -80,18 +91,18 @@ const styles = StyleSheet.create({
     //paddingTop: 15,
     fontFamily: 'HelveticaNeue-Thin'
   },
-  textPrice: {
+  textBottom: {
     textAlign: 'center',
-    fontSize: 35,
+    fontSize: 20,
     color: '#ffffff',
     paddingTop: 10,
     fontFamily: 'HelveticaNeue-Thin'
   },
   text: {
     textAlign: 'left',
-    paddingTop: 5,
+    paddingTop: 10,
     fontSize: 20,
-    color: 'grey',
+    color: 'white',
     fontFamily: 'HelveticaNeue-Thin'
 
   }
