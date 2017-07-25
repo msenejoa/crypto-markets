@@ -61,6 +61,7 @@ const AppIndex = (props) => {
 { props.userInfo.view == 'search' &&
     <SearchView
       data = {props.userInfo.coinList}
+      callbackParent ={(coin) => {props.getCoinInfo(coin, props.coinData.time); props.getCoinView();}}
     />
 }
 

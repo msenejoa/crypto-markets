@@ -25,13 +25,13 @@ class SearchView extends Component {
         <FlatList
           data={this.props.data}
           renderItem={({item}) =>(
-            <View style ={styles.textField}>
+            <TouchableHighlight style ={styles.textField} onPress={()=> this.props.callbackParent(item)}>
               <Text
                 style={styles.text}
-                onPress={()=> console.log('clicked')}>
+                >
                   {item.name} {item.symbol}
               </Text>
-            </View>
+            </TouchableHighlight>
               )
           }
         />
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: .75
   },
   container: {
-    height: 520
+    height: 510
     //flex: 1
   },
   containerBottom:{
