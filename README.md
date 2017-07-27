@@ -11,6 +11,9 @@ A react-native cryptomarket ticker using available api's. This project is a work
 - [react-native](https://facebook.github.io/react-native/) program mobile apps in react 
 - [react-native-pathjs-charts](https://github.com/capitalone/react-native-pathjs-charts) a charting library for react native
 - [react-redux](http://redux.js.org/docs/basics/UsageWithReact.html) for state management
+- [redux-thunk](https://github.com/gaearon/redux-thunk) for dispatching api calls
+
+
 
 
 <img src="/screenshot-1.png" width="300">    <img src="/screenshot-2.png" width="300">
