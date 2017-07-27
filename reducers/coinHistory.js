@@ -3,10 +3,6 @@ const initialState = {
   Data: [],
   time: '1d',
   change: ''
-  //isLoaded: false,
-  //name: "",
-  //symbol: ""
-  //error: false
 }
 
 export default function coinsReducer (state = initialState, action) {
@@ -18,8 +14,6 @@ export default function coinsReducer (state = initialState, action) {
         Data: action.Data,
         time: action.time,
         change: action.change
-        //name: action.name,
-        //symbol: action.symbol
       }
     case CHANGE_COIN_HISTORY_SUCCESS:
       return {
