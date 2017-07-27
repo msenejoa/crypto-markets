@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
-//import Feed from 'rss-to-json';
 
 export default class MarketCapInfo extends React.Component {
 
@@ -93,7 +92,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flex: 1,
     flexDirection: 'row',
-    //paddingRight: 12,
     borderBottomColor: 'grey',
     paddingBottom: 12,
     paddingTop: 12,
@@ -115,7 +113,6 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'left',
-    //paddingTop: 5,
     fontSize: 16,
     color: 'grey',
     fontFamily: 'HelveticaNeue-Thin'
@@ -123,7 +120,6 @@ const styles = StyleSheet.create({
   values: {
     textAlign: 'right',
     color: 'white',
-    //paddingTop: 5,
     fontSize: 16,
     fontFamily: 'HelveticaNeue-Thin'
   }
