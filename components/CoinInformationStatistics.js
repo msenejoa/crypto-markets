@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
-//import Feed from 'rss-to-json';
 
 export default class CoinInformationStatistics extends React.Component {
 
@@ -12,21 +11,7 @@ export default class CoinInformationStatistics extends React.Component {
         var total_supply = this.props.coinInfo.total_supply;
         total_supply = total_supply/1000000;
         total_supply = total_supply.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        //console.log(total_supply);
 
-//        Feed.load('https://codek.tv/feed/', function(err, rss){
-//          console.log(rss);
-//        });
-
-
-//        var available_supply = this.props.coinInfo.available_supply;
-//        available_supply = available_supply/1000000;
-//        available_supply = available_supply.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-//        console.log(available_supply);
-
-//fe6fb048ce9f4eb99b9f39042a556826 api key
-        //console.log(this.props.coinInfo);
-        //console.log(mkt_cap);
       return (
 
         <View style={styles.container}>
@@ -92,12 +77,6 @@ const styles = StyleSheet.create({
   container: {
     paddingLeft: 15,
     paddingRight: 15
-    //flex: 1,
-    //flexDirection: 'row',
-    //justifyContent: 'space-between',
-//justifyContent: 'center',
-    //height: 50,
-    //alignItems: 'center'
   },
   bottomBorder: {
     borderBottomColor: 'grey',
@@ -108,8 +87,6 @@ const styles = StyleSheet.create({
   bottomBorderHalf: {
     borderBottomColor: 'grey',
     borderBottomWidth: .75,
-    //paddingTop: 7,
-    //paddingBottom: 7
   },
   statsBody: {
     flex: 1,
@@ -120,26 +97,16 @@ const styles = StyleSheet.create({
   statsBodyRowLeft: {
     flex: 1,
     flexDirection: 'row',
-    //justifyContent: 'space-between',
     paddingRight: 12,
-    //borderBottomColor: 'grey',
-    //paddingBottom: 7,
-    //borderBottomWidth: .75,
   },
   statsBodyRow: {
     flex: 1,
     flexDirection: 'row',
-    //justifyContent: 'space-between',
-    //paddingRight: 12,
-    //borderBottomColor: 'grey',
-    //paddingBottom: 7,
-    //borderBottomWidth: .75,
   },
   statsBodyContent: {
     justifyContent: 'space-between',
     flex: 1,
     flexDirection: 'row',
-    //paddingRight: 12,
     borderBottomColor: 'grey',
     paddingBottom: 12,
     paddingTop: 12,
@@ -161,7 +128,6 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'left',
-    //paddingTop: 5,
     fontSize: 16,
     color: 'grey',
     fontFamily: 'HelveticaNeue-Thin'
@@ -169,7 +135,6 @@ const styles = StyleSheet.create({
   values: {
     textAlign: 'right',
     color: 'white',
-    //paddingTop: 5,
     fontSize: 16,
     fontFamily: 'HelveticaNeue-Thin'
   }
