@@ -15,7 +15,7 @@ import SearchView from './components/SearchView';
 
 
 import { connect } from 'react-redux';
-import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView, fetchMarketCapFromAPI, getSearchView} from './actions';
+import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView, fetchMarketCapFromAPI, getSearchView, addCoinToUserList } from './actions';
 
 let styles
 
@@ -52,11 +52,12 @@ const AppIndex = (props) => {
 
     <Header
       symbol = {props.coinInfo.symbol}
-      callbackHomeView = {() => {props.getHomeView(); props.getCoinList();}}
+      callbackHomeView = {() => {props.getHomeView(); props.getCoinList(props.userInfo.userCoinList);}}
       callbackSearchView = {() => props.getSearchView()}
-      callbackParent = {() => {props.getHomeView(); props.onInitialization(props.coinInfo, props.coinData.time);}}
+      callbackParent = {() => {props.getHomeView(); props.onInitialization(props.coinInfo, props.coinData.time, props.userInfo.userCoinList);}}
       userInfo= {props.userInfo}
       change = {props.coinData.change}
+      addCoin = {() => props.addCoinToList(props.userInfo.userCoinList, props.coinInfo)}
     />
 { props.userInfo.view == 'search' &&
     <SearchView
@@ -257,10 +258,10 @@ function mapDispatchToProps (dispatch) {
 //    updateGetCoinHistory: (name, time) =>dispatch(changeCoinHistorySuccess(name, time))
     getHomeView: () => dispatch(fetchHomeView()),
     getCoinView: () => dispatch(fetchCoinView()),
-    getCoinList: () => dispatch(fetchCoinListFromAPI()),
+    getCoinList: (list) => dispatch(fetchCoinListFromAPI(list)),
     getMarketCap: () => dispatch(fetchMarketCapFromAPI()),
-    getSearchView: () => dispatch(getSearchView())
-
+    getSearchView: () => dispatch(getSearchView()),
+    addCoinToList: (list, coin) => dispatch(addCoinToUserList(list, coin))
   }
 }
 

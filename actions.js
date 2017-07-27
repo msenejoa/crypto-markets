@@ -1,15 +1,17 @@
-import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, MARKETCAP, SEARCH, COINLIST } from './constants';
+import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, MARKETCAP, SEARCH, COINLIST, USERCOINLIST } from './constants';
 import Converter from './components/graphs/dateConverter';
 import translate from './components/graphs/timelineConverter';
 
 
-export function fetchInitialData(name, time) {
+export function fetchInitialData(name, time, list) {
   return (dispatch) => {
     //dispatch(getCoins())
     //dispatch(fetchCoinListFromAPI());
     dispatch(fetchCoinInfoFromAPI(name, time))
     dispatch(fetchCoinListFromAPI())
     dispatch(fetchMarketCapFromAPI())
+    dispatch(fetchHomeView())
+    dispatch(fetchCoinListFromAPI(list))
    // console.log('indispatch')
     //fetch('https://api.coinmarketcap.com/v1/ticker/?limit=25')
   }
@@ -29,6 +31,20 @@ export function fetchCoinsFromAPI() {
     .then(() => dispatch(fetchCoinList(newList)))
 
     .catch(err => dispatch(getCoinsFailure(err)))
+  }
+}
+
+export function addCoinToUserList(list, coin) {
+  //console.log(coin)
+  return (dispatch) => {
+    //console.log(list)
+    //console.log(coin)
+    var newUserCoinList = []
+    newUserCoinList = list
+    newUserCoinList.push({name: coin.name, symbol: coin.symbol})
+    console.log(newUserCoinList)
+    dispatch(addUserCoinList(newUserCoinList))
+    //dispatch(fetchCoinListFromAPI(newUserCoinList))
   }
 }
 
@@ -100,6 +116,13 @@ export function fetchCoinList(data) {
   return {
     type: COINLIST,
     data,
+  }
+}
+
+export function addUserCoinList(data){
+  return{
+  type: USERCOINLIST,
+  data,
   }
 }
 

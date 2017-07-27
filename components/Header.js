@@ -58,7 +58,7 @@ class Header extends Component {
                 <TouchableHighlight
                   onPress = {()=> {}}
                   >
-                  <Ionicons name="ios-add-circle-outline" size={32} color={colorGains}/>
+                  <Ionicons name="ios-add-circle-outline" size={32} color={colorGains} onPress={()=> this.props.addCoin()}/>
                 </TouchableHighlight>
 }
               { (this.props.userInfo.view == 'home') &&

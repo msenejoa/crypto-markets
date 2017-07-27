@@ -39,7 +39,9 @@ class SearchView extends Component {
 
 
       <View style={styles.containerBottom}>
+<TouchableHighlight onPress={()=> console.log('pressed')}>
         <Text style = {styles.textBottom}>sync coins</Text>
+        </TouchableHighlight>
       </View>
       </View>
     )
