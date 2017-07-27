@@ -2,9 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import SmallGraph from './SmallGraph';
 
-//import Navbar from 'react-bootstrap/lib/Navbar';
-//let styles
-//var { getCoins } = props
 
 export default class CoinInformation extends React.Component {
       render(){
