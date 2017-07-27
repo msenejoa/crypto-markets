@@ -6,7 +6,6 @@ const initialState = {
   isLoaded: false,
   name: "Bitcoin",
   symbol: "BTC"
-  //error: false
 }
 
 export default function coinsReducer (state = initialState, action) {
