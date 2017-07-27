@@ -10,27 +10,16 @@ import configureStore from '../configureStore'
 import { createPersistor } from 'redux-persist'
 
 
-
-//const store = configureStore()
-//let persistor = createPersistor(store, {storage: AsyncStorage, whitelist: ['userInfo']})
-
-
 class Header extends Component {
 
   componentDidMount() {
-      //persistor.rehydrate();
       this.props.callbackParent();
-
     }
 
   render() {
 
     var gains = this.props.change;
     var colorGains = gains > 0 ? '#03C9A9' : '#D64541';
-
-
-    //var colorGains = '#03C9A9';
-
 
     return (
       <View style={styles.container}>
@@ -109,7 +98,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 28,
     color: '#ffffff',
-    //paddingTop: 15,
     fontFamily: 'HelveticaNeue-Thin'
   },
   textPrice: {
