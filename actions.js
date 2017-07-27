@@ -5,97 +5,45 @@ import translate from './components/graphs/timelineConverter';
 
 export function fetchInitialData(name, time, list) {
   return (dispatch) => {
-    //dispatch(getCoins())
-    //dispatch(fetchCoinListFromAPI());
     dispatch(fetchCoinInfoFromAPI(name, time))
     dispatch(fetchCoinListFromAPI())
     dispatch(fetchMarketCapFromAPI())
     dispatch(fetchHomeView())
     dispatch(fetchCoinListFromAPI(list))
-   // console.log('indispatch')
-    //fetch('https://api.coinmarketcap.com/v1/ticker/?limit=25')
   }
 }
 
 
 export function fetchCoinsFromAPI() {
   return (dispatch) => {
-    //dispatch(getCoins())
-    newList = []
+    var newList = []
     fetch('https://api.coinmarketcap.com/v1/ticker/?limit=50')
     .then(data => data.json())
-    //.then(data => console.log(data[0].name))
     .then(data => data.map((i, f) => newList.push({name: i.name, symbol: i.symbol, key: f})))
-    //.then(() => dispatch(fetchCoinListFromAPI(newList)))
-    //.then(() => fetchCoinListFromAPI(newList))
     .then(() => dispatch(fetchCoinList(newList)))
-
     .catch(err => dispatch(getCoinsFailure(err)))
   }
 }
 
 export function addCoinToUserList(list, coin) {
-  //console.log(coin)
   return (dispatch) => {
-    //console.log(list)
-    //console.log(coin)
     var newUserCoinList = []
     newUserCoinList = list
     newUserCoinList.push({name: coin.name, symbol: coin.symbol})
     console.log(newUserCoinList)
     dispatch(addUserCoinList(newUserCoinList))
-    //dispatch(fetchCoinListFromAPI(newUserCoinList))
   }
-}
-
-
-/*
-export function fetchCoinsFromAPI() {
-  return (dispatch) => {
-    dispatch(getCoins())
-    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=25')
-    .then(data => data.json())
-    .then(data => console.log(data[0].name))
-    //.then(json => {
-      //dispatch(getCoinsSuccess(json))
-    //})
-    .catch(err => dispatch(getCoinsFailure(err)))
-  }
-}
-*/
-
-
-export function appendCoin(data){
-  //console.log(data);
-  //list.push(info);
-  //console.log(list)
-
 }
 
 export function fetchCoinListFromAPI(list= [{name:'bitcoin', symbol:'btc'}, {name:'litecoin', symbol: 'ltc'}, {name:'ethereum', symbol:'eth'}] ) {
   return (dispatch) => {
-    //dispatch(getCoins())
-
-    //list = [{name:'bitcoin', symbol:'btc'}, {name:'litecoin', symbol: 'ltc'}, {name:'ethereum', symbol:'eth'}];
-    //console.log('==========================' + list)
     var newMap = []
     list.map((i, f) => {
       fetch('https://api.coinmarketcap.com/v1/ticker/' + i.name)
       .then(data=> data.json())
       .then(data=>newMap.push(data[0]))
       .then( () => (newMap.length == list.length)? dispatch(getCoinsSuccess(newMap)):console.log("false" + i + f))
-      //the error here is its doing all these at once
     })
-    //console.log(newMap)
-    //console.log(newList)
-    //console.log("this is your input " + name)
-    //dispatch(fetchCoinHistoryFromAPI(name.symbol, time))
-    //dispatch(getCoins())
-    //fetch('https://api.coinmarketcap.com/v1/ticker/' + name.name)
-    //.then(data => data.json())
-    //.then(json => {
-    //  newList.push(json).
-    //.catch(err => dispatch(getCoinsFailure(err)))
   }
 }
 
@@ -167,10 +115,7 @@ export function getCoinsFailure() {
 
 export function fetchCoinInfoFromAPI(name, time) {
   return (dispatch) => {
-    //console.log("this is your input " + name)
-    //dispatch(fetchCoinHistoryFromAPI(name.symbol, time))
     dispatch(getCoins())
-    //dispatch(fetchCoinListFromAPI())
     fetch('https://api.coinmarketcap.com/v1/ticker/' + name.name)
     .then(data => data.json())
     .then(json => {
