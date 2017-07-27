@@ -4,8 +4,6 @@ import { View, Text, StyleSheet, TouchableHighlight, Switch } from 'react-native
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
-
-
 export default class CoinInformationHeader extends React.Component {
 
       state = {
@@ -35,40 +33,22 @@ export default class CoinInformationHeader extends React.Component {
 
       var price_btc = this.props.coinInfo.coinInfo[0].price_btc;
       var price_usd = this.props.coinInfo.coinInfo[0].price_usd;
-
       change = this.props.coinData.change;
-
+            
       this.changeFunction(this.props.coinData.time)
-
-
       var colorGains = change > 0 ? '#03C9A9' : '#D64541';
 
-
       return (
-
-
-
         <View style={styles.container}>
-
           <Text style={styles.text}> {this.props.coinInfo.name}</Text>
           <TouchableHighlight
             onPress = {() => this.clickFunction()}>
-            <Text style={styles.textPrice}>
-              {!this.state.switchValue?price_btc + ' BTC':'$' + price_usd}
-            </Text>
+                  <Text style={styles.textPrice}>
+                        {!this.state.switchValue?price_btc + ' BTC':'$' + price_usd}
+                  </Text>
           </TouchableHighlight>
-
           <Text style={styles.text}> {this.changeFunction(change)} %</Text>
-
-{/*
-      <Ionicons name="ios-add-circle-outline" size={32} color="green" />
-      <Ionicons name="ios-checkmark-circle" size={32} color="green" />
-      <Ionicons name="ios-list-outline" size={32} color="green" />
-*/}
-
-
         </View>
-
       );
     }
 }
