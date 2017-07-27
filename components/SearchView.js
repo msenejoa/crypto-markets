@@ -1,48 +1,33 @@
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight,TextInput, FlatList, ScrollView } from 'react-native';
-//import { persistStore } from 'redux-persist'
-
-
 
 
 class SearchView extends Component {
 
-
   render() {
+  return (
+    <View style ={styles.mainContainer}>
+      <TextInput
+        style={{height: 40, borderColor: 'gray', borderWidth: 1, color: 'white'}}/>
+          <View style={styles.container}>
+            <FlatList
+              data={this.props.data}
+              renderItem={({item}) =>(
+                <TouchableHighlight style ={styles.textField} onPress={()=> this.props.callbackParent(item)}>
+                  <Text style={styles.text}>
+                    {item.name} {item.symbol}
+                  </Text>
+                </TouchableHighlight>
+                )
+              }/>
+        </View>
 
-    return (
-
-<View style ={styles.mainContainer}>
-
-    <TextInput
-        style={{height: 40, borderColor: 'gray', borderWidth: 1, color: 'white'}}
-        //onChangeText={(text) => this.setState({text})}
-        //value={this.state.text}
-      />
-
-      <View style={styles.container}>
-        <FlatList
-          data={this.props.data}
-          renderItem={({item}) =>(
-            <TouchableHighlight style ={styles.textField} onPress={()=> this.props.callbackParent(item)}>
-              <Text
-                style={styles.text}
-                >
-                  {item.name} {item.symbol}
-              </Text>
-            </TouchableHighlight>
-              )
-          }
-        />
-      </View>
-
-
-      <View style={styles.containerBottom}>
-<TouchableHighlight onPress={()=> console.log('pressed')}>
-        <Text style = {styles.textBottom}>sync coins</Text>
-        </TouchableHighlight>
-      </View>
+        <View style={styles.containerBottom}>
+          <TouchableHighlight onPress={()=> console.log('pressed')}>
+            <Text style = {styles.textBottom}>sync coins</Text>
+          </TouchableHighlight>
+        </View>
       </View>
     )
   }
