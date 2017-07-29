@@ -42,7 +42,7 @@ export function fetchCoinListFromAPI(list= [{name:'bitcoin', symbol:'btc'}, {nam
       fetch('https://api.coinmarketcap.com/v1/ticker/' + i.name)
       .then(data=> data.json())
       .then(data=>newMap.push(data[0]))
-      .then( () => (newMap.length == list.length)? dispatch(getCoinsSuccess(newMap)):console.log("false" + i + f))
+      .then( () => (newMap.length == list.length)? dispatch(getCoinsSuccess(newMap)):null )
     })
   }
 }
@@ -115,7 +115,7 @@ export function getCoinsFailure() {
 
 export function fetchCoinInfoFromAPI(name, time) {
   return (dispatch) => {
-    dispatch(getCoins())
+    //dispatch(getCoins())
     fetch('https://api.coinmarketcap.com/v1/ticker/' + name.name)
     .then(data => data.json())
     .then(json => {

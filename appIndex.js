@@ -38,7 +38,7 @@ const AppIndex = (props) => {
   const { view } = props.userInfo;
 
   function getInitialData () {
-    props.getCoinList();
+    //props.getCoinList();
     props.getCoinInfo(props.coinInfo, props.coinData.time);
 
   };
@@ -54,9 +54,10 @@ const AppIndex = (props) => {
       symbol = {props.coinInfo.symbol}
       callbackHomeView = {() => {props.getHomeView(); props.getCoinList(props.userInfo.userCoinList);}}
       callbackSearchView = {() => props.getSearchView()}
-      callbackParent = {() => {props.getHomeView(); props.onInitialization(props.coinInfo, props.coinData.time, props.userInfo.userCoinList);}}
+      callbackParent = {() => {props.onInitialization(props.coinInfo, props.coinData.time, props.userInfo.userCoinList)}}
       userInfo= {props.userInfo}
       change = {props.coinData.change}
+      coinInfo = {props.coinInfo}
       addCoin = {() => props.addCoinToList(props.userInfo.userCoinList, props.coinInfo)}
     />
 { props.userInfo.view == 'search' &&

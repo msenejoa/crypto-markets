@@ -12,15 +12,74 @@ import { createPersistor } from 'redux-persist'
 
 class Header extends Component {
 
+  state = {
+        coinInList: true
+      }
+
   componentDidMount() {
-      this.props.callbackParent();
+     // this.props.callbackParent();
+      //information = this.props.userInfo.userCoinList;
+      //console.log(information)
+      //this.checkList();
+      //console.log(this.props.coinInfo.name);
     }
+  //const information = 'some information';
+  componentWillMount(){
+    //information = this.props.userInfo.userCoinList;
+    //console.log(information)
+    //this.checkList(this.props.coinInfo.name, this.pushList(this.props.userInfo.userCoinList));
+  }
+
+  makeList(object){
+    this.props.userInfo.userCoinList.forEach((value)=> {newList.push(value.name)});
+
+  }
+
+  checkList (userList, name){
+    //console.log(userList.userInfo)
+    //console.log(this.props.userInfo);
+    if (userList.filter(item=> item.name == name).length != 0 ){
+      //this.setState({coinInList: false}
+      console.log('is in list');
+      return true;
+    };
+    //console.log(coin);
+    //console.log(list);
+    //if (list.length){
+    //  console.log(true);
+   // }
+    //if (list.includes(coin)){
+    //  this.setState({
+    //    coinInList: true
+    //  });
+    //}
+  }
+
+  pushList(object) {
+    let newList = [];
+    object.forEach((value)=> newList.push(value));
+    return newList
+  }
 
   render() {
 
     var gains = this.props.change;
     var colorGains = gains > 0 ? '#03C9A9' : '#D64541';
 
+    var userCoinList = this.props.userInfo.userCoinList;
+    var coinName = this.props.coinInfo.name;
+    //console.log(userCoinList);
+    console.log(coinName);
+    //this.checkList(userCoinList, coinName)
+    //.forEach((value)=> {newList.push(value.name)});
+    //this.props.userInfo.userCoinList
+    //console.log(this.props.coinInfo.name);
+    //this.checkList(this.props.coinInfo.name, newList);
+    var inList = false;
+    inList = this.checkList(userCoinList, coinName)
+;
+
+    //this.checkList()
     return (
       <View style={styles.container}>
         <View style={styles.containerTop}>
@@ -43,13 +102,22 @@ class Header extends Component {
 
           <View style={styles.containerTopRight}>
 
-          { (this.props.userInfo.view == 'coin') &&
+          { (this.props.userInfo.view == 'coin' && !inList) &&
                 <TouchableHighlight
                   onPress = {()=> {}}
                   >
                   <Ionicons name="ios-add-circle-outline" size={32} color={colorGains} onPress={()=> this.props.addCoin()}/>
                 </TouchableHighlight>
-}
+          }
+
+          {   (this.props.userInfo.view == 'coin' && inList) &&
+                <TouchableHighlight
+                  onPress = {()=> {}}
+                  >
+                  <Ionicons name="ios-checkmark-circle" size={32} color={colorGains} onPress={()=> this.props.addCoin()}/>
+                </TouchableHighlight>
+          }
+
               { (this.props.userInfo.view == 'home') &&
 
                 <TouchableHighlight
