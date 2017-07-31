@@ -30,10 +30,18 @@ export function addCoinToUserList(list, coin) {
     var newUserCoinList = []
     newUserCoinList = list
     newUserCoinList.push({name: coin.name, symbol: coin.symbol})
-    console.log(newUserCoinList)
+    //console.log(newUserCoinList)
     dispatch(addUserCoinList(newUserCoinList))
   }
 }
+
+export function removeCoinfromUserList(list, coin){
+  return(dispatch) => {
+    coinRemoved = list.filter(coins => coins.name !== coin.name )
+    dispatch(removeCoin(coinRemoved))
+  }
+}
+
 
 export function fetchCoinListFromAPI(list= [{name:'bitcoin', symbol:'btc'}, {name:'litecoin', symbol: 'ltc'}, {name:'ethereum', symbol:'eth'}] ) {
   return (dispatch) => {
@@ -68,6 +76,13 @@ export function fetchCoinList(data) {
 }
 
 export function addUserCoinList(data){
+  return{
+  type: USERCOINLIST,
+  data,
+  }
+}
+
+export function removeCoin(data){
   return{
   type: USERCOINLIST,
   data,

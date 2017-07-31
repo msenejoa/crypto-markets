@@ -15,7 +15,7 @@ import SearchView from './components/SearchView';
 
 
 import { connect } from 'react-redux';
-import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView, fetchMarketCapFromAPI, getSearchView, addCoinToUserList } from './actions';
+import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView, fetchMarketCapFromAPI, getSearchView, addCoinToUserList, removeCoinfromUserList } from './actions';
 
 let styles
 
@@ -55,6 +55,7 @@ const AppIndex = (props) => {
       callbackHomeView = {() => {props.getHomeView(); props.getCoinList(props.userInfo.userCoinList);}}
       callbackSearchView = {() => props.getSearchView()}
       callbackParent = {() => {props.onInitialization(props.coinInfo, props.coinData.time, props.userInfo.userCoinList)}}
+      callbackRemoveCoin = {() => {props.removeCoinFromList(props.userInfo.userCoinList, props.coinInfo)}}
       userInfo= {props.userInfo}
       change = {props.coinData.change}
       coinInfo = {props.coinInfo}
@@ -262,7 +263,8 @@ function mapDispatchToProps (dispatch) {
     getCoinList: (list) => dispatch(fetchCoinListFromAPI(list)),
     getMarketCap: () => dispatch(fetchMarketCapFromAPI()),
     getSearchView: () => dispatch(getSearchView()),
-    addCoinToList: (list, coin) => dispatch(addCoinToUserList(list, coin))
+    addCoinToList: (list, coin) => dispatch(addCoinToUserList(list, coin)),
+    removeCoinFromList: (list, coin) => dispatch(removeCoinfromUserList(list, coin))
   }
 }
 

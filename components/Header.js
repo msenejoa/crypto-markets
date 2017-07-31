@@ -39,7 +39,7 @@ class Header extends Component {
     inList = this.checkList(userCoinList, coinName)
 ;
 
-    //this.checkList()
+
     return (
       <View style={styles.container}>
         <View style={styles.containerTop}>
@@ -72,9 +72,9 @@ class Header extends Component {
 
           {   (this.props.userInfo.view == 'coin' && inList) &&
                 <TouchableHighlight
-                  onPress = {()=> {}}
+                  onPress = {()=> {this.props.callbackRemoveCoin()}}
                   >
-                  <Ionicons name="ios-checkmark-circle" size={32} color={colorGains} onPress={()=> this.props.addCoin()}/>
+                  <Ionicons name="ios-checkmark-circle" size={32} color={colorGains}/>
                 </TouchableHighlight>
           }
 
