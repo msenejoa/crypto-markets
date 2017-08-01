@@ -49,7 +49,7 @@ class Header extends Component {
                 <TouchableHighlight
                   onPress = {()=> {this.props.callbackHomeView()}}
                   >
-                  <Ionicons name="ios-list-outline" size={32} color={colorGains}/>
+                  <Ionicons name="ios-arrow-back" size={32} color={colorGains}/>
                 </TouchableHighlight>
     }
           </View>
