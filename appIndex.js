@@ -13,6 +13,8 @@ import MarketCapInfo from './components/MarketCapInfo';
 
 import SearchView from './components/SearchView';
 
+import UserPortfolio from './components/UserPortfolio';
+
 
 import { connect } from 'react-redux';
 import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView, fetchMarketCapFromAPI, getSearchView, addCoinToUserList, removeCoinfromUserList } from './actions';
@@ -38,13 +40,11 @@ const AppIndex = (props) => {
   const { view } = props.userInfo;
 
   function getInitialData () {
-    //props.getCoinList();
+
     props.getCoinInfo(props.coinInfo, props.coinData.time);
 
   };
 
-  //getInitialData();
-  //console.log(props)
 
   return (
 
@@ -61,6 +61,13 @@ const AppIndex = (props) => {
       coinInfo = {props.coinInfo}
       addCoin = {() => props.addCoinToList(props.userInfo.userCoinList, props.coinInfo)}
     />
+
+    <UserPortfolio
+      userInfo = {props.userInfo}
+      coinInfo = {props.coins}
+    />
+
+
 { props.userInfo.view == 'search' &&
     <SearchView
       data = {props.userInfo.coinList}
@@ -114,7 +121,7 @@ const AppIndex = (props) => {
       {
         isFetching && <Text>Loading</Text>
       }
-      {isLoaded && (props.userInfo.view != 'search') ? <Graphs
+      {isLoaded && (props.userInfo.view == 'coin') ? <Graphs
           coinData = {props.coinData}
           coinInfo = {props.coinInfo}
           callbackParent={(time) => props.getCoinHistory(props.coinInfo.symbol, time)}
@@ -132,6 +139,8 @@ const AppIndex = (props) => {
       />
 
 }
+
+
 
 {/*
       <TouchableHighlight style={button} onPress={() => console.log(props)}>

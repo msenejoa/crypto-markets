@@ -29,7 +29,7 @@ export function addCoinToUserList(list, coin) {
   return (dispatch) => {
     var newUserCoinList = []
     newUserCoinList = list
-    newUserCoinList.push({name: coin.name, symbol: coin.symbol})
+    newUserCoinList.push({name: coin.name, symbol: coin.symbol, holding: 0})
     //console.log(newUserCoinList)
     dispatch(addUserCoinList(newUserCoinList))
   }
