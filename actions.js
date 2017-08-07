@@ -25,11 +25,19 @@ export function fetchCoinsFromAPI() {
   }
 }
 
+export function updateUserCoinList(list) {
+  console.log(list)
+  return {
+    type: USERCOINLIST,
+    data: list
+  }
+}
+
 export function addCoinToUserList(list, coin) {
   return (dispatch) => {
     var newUserCoinList = []
     newUserCoinList = list
-    newUserCoinList.push({name: coin.name, symbol: coin.symbol, holding: 0})
+    newUserCoinList.push({name: coin.name, symbol: coin.symbol, holding: 0, price_btc: 0, price_usd: 0})
     //console.log(newUserCoinList)
     dispatch(addUserCoinList(newUserCoinList))
   }

@@ -17,7 +17,7 @@ import UserPortfolio from './components/UserPortfolio';
 
 
 import { connect } from 'react-redux';
-import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView, fetchMarketCapFromAPI, getSearchView, addCoinToUserList, removeCoinfromUserList } from './actions';
+import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView, fetchMarketCapFromAPI, getSearchView, addCoinToUserList, removeCoinfromUserList, updateUserCoinList } from './actions';
 
 let styles
 
@@ -62,20 +62,26 @@ const AppIndex = (props) => {
       addCoin = {() => props.addCoinToList(props.userInfo.userCoinList, props.coinInfo)}
     />
 
+{ props.userInfo.view == 'home' &&
     <UserPortfolio
       userInfo = {props.userInfo}
       coinInfo = {props.coins}
+      persistedState = {props.persistedState}
+      callbackParent = {(list) => {this.props.updateUserList(list); console.log(list)}}
     />
-
+}
+    {/*
+*/}
 
 { props.userInfo.view == 'search' &&
     <SearchView
       data = {props.userInfo.coinList}
       callbackParent ={(coin) => {props.getCoinInfo(coin, props.coinData.time); props.getCoinView();}}
+      callbackGetCoins = {() => {props.getCoins(); console.log('pressed')}}
     />
 }
-
        {/*
+
       <TouchableHighlight style={button} onPress={() => props.getCoins()}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
@@ -253,7 +259,8 @@ function mapStateToProps (state) {
     coinInfo: state.coinInfo,
     coins: state.coins,
     coinData: state.coinData,
-    userInfo: state.userInfo
+    userInfo: state.userInfo,
+    persistedState: state.persistedState
 
   }
 }
@@ -273,7 +280,8 @@ function mapDispatchToProps (dispatch) {
     getMarketCap: () => dispatch(fetchMarketCapFromAPI()),
     getSearchView: () => dispatch(getSearchView()),
     addCoinToList: (list, coin) => dispatch(addCoinToUserList(list, coin)),
-    removeCoinFromList: (list, coin) => dispatch(removeCoinfromUserList(list, coin))
+    removeCoinFromList: (list, coin) => dispatch(removeCoinfromUserList(list, coin)),
+    updateUserList: (list) => dispatch(updateUserCoinList(list))
   }
 }
 

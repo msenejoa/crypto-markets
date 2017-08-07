@@ -5,7 +5,8 @@ import {REHYDRATE} from 'redux-persist/constants'
 const initialState = {
   view: 'home',
   userCoinList: [],
-  coinList: []
+  coinList: [],
+  rehydrated: false
   //error: false
 }
 
@@ -37,6 +38,12 @@ export default function userInfoReducer (state = initialState, action) {
         ...state,
         userCoinList: action.data
       }
+      /*
+    case REHYDRATE:
+      return {
+        ...state,
+        rehydrated: true
+      }*/
     default:
       return state
   }

@@ -46,8 +46,11 @@ var c = a.concat(b.filter(function (item) {
         </View>
 
         <View style={styles.containerBottom}>
-          <TouchableHighlight onPress={()=> console.log('pressed')}>
-            <Text style = {styles.textBottom}>sync coins</Text>
+          <TouchableHighlight
+            onPress={()=> console.log('press')}>
+            <Text style = {styles.textBottom}>
+              sync coinss
+            </Text>
           </TouchableHighlight>
         </View>
       </View>
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: .75
   },
   container: {
-    height: 510
+    height: 450
     //flex: 1
   },
   containerBottom:{

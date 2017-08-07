@@ -11,7 +11,9 @@ import { createPersistor } from 'redux-persist'
 
 
 class Header extends Component {
-
+  componentWillMount (){
+    this.props.callbackParent()
+  }
 
 
   checkList (userList, name){

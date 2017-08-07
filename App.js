@@ -16,7 +16,7 @@ const store = configureStore()
 export default class App extends React.Component {
 
   componentWillMount() {
-    persistStore(store, {storage: AsyncStorage});
+    //persistStore(store, {storage: AsyncStorage});
     //console.log(store)
     console.log('--------------------------------------')
   }
