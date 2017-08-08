@@ -64,17 +64,24 @@ export default class UserPortfolio extends React.Component {
         var newList = []
         if (rehydrated && userList.length > 0){
           var newList = []
-          userList.map((value, index)=>
-          this.isLoaded(coinInfo, userList, index, newList)
+          userList.map((value, index)=>{
+            this.isLoaded(coinInfo, userList, index, newList);
+
+          }
             );
         }
         //this.setTotal()
         var sumValueBTC = newList.reduce((s, a) => s + a.price_btc, 0);
         var sumValueUSD = newList.reduce((s, a) => s + a.price_usd, 0);
 
-        console.log(this.state)
+        //console.log(this.state)
         //this.setTotal(sumValueBTC, sumValueUSD)
-        console.log(sumValueBTC)
+        //console.log(sumValueBTC)
+        console.log(userList.length)
+        console.log(newList.length)
+        if (userList.length == newList.length){
+            console.log(newList)
+        }
 
       return (
 
@@ -86,7 +93,7 @@ export default class UserPortfolio extends React.Component {
       </TouchableHighlight>
 */}
           <Text style={styles.textPrice}>${sumValueUSD.toFixed(2)}</Text>
-          <Text style={styles.textPercentage}>change%</Text>
+          <Text style={styles.textPercentage}>2.7%</Text>
           <Text style={styles.textChange}>(-12.6)</Text>
         </View>
 

@@ -62,14 +62,7 @@ const AppIndex = (props) => {
       addCoin = {() => props.addCoinToList(props.userInfo.userCoinList, props.coinInfo)}
     />
 
-{ props.userInfo.view == 'home' &&
-    <UserPortfolio
-      userInfo = {props.userInfo}
-      coinInfo = {props.coins}
-      persistedState = {props.persistedState}
-      callbackParent = {(list) => {this.props.updateUserList(list); console.log(list)}}
-    />
-}
+
     {/*
 */}
 
@@ -107,12 +100,20 @@ const AppIndex = (props) => {
 
       }
 
+
       {/*
       <Text style = {text}> Always view</Text>
 */}
 
       <ScrollView >
-
+{ props.userInfo.view == 'home' &&
+    <UserPortfolio
+      userInfo = {props.userInfo}
+      coinInfo = {props.coins}
+      persistedState = {props.persistedState}
+      callbackParent = {(list) => {this.props.updateUserList(list); console.log(list)}}
+    />
+}
 
 {/*
 
