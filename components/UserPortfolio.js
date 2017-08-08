@@ -30,22 +30,11 @@ export default class UserPortfolio extends React.Component {
                 price_btc: total_btc,
                 price_usd: total_usd
               }
-              //console.log(coin)
-              //console.log(newList)
+
               newList[index] = coin
               if ((index + 1) == userCoinlist.length){
                 console.log(newList)
-                //var sumValueBTC = newList.reduce((s, a) => s + a.price_btc, 0);
-                //var sumValueUSD = newList.reduce((s, a) => s + a.price_usd, 0);
-
-                //console.log(sumValueUSD)
-                //this.setTotal(sumValueBTC, sumValueUSD)
-                //this.props.callbackParent(newList)
               }
-
-              //return newList
-              //console.log(userCoins)
-
             }
           }
       setTotal(btc, usd){
@@ -68,39 +57,25 @@ export default class UserPortfolio extends React.Component {
 
       render(){
 
-        //console.log(this.props.userInfo.userCoinList)
-        //console.log(this.props.coinInfo.coins)
+
         var coinInfo = this.props.coinInfo.coins
         var rehydrated =this.props.persistedState.rehydrated
-        console.log(rehydrated)
-        //var index = coinInfo.findIndex(item => item.name === userList[0].name);
-        //console.log(index)
         var userList = this.props.userInfo.userCoinList;
         var newList = []
         if (rehydrated && userList.length > 0){
           var newList = []
           userList.map((value, index)=>
           this.isLoaded(coinInfo, userList, index, newList)
-
-            )
+            );
         }
         //this.setTotal()
+        var sumValueBTC = newList.reduce((s, a) => s + a.price_btc, 0);
         var sumValueUSD = newList.reduce((s, a) => s + a.price_usd, 0);
-        var sumValueUSD = newList.reduce((s, a) => s + a.price_usd, 0);
 
+        console.log(this.state)
+        //this.setTotal(sumValueBTC, sumValueUSD)
+        console.log(sumValueBTC)
 
-        console.log(sumValueUSD)
-        //console.log(userList)
-        //console.log(coinInfo)
-          //var index = coinInfo.findIndex(item => item.name === userList[0].name);
-          //var price_btc = coinInfo[index].price_btc;
-          //var price_usd = coinInfo[index].price_btc;
-          //console.log(index)
-          //console.log(this.returnCoinIndex(coinInfo, userList))
-          //console.log(price_usd)
-          //let index = coinInfo.findIndex(item => item.name === userList[0].name);
-
-        //console.log(coinInfo.indexOf(userList[0]))
       return (
 
 
@@ -110,8 +85,9 @@ export default class UserPortfolio extends React.Component {
         <Text style={styles.text}>Print Object</Text>
       </TouchableHighlight>
 */}
-          <Text style={styles.text}>${sumValueUSD}</Text>
-
+          <Text style={styles.textPrice}>${sumValueUSD.toFixed(2)}</Text>
+          <Text style={styles.textPercentage}>change%</Text>
+          <Text style={styles.textChange}>(-12.6)</Text>
         </View>
 
 
@@ -123,20 +99,37 @@ export default class UserPortfolio extends React.Component {
 const styles = StyleSheet.create({
   container: {
     //flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     borderBottomColor: 'grey',
     borderBottomWidth: .75,
-    paddingTop:20,
-    paddingBottom: 20,
+    //paddingTop:20,
+    paddingBottom: 10,
     paddingLeft: 10,
     paddingRight: 10,
     //height: 50,
     //alignItems: 'center'
+    justifyContent: 'center',
     },
-  text: {
-    color: 'grey',
+  textPrice: {
+    //flex: 1,
+    color: 'white',
     fontFamily: 'HelveticaNeue-Thin',
-    fontSize: 18
+    fontSize: 35,
+    textAlign: 'center'
+    },
+  textChange: {
+    //flex: 1,
+    color: 'white',
+    fontFamily: 'HelveticaNeue-Thin',
+    fontSize: 20,
+    textAlign: 'center'
+    },
+  textPercentage: {
+    //flex: 1,
+    color: 'white',
+    fontFamily: 'HelveticaNeue-Thin',
+    fontSize: 18,
+    textAlign: 'center'
     }
 });
 

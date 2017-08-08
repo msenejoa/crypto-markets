@@ -57,8 +57,14 @@ class Header extends Component {
           </View>
 
           <View style={styles.containerTopCenter}>
-          {(this.props.userInfo.view != 'search') ?
-            <Text style={styles.textHeader}>{this.props.symbol}</Text>:<Text style={styles.textHeader}>search</Text>
+          {(this.props.userInfo.view == 'coin') &&
+            <Text style={styles.textHeader}>{this.props.symbol}</Text>
+          }
+          {(this.props.userInfo.view == 'search') &&
+            <Text style={styles.textHeader}>search coin</Text>
+          }
+          {(this.props.userInfo.view == 'home') &&
+            <Text style={styles.textHeader}>portfolio</Text>
           }
           </View>
 
@@ -99,7 +105,7 @@ class Header extends Component {
 const styles = StyleSheet.create({
   containerTop: {
     flexDirection: 'row',
-    paddingTop:34,
+    paddingTop:20,
     paddingBottom: 3,
     paddingLeft: 10,
     paddingRight: 10,
