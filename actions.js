@@ -51,7 +51,7 @@ export function removeCoinfromUserList(list, coin){
 }
 
 
-export function fetchCoinListFromAPI(list= [{name:'bitcoin', symbol:'btc'}, {name:'litecoin', symbol: 'ltc'}, {name:'ethereum', symbol:'eth'}] ) {
+export function fetchCoinListFromAPI(list=[]) {
   return (dispatch) => {
     var newMap = []
     list.map((i, f) => {

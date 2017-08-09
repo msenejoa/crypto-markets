@@ -2,6 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
 export default class MarketCapInfo extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          isLoaded: false
+
+      }}
 
       render(){
 
@@ -13,7 +19,11 @@ export default class MarketCapInfo extends React.Component {
         vol = vol/1000000;
         vol = vol.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-
+       // console.log(this.props.isLoaded)
+       if (this.props.isLoaded && !this.state.isLoaded){
+        this.props.callbackParent();
+        this.setState({ isLoaded: true})
+       }
 
       return (
       <View>

@@ -11,7 +11,7 @@ import { createPersistor } from 'redux-persist'
 
 
 class Header extends Component {
-  componentWillMount (){
+  componentDidMount (){
     this.props.callbackParent()
   }
 

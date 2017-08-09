@@ -22,13 +22,19 @@ export default class UserPortfolio extends React.Component {
               let total_btc = price_btc * holding
               let price_usd = coinlist[i].price_usd
               let total_usd = price_usd * holding
+              let change_percent = (coinlist[i].percent_change_24h)/100
+              let change_usd = change_percent * total_usd
+              let change_btc = change_percent * total_btc
 
               let coin = {
                 name: name,
                 symbol: symbol,
                 holding: holding,
                 price_btc: total_btc,
-                price_usd: total_usd
+                price_usd: total_usd,
+                change_percent: change_percent,
+                change_usd: change_usd,
+                change_btc: change_btc
               }
 
               newList[index] = coin
@@ -51,8 +57,7 @@ export default class UserPortfolio extends React.Component {
           }
 
       componentDidMount(){
-        //this.props.callbackParent(this.newList)
-        console.log('true dude')
+        console.log('mounted')
       }
 
       render(){
@@ -66,22 +71,19 @@ export default class UserPortfolio extends React.Component {
           var newList = []
           userList.map((value, index)=>{
             this.isLoaded(coinInfo, userList, index, newList);
-
-          }
-            );
+            }
+          );
         }
         //this.setTotal()
         var sumValueBTC = newList.reduce((s, a) => s + a.price_btc, 0);
         var sumValueUSD = newList.reduce((s, a) => s + a.price_usd, 0);
+        var sumChangeBTC = newList.reduce((s, a) => s + a.change_btc, 0);
+        var sumChangeUSD = newList.reduce((s, a) => s + a.change_usd, 0);
+        var totalChange = (sumChangeUSD/sumValueUSD)* 100;
 
-        //console.log(this.state)
+        console.log(totalChange)
         //this.setTotal(sumValueBTC, sumValueUSD)
         //console.log(sumValueBTC)
-        console.log(userList.length)
-        console.log(newList.length)
-        if (userList.length == newList.length){
-            console.log(newList)
-        }
 
       return (
 
@@ -93,8 +95,8 @@ export default class UserPortfolio extends React.Component {
       </TouchableHighlight>
 */}
           <Text style={styles.textPrice}>${sumValueUSD.toFixed(2)}</Text>
-          <Text style={styles.textPercentage}>2.7%</Text>
-          <Text style={styles.textChange}>(-12.6)</Text>
+          <Text style={styles.textPercentage}>{totalChange.toFixed(2)}%</Text>
+          <Text style={styles.textChange}>({sumChangeUSD.toFixed(2)})</Text>
         </View>
 
 
@@ -128,14 +130,14 @@ const styles = StyleSheet.create({
     //flex: 1,
     color: 'white',
     fontFamily: 'HelveticaNeue-Thin',
-    fontSize: 20,
+    fontSize: 16,
     textAlign: 'center'
     },
   textPercentage: {
     //flex: 1,
     color: 'white',
     fontFamily: 'HelveticaNeue-Thin',
-    fontSize: 18,
+    fontSize: 20,
     textAlign: 'center'
     }
 });

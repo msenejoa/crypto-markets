@@ -143,6 +143,8 @@ const AppIndex = (props) => {
       { (props.userInfo.view == 'home') &&
       <MarketCapInfo
         coins = {props.coins}
+        isLoaded = {props.persistedState.rehydrated}
+        callbackParent = {() => {props.getCoinList(props.userInfo.userCoinList)}}
       />
 
 }
