@@ -6,8 +6,8 @@ export default class MarketCapInfo extends React.Component {
         super(props);
         this.state = {
           isLoaded: false
-
-      }}
+          }
+        }
 
       render(){
 
@@ -22,7 +22,7 @@ export default class MarketCapInfo extends React.Component {
        // console.log(this.props.isLoaded)
        if (this.props.isLoaded && !this.state.isLoaded){
         this.props.callbackParent();
-        this.setState({ isLoaded: true})
+        this.setState({ isLoaded: true});
        }
 
       return (

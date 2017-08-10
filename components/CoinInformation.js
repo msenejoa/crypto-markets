@@ -24,9 +24,16 @@ export default class CoinInformation extends React.Component {
                 </Text>
               </TouchableHighlight>
             </View>
+              <View style={styles.columnCenter}>
+                <Text style ={styles.text}>
+                  6.5
+                </Text>
+              </View>
 
-            <View style={styles.columnCenter}>
-              <SmallGraph />
+            <View style={styles.columnCenterPrice}>
+              <Text style ={styles.text}>
+              3564.546
+              </Text>
             </View>
 
             <View style={styles.columnRight}>
@@ -77,12 +84,17 @@ const styles = StyleSheet.create({
 
   },
   columnLeft: {
-    flex: 3,
+    flex: 2,
     alignItems: 'flex-start',
     justifyContent: 'center'
   },
   columnCenter: {
-    flex:3,
+    flex:2,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  columnCenterPrice: {
+    flex:5,
     alignItems: 'center',
     justifyContent: 'center'
   },

@@ -7,8 +7,8 @@ export default class UserPortfolio extends React.Component {
       constructor(props) {
         super(props);
         this.state = {
-          total_btc: 0,
-          total_usd: 0};
+          isLoaded: false
+        };
       }
 
       returnCoinIndex(coinlist, userCoinlist, index, newList){
@@ -38,8 +38,14 @@ export default class UserPortfolio extends React.Component {
               }
 
               newList[index] = coin
-              if ((index + 1) == userCoinlist.length){
+              console.log(newList)
+              if (newList.length == userCoinlist.length){
                 console.log(newList)
+                console.log(this.state)
+                console.log(index)
+                if (index+ 1 == newList.length)
+                  {console.log('here')}
+                  this.updatePortfolio(newList)
               }
             }
           }
@@ -56,8 +62,17 @@ export default class UserPortfolio extends React.Component {
             }
           }
 
-      componentDidMount(){
-        console.log('mounted')
+      updatePortfolio(list){
+        console.log(list)
+        console.log(this.props.persistedState.rehydrated)
+        console.log(this.state.isLoaded)
+        if (this.props.persistedState.rehydrated && !this.state.isLoaded){
+          //console.log(newList)
+          this.props.callbackParent(list);
+          this.setState({
+            isLoaded: true
+          })
+        }
       }
 
       render(){
@@ -68,7 +83,7 @@ export default class UserPortfolio extends React.Component {
         var userList = this.props.userInfo.userCoinList;
         var newList = []
         if (rehydrated && userList.length > 0){
-          var newList = []
+          //var newList = []
           userList.map((value, index)=>{
             this.isLoaded(coinInfo, userList, index, newList);
             }
@@ -81,7 +96,9 @@ export default class UserPortfolio extends React.Component {
         var sumChangeUSD = newList.reduce((s, a) => s + a.change_usd, 0);
         var totalChange = (sumChangeUSD/sumValueUSD)* 100;
 
-        console.log(totalChange)
+        console.log(newList)
+
+        //this.updatePortfolio(newList)
         //this.setTotal(sumValueBTC, sumValueUSD)
         //console.log(sumValueBTC)
 
@@ -89,11 +106,10 @@ export default class UserPortfolio extends React.Component {
 
 
         <View style={styles.container}>
-        {/*
-      <TouchableHighlight onPress={() => console.log('pressed')}>
+
+      <TouchableHighlight onPress={() => console.log(this.state)}>
         <Text style={styles.text}>Print Object</Text>
       </TouchableHighlight>
-*/}
           <Text style={styles.textPrice}>${sumValueUSD.toFixed(2)}</Text>
           <Text style={styles.textPercentage}>{totalChange.toFixed(2)}%</Text>
           <Text style={styles.textChange}>({sumChangeUSD.toFixed(2)})</Text>

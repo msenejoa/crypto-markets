@@ -111,7 +111,7 @@ const AppIndex = (props) => {
       userInfo = {props.userInfo}
       coinInfo = {props.coins}
       persistedState = {props.persistedState}
-      callbackParent = {(list) => {this.props.updateUserList(list); console.log(list)}}
+      callbackParent = {(list) => {props.updateUserList(list)}}
     />
 }
 
