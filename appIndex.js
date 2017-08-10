@@ -171,13 +171,15 @@ const AppIndex = (props) => {
 : null}
 {
         (coins.length && props.userInfo.view == 'home') ? (
-          coins.map((coin, i) => {
+          props.userInfo.userCoinList.map((coin, i) => {
             return <View key={i} >
               <CoinInformation
                 callbackParent={(coin) => {props.getCoinInfo(coin, props.coinData.time); props.getCoinView();}}
                 symbol = {coin.symbol}
                 name = {coin.name}
-                difference ={coin.percent_change_24h}
+                difference ={coin.change_percent}
+                holding = {coin.holding}
+                totalUSD = {coin.price_usd}
               />
 
 

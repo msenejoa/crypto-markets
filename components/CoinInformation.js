@@ -6,6 +6,7 @@ import SmallGraph from './SmallGraph';
 export default class CoinInformation extends React.Component {
       render(){
       var change =this.props.difference;
+      change = change * 100;
       var change = change > 0 ? '#03C9A9' : '#D64541';
       colorChange = function(change) {
         return {
@@ -26,19 +27,19 @@ export default class CoinInformation extends React.Component {
             </View>
               <View style={styles.columnCenter}>
                 <Text style ={styles.text}>
-                  6.5
+                {this.props.holding}
                 </Text>
               </View>
 
             <View style={styles.columnCenterPrice}>
               <Text style ={styles.text}>
-              3564.546
+                {this.props.totalUSD}
               </Text>
             </View>
 
             <View style={styles.columnRight}>
               <View style={[styles.changeBox, colorChange(change)]}>
-                <Text style={styles.textChange}>{this.props.difference}%</Text>
+                <Text style={styles.textChange}>{(this.props.difference*100).toFixed(2)}%</Text>
               </View>
             </View>
           </View>
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   columnRight: {
-    flex: 3,
+    flex: 2,
     alignItems: 'flex-end',
     justifyContent: 'center'
   },
