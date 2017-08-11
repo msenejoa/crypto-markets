@@ -61,7 +61,7 @@ class Header extends Component {
             <Text style={styles.textHeader}>{this.props.symbol}</Text>
           }
           {(this.props.userInfo.view == 'search') &&
-            <Text style={styles.textHeader}>search coin</Text>
+            <Text style={styles.textHeader}>search</Text>
           }
           {(this.props.userInfo.view == 'home') &&
             <Text style={styles.textHeader}>portfolio</Text>

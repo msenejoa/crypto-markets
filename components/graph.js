@@ -12,6 +12,8 @@ import SmallGraph from './SmallGraph';
 import Button from 'react-native-button';
 
 class StockLineChartBasic extends Component {
+
+
   static navigationOptions = ({ navigation }) => ({
     title: ``,
   });

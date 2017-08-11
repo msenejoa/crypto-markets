@@ -15,6 +15,8 @@ import SearchView from './components/SearchView';
 
 import UserPortfolio from './components/UserPortfolio';
 
+import UserHolding from './components/UserHolding'
+
 
 import { connect } from 'react-redux';
 import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView, fetchMarketCapFromAPI, getSearchView, addCoinToUserList, removeCoinfromUserList, updateUserCoinList } from './actions';
@@ -148,7 +150,7 @@ const AppIndex = (props) => {
       />
 
 }
-
+<UserHolding />
 
 
 {/*
