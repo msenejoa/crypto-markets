@@ -149,9 +149,9 @@ const AppIndex = (props) => {
         callbackParent = {() => {props.getCoinList(props.userInfo.userCoinList)}}
       />
 
-}
+}{props.userInfo.view == 'coin' &&
 <UserHolding />
-
+}
 
 {/*
       <TouchableHighlight style={button} onPress={() => console.log(props)}>

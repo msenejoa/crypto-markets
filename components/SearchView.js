@@ -45,14 +45,11 @@ var c = a.concat(b.filter(function (item) {
               }/>
         </View>
 
-        <View style={styles.containerBottom}>
-          <TouchableHighlight
-            onPress={()=> console.log('press')}>
-            <Text style = {styles.textBottom}>
-              sync coinss
-            </Text>
-          </TouchableHighlight>
-        </View>
+      <TouchableHighlight style={{height: 50, backgroundColor: '#336E7B'}} onPress={() => this.props.callbackGetCoins()}>
+        <Text style={styles.textBottom}>Get List</Text>
+      </TouchableHighlight>
+
+
       </View>
     )
   }
@@ -72,7 +69,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: .75
   },
   container: {
-    height: 450
+    height: 500
     //flex: 1
   },
   containerBottom:{
