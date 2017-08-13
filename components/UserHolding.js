@@ -1,16 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, Switch, Modal } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, Switch, Modal, TextInput } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 export default class CoinInformationHeader extends React.Component {
 
-      state = {
-        modalVisible: false,
-        //price: 0
-      }
-
+      constructor(props) {
+        super(props);
+        this.state = {
+          text: '',
+          modalVisible: false
+        };
+  }
 
       setModalVisible(visible) {
         this.setState({modalVisible: visible});
@@ -50,8 +52,18 @@ export default class CoinInformationHeader extends React.Component {
               </View>
 
               <View style={styles.modalMainContainer}>
-              <Text style={styles.text}>sometext</Text>
+
+                <Text style={styles.text}>Total holdings</Text>
+                <TextInput
+                  style={{height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 7, color: 'white'}}
+                  onChangeText={(text) => {this.setState({text})}}/>
+                <Text style={styles.text}>sometext</Text>
               </View>
+
+
+              <TouchableHighlight style={styles.button} onPress={() => console.log('some press')}>
+                <Text style={{ textAlign: 'center'}}>add to portfolio</Text>
+            </TouchableHighlight>
 
 
           </View>
@@ -80,8 +92,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 0,
     paddingBottom: 10,
-    paddingLeft: 60,
-    paddingRight: 60,
+    paddingLeft: 10,
+    paddingRight: 10,
     //backgroundColor: '#000000',
 
   },
@@ -91,8 +103,8 @@ const styles = StyleSheet.create({
     //justifyContent: 'flex-end',
     //paddingTop: 100,
     //paddingBottom: 100,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 40,
+    paddingRight: 40,
     backgroundColor: '#1c1c1c',
     borderRadius:7
   },
@@ -124,7 +136,7 @@ const styles = StyleSheet.create({
   },
   modalMainContainer:{
     //flex: 3,
-    height: 100,
+    height: 200,
     justifyContent: 'center',
     backgroundColor: '#1c1c1c',
     borderRadius:7,
@@ -143,7 +155,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'grey',
     fontFamily: 'HelveticaNeue-Thin'
-
+  },
+  button: {
+    backgroundColor: '#336E7B',
+    justifyContent: 'center',
+    height: 50,
+    borderWidth: 4,
+    borderRadius: 7
   }
 });
 
