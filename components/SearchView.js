@@ -45,7 +45,7 @@ var c = a.concat(b.filter(function (item) {
               }/>
         </View>
 
-      <TouchableHighlight style={{height: 50, backgroundColor: '#336E7B'}} onPress={() => this.props.callbackGetCoins()}>
+      <TouchableHighlight style={{height: 50, backgroundColor: '#336E7B', borderRadius:7}} onPress={() => this.props.callbackGetCoins()}>
         <Text style={styles.textBottom}>Get List</Text>
       </TouchableHighlight>
 

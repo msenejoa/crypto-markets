@@ -37,11 +37,16 @@ export default class CoinInformationHeader extends React.Component {
 
 
               <View style={styles.modalClose}>
+                <View style ={styles.title}>
+                  <Text style={styles.text}>Holdings</Text>
+                </View>
+                <View style = {styles.modalIcon}>
                 <TouchableHighlight onPress={() => {
                   this.setModalVisible(!this.state.modalVisible)
                   }}>
-                    <Ionicons name="ios-add-circle-outline" size={32} color='white'/>
+                    <Ionicons name="ios-close-circle" size={32} color='grey'/>
                 </TouchableHighlight>
+                </View>
               </View>
 
               <View style={styles.modalMainContainer}>
@@ -75,8 +80,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: 0,
     paddingBottom: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
+    paddingLeft: 60,
+    paddingRight: 60,
     //backgroundColor: '#000000',
 
   },
@@ -89,7 +94,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     backgroundColor: '#1c1c1c',
-
+    borderRadius:7
   },
   textHeader: {
     textAlign: 'center',
@@ -99,21 +104,31 @@ const styles = StyleSheet.create({
     fontFamily: 'HelveticaNeue-Thin'
   },
   modalIcon: {
-    justifyContent: 'flex-end'
+    alignItems: 'flex-end',
+    justifyContent: 'center',
+    paddingRight: 5
   },
   modalClose: {
-    //flex: 1,
-    //flexDirection: 'row',
+    //flex: 2,
+    flexDirection: 'row',
     height: 50,
-    backgroundColor: 'powderblue',
-    //justifyContent: 'flex-end'
-    alignItems: 'flex-end'
+    backgroundColor: '#1c1c1c',
+    borderRadius:7,
+    justifyContent: 'space-between',
+    //alignItems: 'flex-end',
+    borderWidth:4
+  },
+  title: {
+    alignItems: 'flex-start',
+    justifyContent: 'center'
   },
   modalMainContainer:{
     //flex: 3,
-    height: 70,
+    height: 100,
     justifyContent: 'center',
-    backgroundColor: 'powderblue'
+    backgroundColor: '#1c1c1c',
+    borderRadius:7,
+    borderWidth: 4,
   },
   textPrice: {
     textAlign: 'center',
