@@ -150,7 +150,11 @@ const AppIndex = (props) => {
       />
 
 }{props.userInfo.view == 'coin' &&
-<UserHolding />
+      <UserHolding
+        holding={props.userInfo.userCoinList}
+        coinInfo={props.coinInfo}
+        rehydrated={props.persistedState.rehydrated}
+      />
 }
 
 {/*

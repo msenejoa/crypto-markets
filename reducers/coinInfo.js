@@ -4,8 +4,8 @@ import {REHYDRATE} from 'redux-persist/constants'
 const initialState = {
   coinInfo: [],
   isLoaded: false,
-  name: "Bitcoin",
-  symbol: "BTC"
+  name: '',
+  symbol: ''
 }
 
 export default function coinsReducer (state = initialState, action) {
