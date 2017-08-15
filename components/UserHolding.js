@@ -9,9 +9,12 @@ export default class CoinInformationHeader extends React.Component {
       constructor(props) {
         super(props);
         this.state = {
-          text: 'placeholder',
+          text: '',
+          //textLoaded: false,
           modalVisible: false,
           holding: 0,
+          total_btc: 0,
+          total_usd: 0,
           name: '',
           isLoaded: false
         };
@@ -20,44 +23,73 @@ export default class CoinInformationHeader extends React.Component {
       setModalVisible(visible) {
         this.setState({modalVisible: visible});
         }
+      submitHoldings(){}
 
-      submitHoldings(){
+      componentWillUnmount(){
+        this.setState({
+          isLoaded: false
+        })
+      }
+
+      onLoad(){
         let list = this.props.holding;
         let coinName = this.props.coinInfo.name;
-        console.log(coinAmount)
-        this.setModalVisible(!this.state.modalVisible)
+        //console.log(coinAmount)
+        let coinAmount = 0;
+        let index = -1
+        //this.setModalVisible(!this.state.modalVisible)
+        if (list.length > 0){
+          index = list.findIndex(item => item.name === coinName);
+            if (index > -1){
+              let holdings = list[index].holding
+              let total_btc = list[index].price_btc * holdings;
+              let total_usd = list[index].price_usd * holdings;
 
-        let index = list.findIndex(item => item.name === coinName);
+              this.setState({
+                holding: holdings,
+                total_btc: total_btc,
+                total_usd: total_usd,
+                isLoaded: true,
+                text: holdings
+                });
 
-        let coinAmount = list[index].holding;
-        console.log(index)
-        console.log(coinAmount)
-        this.setState({
-          holding: coinAmount,
-          isLoaded: true
-        });
+              //coinAmount = list[index].holding;
+              //price_btc =
+              }
+          }
+      }
+      holdingText(){
+        if (this.state.isLoaded){
 
+        }
       }
 
       componentDidMount(){
-        if (this.props.rehydrated){}
+        if (this.props.rehydrated && this.state.isLoaded == false){
+          //this.onLoad();
+        }
         //this.setState({holding: this.props.holding, name: this.props.coinInfo.name})
         //this.submitHoldings()
       }
       render(){
-      if (this.props.rehydrated && !this.state.isLoaded){
-        //this.submitHoldings();
-      }
+      var usd_value = this.state.total_usd;
+      var btc_value = this.state.btc_value;
+      var textHolder = this.state.holding;
+
+      console.log(this.state.text)
+      if (this.props.rehydrated && this.state.isLoaded == false){
+          this.onLoad();
+        }
 
       return (
         <View style={styles.container}>
-          <Text style={styles.text}> User Holding </Text>
+          <Text style={styles.text}> User Holding {this.state.holding} {this.state.total_usd}</Text>
 
 
 
       <View>
         <Modal
-          animationType={"slide"}
+          animationType={"none"}
           transparent={true}
           visible={this.state.modalVisible}
           onRequestClose={() => {alert("Modal has been closed.")}}
@@ -83,12 +115,12 @@ export default class CoinInformationHeader extends React.Component {
 
               <View style={styles.modalMainContainer}>
 
-                <Text style={styles.text}>Total holdings</Text>
+                <Text style={styles.text}>total: {this.state.holding} ${usd_value} {"\n"}</Text>
                 <TextInput
                   style={{height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 7, color: 'white'}}
                   onChangeText={(text) => {this.setState({text})}}
-                  value={this.state.text}/>
-                <Text style={styles.text}>sometext</Text>
+                  value={textHolder}/>
+                <Text style={styles.text}>total value: ${usd_value} </Text>
               </View>
 
 
