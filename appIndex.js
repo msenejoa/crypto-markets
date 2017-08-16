@@ -154,6 +154,7 @@ const AppIndex = (props) => {
         holding={props.userInfo.userCoinList}
         coinInfo={props.coinInfo}
         rehydrated={props.persistedState.rehydrated}
+        updateUserList={(list) => {props.updateUserList(list)}}
       />
 }
 

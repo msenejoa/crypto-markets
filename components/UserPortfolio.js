@@ -15,7 +15,7 @@ export default class UserPortfolio extends React.Component {
             let name = userCoinlist[index].name;
             let symbol = userCoinlist[index].symbol;
             //let holding = userCoinlist[index].holding;
-            let holding = 1
+            let holding = userCoinlist[index].holding
             var i = coinlist.findIndex(item => item.name === userCoinlist[index].name);
             if (i >= 0){
               let price_btc = coinlist[i].price_btc
@@ -38,11 +38,9 @@ export default class UserPortfolio extends React.Component {
               }
 
               newList[index] = coin
-              console.log(newList)
+
               if (newList.length == userCoinlist.length){
-                console.log(newList)
-                console.log(this.state)
-                console.log(index)
+
                 if (index+ 1 == newList.length)
                   {console.log('here')}
                   this.updatePortfolio(newList)

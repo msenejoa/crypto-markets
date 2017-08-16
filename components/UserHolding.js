@@ -23,7 +23,34 @@ export default class CoinInformationHeader extends React.Component {
       setModalVisible(visible) {
         this.setState({modalVisible: visible});
         }
-      submitHoldings(){}
+
+      submitHoldings(){
+          let newHolding = Number(this.state.text);
+          if (!isNaN(newHolding)){
+            let list = this.props.holding;
+            let coinName = this.props.coinInfo.name;
+
+
+            let index = list.findIndex(item => item.name === coinName);
+
+            let total_btc = list[index].price_btc * newHolding;
+            let total_usd = list[index].price_usd * newHolding;
+
+            list[index].holding = newHolding;
+
+            console.log(list)
+
+            this.props.updateUserList(list)
+            this.setState({ modalVisible: false})
+        }
+
+
+
+      }
+
+      componentWillReceiveProps(){
+        this.onLoad();
+      }
 
       componentWillUnmount(){
         this.setState({
@@ -34,10 +61,8 @@ export default class CoinInformationHeader extends React.Component {
       onLoad(){
         let list = this.props.holding;
         let coinName = this.props.coinInfo.name;
-        //console.log(coinAmount)
         let coinAmount = 0;
         let index = -1
-        //this.setModalVisible(!this.state.modalVisible)
         if (list.length > 0){
           index = list.findIndex(item => item.name === coinName);
             if (index > -1){
@@ -83,7 +108,7 @@ export default class CoinInformationHeader extends React.Component {
 
       return (
         <View style={styles.container}>
-          <Text style={styles.text}> User Holding {this.state.holding} {this.state.total_usd}</Text>
+          <Text style={styles.text}> User Holding {textHolder} {this.state.total_usd}</Text>
 
 
 
