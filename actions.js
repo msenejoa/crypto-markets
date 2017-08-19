@@ -1,4 +1,4 @@
-import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, MARKETCAP, SEARCH, COINLIST, USERCOINLIST } from './constants';
+import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, MARKETCAP, SEARCH, COINLIST, USERCOINLIST, FETCHING_COIN_HISTORY_FAILURE } from './constants';
 import Converter from './components/graphs/dateConverter';
 import translate from './components/graphs/timelineConverter';
 
@@ -136,6 +136,7 @@ export function getCoinsFailure() {
 
 
 export function fetchCoinInfoFromAPI(name, time) {
+  console.log(name)
   return (dispatch) => {
     //dispatch(getCoins())
     fetch('https://api.coinmarketcap.com/v1/ticker/' + name.name)
@@ -169,7 +170,13 @@ export function fetchCoinHistoryFromAPI(name, time) {
       var timeseries = newData.data;
       dispatch(getCoinHistorySuccess(timeseries, time, change));
     })
-    .catch(err => dispatch(getCoinsFailure(err)))
+    .catch(err => dispatch(getCoinHistoryFailure(err)))
+  }
+}
+
+export function getCoinHistoryFailure(){
+  return {
+    type: FETCHING_COIN_HISTORY_FAILURE
   }
 }
 

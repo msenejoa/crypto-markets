@@ -1,8 +1,10 @@
-import { FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS } from '../constants'
+import { FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, FETCHING_COIN_HISTORY_FAILURE } from '../constants'
 const initialState = {
   Data: [],
   time: '1d',
-  change: ''
+  change: '',
+  loaded: false,
+  error: false
 }
 
 export default function coinsReducer (state = initialState, action) {
@@ -13,12 +15,19 @@ export default function coinsReducer (state = initialState, action) {
         ...state,
         Data: action.Data,
         time: action.time,
-        change: action.change
+        change: action.change,
+        error: false
       }
     case CHANGE_COIN_HISTORY_SUCCESS:
       return {
         ...state,
-        time: action.time
+        time: action.time,
+        error: false
+      }
+    case FETCHING_COIN_HISTORY_FAILURE:
+      return {
+        ...state,
+        error: true
       }
     default:
       return state
