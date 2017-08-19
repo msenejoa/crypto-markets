@@ -9,7 +9,7 @@ export default class CoinInformationHeader extends React.Component {
       constructor(props) {
         super(props);
         this.state = {
-          text: '',
+          text: 'new holding',
           //textLoaded: false,
           modalVisible: false,
           holding: 0,
@@ -124,34 +124,38 @@ export default class CoinInformationHeader extends React.Component {
           <View style={styles.containerModal}>
 
 
-
-              <View style={styles.modalClose}>
-                <View style ={styles.title}>
-                  <Text style={styles.textHeader}>Holdings</Text>
-                </View>
-                <View style = {styles.modalIcon}>
-                <TouchableHighlight onPress={() => {
-                  this.setModalVisible(!this.state.modalVisible)
-                  }}>
-                    <Ionicons name="ios-close-circle" size={32} color='grey'/>
-                </TouchableHighlight>
-                </View>
-              </View>
-
               <View style={styles.modalMainContainer}>
 
-                <Text style={styles.text}>total: {this.state.holding} ${usd_value} {"\n"}</Text>
-                <TextInput
-                  style={{height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 7, color: 'white'}}
-                  onChangeText={(text) => {this.setState({text})}}
-                  value={textHolder}/>
+                <View style = {styles.modalIcon}>
+                  <TouchableHighlight onPress={() => {
+                    this.setModalVisible(!this.state.modalVisible)
+                    }}>
+                    <Ionicons name="ios-close-circle" size={32} color='grey'/>
+                  </TouchableHighlight>
+                </View>
+
+                <Text style={styles.text}>total holdings</Text>
+
+                  <Text style={styles.textHolding}>{this.state.holding}</Text>
+                <Text style={styles.text}>${usd_value} {"\n"}</Text>
+
+                <View style={styles.input}>
+                  <TextInput
+                    style={{height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 7, color: 'black', backgroundColor: '#D3D3D3', textAlign: 'center'}}
+                    onChangeText={(text) => {this.setState({text})}}
+                    value={this.state.text}/>
+                </View>
+
                 <Text style={styles.text}>total value: ${usd_value} </Text>
+
+                  <TouchableHighlight style={styles.button} onPress={() => this.submitHoldings(this.state.text)}>
+                    <Text style={{ textAlign: 'center'}}>add to portfolio</Text>
+
+                  </TouchableHighlight>
               </View>
 
 
-              <TouchableHighlight style={styles.button} onPress={() => this.submitHoldings(this.state.text)}>
-                <Text style={{ textAlign: 'center'}}>add to portfolio</Text>
-            </TouchableHighlight>
+
 
 
           </View>
@@ -194,14 +198,14 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   containerModal: {
-    flex: 1,
-    flexDirection: 'column',
+    //flex: 1,
+    //flexDirection: 'column',
     //justifyContent: 'flex-end',
     //paddingTop: 100,
     //paddingBottom: 100,
     paddingLeft: 40,
     paddingRight: 40,
-    backgroundColor: '#1c1c1c',
+    //backgroundColor: '#1c1c1c',
     borderRadius:7
   },
   textHeader: {
@@ -213,8 +217,15 @@ const styles = StyleSheet.create({
   },
   modalIcon: {
     alignItems: 'flex-end',
-    justifyContent: 'center',
-    paddingRight: 5
+    //justifyContent: 'center',
+    paddingRight: 7,
+    paddingTop: 7,
+    backgroundColor: '#1c1c1c',
+    borderRadius: 7
+  },
+  input: {
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   modalClose: {
     //flex: 2,
@@ -238,7 +249,7 @@ const styles = StyleSheet.create({
     borderRadius:7,
     borderWidth: 4,
   },
-  textPrice: {
+  textHolding: {
     textAlign: 'center',
     fontSize: 35,
     color: '#ffffff',
@@ -246,7 +257,7 @@ const styles = StyleSheet.create({
     fontFamily: 'HelveticaNeue-Thin'
   },
   text: {
-    //textAlign: 'center',
+    textAlign: 'center',
     //paddingTop: 5,
     fontSize: 20,
     color: '#ffffff',
@@ -256,7 +267,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#03C9A9',
     justifyContent: 'center',
     height: 50,
-    borderWidth: 4,
+    //borderWidth: 4,
     borderRadius: 7
   }
 });
