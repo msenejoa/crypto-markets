@@ -20,6 +20,7 @@ class StockLineChartBasic extends Component {
   render() {
     var timeFrame = this.props.coinData.time;
     var gains = this.props.coinData.change;
+    var error = this.props.coinData.error;
 
     var change = gains > 0 ? '#03C9A9' : '#D64541';
 
@@ -106,7 +107,8 @@ class StockLineChartBasic extends Component {
           gains = {this.gains}
           />
 
-        { <StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' />}
+        { !error ? <StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' /> :
+        <View style = {styles.errorBox}><Text style ={styles.errorText}>historical information not available</Text></View>}
 
 <ScrollView>
 
@@ -205,6 +207,14 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontFamily: 'HelveticaNeue-Thin',
     //flex: 1,
+  },
+  errorBox: {
+    height: 180,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    color: 'grey'
   }
 });
 

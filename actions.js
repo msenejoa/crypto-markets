@@ -17,7 +17,7 @@ export function fetchInitialData(name, time, list) {
 export function fetchCoinsFromAPI() {
   return (dispatch) => {
     var newList = []
-    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=50')
+    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=500')
     .then(data => data.json())
     .then(data => data.map((i, f) => newList.push({name: i.name, symbol: i.symbol, key: f})))
     .then(() => dispatch(fetchCoinList(newList)))
@@ -54,7 +54,10 @@ export function fetchCoinListFromAPI(list=[]) {
   return (dispatch) => {
     var newMap = []
     list.map((i, f) => {
-      fetch('https://api.coinmarketcap.com/v1/ticker/' + i.name)
+      let name = i.name;
+      name = name.replace(/\s+/g, '-').toLowerCase();
+
+      fetch('https://api.coinmarketcap.com/v1/ticker/' + name)
       .then(data=> data.json())
       .then(data=>newMap.push(data[0]))
       .then( () => (newMap.length == list.length)? dispatch(getCoinsSuccess(newMap)):null )
@@ -139,7 +142,9 @@ export function fetchCoinInfoFromAPI(name, time) {
   console.log(name)
   return (dispatch) => {
     //dispatch(getCoins())
-    fetch('https://api.coinmarketcap.com/v1/ticker/' + name.name)
+    let coinName = name.name
+    let coinLowerCase = coinName.replace(/\s+/g, '-').toLowerCase();
+    fetch('https://api.coinmarketcap.com/v1/ticker/' + coinLowerCase)
     .then(data => data.json())
     .then(json => {
       dispatch(getCoinInfoSuccess(json, name.name, name.symbol))
@@ -162,6 +167,7 @@ export function getCoinInfoSuccess(data, name, symbol) {
 export function fetchCoinHistoryFromAPI(name, time) {
   return (dispatch) => {
     var timeline = translate(time);
+    if (name === 'MIOTA'){ name = 'IOT'}
     fetch('https://min-api.cryptocompare.com/data/' + timeline.time + '?fsym=' + name + '&tsym=USD&limit=' + timeline.limit + '&aggregate='+ timeline.agg + '&e=CCCAGG')
     .then(data => data.json())
     .then(json => {
