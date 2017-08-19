@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableHighlight, Switch, Modal, TextInput } 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
-export default class CoinInformationHeader extends React.Component {
+export default class UserHolding extends React.Component {
 
       constructor(props) {
         super(props);
@@ -16,7 +16,8 @@ export default class CoinInformationHeader extends React.Component {
           total_btc: 0,
           total_usd: 0,
           name: '',
-          isLoaded: false
+          isLoaded: false,
+          index: -1
         };
   }
 
@@ -30,14 +31,17 @@ export default class CoinInformationHeader extends React.Component {
             let list = this.props.holding;
             let coinName = this.props.coinInfo.name;
 
+            let coinPriceBTC = this.props.coinInfo.coinInfo[0].price_btc;
+            let coinPriceUSD = this.props.coinInfo.coinInfo[0].price_usd;
 
             let index = list.findIndex(item => item.name === coinName);
 
-            let total_btc = list[index].price_btc * newHolding;
-            let total_usd = list[index].price_usd * newHolding;
+            let total_btc = coinPriceBTC * newHolding;
+            let total_usd = coinPriceUSD * newHolding;
 
             list[index].holding = newHolding;
-
+            list[index].price_usd = total_usd;
+            list[index].price_btc = total_btc;
             console.log(list)
 
             this.props.updateUserList(list)
@@ -53,29 +57,38 @@ export default class CoinInformationHeader extends React.Component {
       }
 
       componentWillUnmount(){
+        console.log('unmounted')
         this.setState({
+          holding: 0,
+          total_btc: 0,
+          total_usd: 0,
+          name: '',
           isLoaded: false
-        })
+        });
       }
 
       onLoad(){
         let list = this.props.holding;
         let coinName = this.props.coinInfo.name;
         let coinAmount = 0;
-        let index = -1
+        let index = -1;
+
         if (list.length > 0){
           index = list.findIndex(item => item.name === coinName);
             if (index > -1){
               let holdings = list[index].holding
-              let total_btc = list[index].price_btc * holdings;
-              let total_usd = list[index].price_usd * holdings;
+              let total_btc = list[index].price_btc;
+              let total_usd = list[index].price_usd;
+              let change = this.props.coinInfo.coinInfo[0].percent_change_24h/100;
 
               this.setState({
                 holding: holdings,
                 total_btc: total_btc,
                 total_usd: total_usd,
                 isLoaded: true,
-                text: holdings
+                text: holdings,
+                change: change,
+                index: index
                 });
 
               //coinAmount = list[index].holding;
@@ -88,28 +101,52 @@ export default class CoinInformationHeader extends React.Component {
 
         }
       }
+      checkList (){
+        let list = this.props.holding;
+        let coinName = this.props.coinInfo.name;
+        if (list.filter(item=> item.name == coinName).length != 0 ){
+          return true}else{return false}
+  }
 
-      componentDidMount(){
-        if (this.props.rehydrated && this.state.isLoaded == false){
-          //this.onLoad();
-        }
-        //this.setState({holding: this.props.holding, name: this.props.coinInfo.name})
-        //this.submitHoldings()
-      }
+
       render(){
       var usd_value = this.state.total_usd;
       var btc_value = this.state.btc_value;
+      var change = this.state.change * usd_value;
       var textHolder = this.state.holding;
+      var inList = this.checkList();
+      var color =  change > 0 ? '#03C9A9' : '#D64541';
+      colorChange = function() {
+        return {
+            color: color
+          }
+      }
 
-      console.log(this.state.text)
-      if (this.props.rehydrated && this.state.isLoaded == false){
-          this.onLoad();
-        }
 
       return (
-        <View style={styles.container}>
-          <Text style={styles.text}> User Holding {textHolder} {this.state.total_usd}</Text>
 
+        <View style={styles.container}>
+        { inList && <View>
+          <View style={styles.display}>
+            <Text style={styles.textHeader}>holdings </Text>
+            <TouchableHighlight onPress={() => {
+              this.setModalVisible(true)
+              }}>
+              <Ionicons name="ios-add-circle" size={25} color='grey'/>
+            </TouchableHighlight>
+
+          </View>
+
+          <View style={styles.bottomBorder}/>
+
+          <View style ={styles.display}>
+            <Text style={styles.text}>{textHolder}</Text>
+            <Text style={styles.text}>${usd_value.toFixed(2)}</Text>
+            <Text style={[styles.text, colorChange()]}>({change.toFixed(2)})</Text>
+
+          </View>
+          </View>
+          }
 
 
       <View>
@@ -162,12 +199,6 @@ export default class CoinInformationHeader extends React.Component {
          </View>
         </Modal>
 
-        <TouchableHighlight onPress={() => {
-          this.setModalVisible(true)
-        }}>
-
-            <Ionicons name="ios-arrow-dropup-circle" size={25} color='grey'/>
-        </TouchableHighlight>
 
       </View>
 
@@ -181,14 +212,26 @@ export default class CoinInformationHeader extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    //flexDirection: 'row',
+    //justifyContent: 'space-between',
+    paddingTop: 10,
+    paddingBottom: 0,
+    paddingLeft: 10,
+    paddingRight: 12,
+    //backgroundColor: '#000000',
+  },
+  display:{
+    //flex:1,
+    //height: 35,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingTop: 0,
-    paddingBottom: 10,
-    paddingLeft: 10,
-    paddingRight: 10,
-    //backgroundColor: '#000000',
-
+    alignItems: 'flex-end'
+  },
+  bottomBorder: {
+    borderBottomColor: 'grey',
+    borderBottomWidth: .75,
+    paddingTop: 7,
+    paddingBottom: 7
   },
   textInput:{
     height: 40,
@@ -209,9 +252,9 @@ const styles = StyleSheet.create({
     borderRadius:7
   },
   textHeader: {
-    textAlign: 'center',
-    fontSize: 28,
-    color: '#ffffff',
+    textAlign: 'left',
+    fontSize: 22,
+    color: 'white',
     //paddingTop: 15,
     fontFamily: 'HelveticaNeue-Thin'
   },

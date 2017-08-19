@@ -108,13 +108,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     borderBottomColor: 'grey',
-    paddingBottom: 12,
-    paddingTop: 12,
+    paddingBottom: 8,
+    paddingTop: 8,
     borderBottomWidth: .75
   },
   textHeader: {
     textAlign: 'left',
-    fontSize: 28,
+    fontSize: 22,
     color: 'white',
     paddingTop: 15,
     fontFamily: 'HelveticaNeue-Thin'

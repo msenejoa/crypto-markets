@@ -26,7 +26,6 @@ export function fetchCoinsFromAPI() {
 }
 
 export function updateUserCoinList(list) {
-  console.log(list)
   return {
     type: USERCOINLIST,
     data: list

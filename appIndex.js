@@ -179,19 +179,16 @@ const AppIndex = (props) => {
 {
         (coins.length && props.userInfo.view == 'home') ? (
           props.userInfo.userCoinList.map((coin, i) => {
-            return <View key={i} >
-              <CoinInformation
-                callbackParent={(coin) => {props.getCoinInfo(coin, props.coinData.time); props.getCoinView();}}
-                symbol = {coin.symbol}
-                name = {coin.name}
-                difference ={coin.change_percent}
-                holding = {coin.holding}
-                totalUSD = {coin.price_usd}
-              />
-
-
-
-            </View>
+            if (coin.name.length > 0){
+              return <View key={i} >
+                <CoinInformation
+                  callbackParent={(coin) => {props.getCoinInfo(coin, props.coinData.time); props.getCoinView();}}
+                  symbol = {coin.symbol}
+                  name = {coin.name}
+                  difference ={coin.change_percent}
+                  holding = {coin.holding}
+                  totalUSD = {coin.price_usd}/>
+              </View>}
           })
         ) : null
       }

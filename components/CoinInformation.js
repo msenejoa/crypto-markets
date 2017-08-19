@@ -17,13 +17,13 @@ export default class CoinInformation extends React.Component {
       return (
 
         <View style={styles.container}>
-
+          <TouchableHighlight onPress={() => this.props.callbackParent(this.props)}>
+          <View style={{flexDirection: 'row'}}>
             <View style ={styles.columnLeft}>
-              <TouchableHighlight onPress={() => this.props.callbackParent(this.props)}>
+
                 <Text style={styles.text}>
                   {this.props.symbol}
                 </Text>
-              </TouchableHighlight>
             </View>
               <View style={styles.columnCenter}>
                 <Text style ={styles.text}>
@@ -33,7 +33,7 @@ export default class CoinInformation extends React.Component {
 
             <View style={styles.columnCenterPrice}>
               <Text style ={styles.text}>
-                {this.props.totalUSD}
+                ${this.props.totalUSD.toFixed(2)}
               </Text>
             </View>
 
@@ -42,7 +42,10 @@ export default class CoinInformation extends React.Component {
                 <Text style={styles.textChange}>{(this.props.difference*100).toFixed(2)}%</Text>
               </View>
             </View>
-          </View>
+            </View>
+          </TouchableHighlight>
+
+        </View>
 
 
 
@@ -53,11 +56,11 @@ export default class CoinInformation extends React.Component {
 const styles = StyleSheet.create({
   container: {
     //flex: 1,
-    flexDirection: 'row',
+    //flexDirection: 'row',
     borderBottomColor: 'grey',
     borderBottomWidth: .75,
-    paddingTop:20,
-    paddingBottom: 20,
+    paddingTop:15,
+    paddingBottom: 15,
     paddingLeft: 10,
     paddingRight: 10,
     //height: 50,

@@ -7,7 +7,8 @@ export default class UserPortfolio extends React.Component {
       constructor(props) {
         super(props);
         this.state = {
-          isLoaded: false
+          isLoaded: false,
+          userList: []
         };
       }
 
@@ -73,13 +74,11 @@ export default class UserPortfolio extends React.Component {
         }
       }
 
-      render(){
-
-
-        var coinInfo = this.props.coinInfo.coins
-        var rehydrated =this.props.persistedState.rehydrated
-        var userList = this.props.userInfo.userCoinList;
-        var newList = []
+      componentWillReceiveProps(){
+        let coinInfo = this.props.coinInfo.coins
+        let rehydrated =this.props.persistedState.rehydrated
+        let userList = this.props.userInfo.userCoinList;
+        let newList = []
         if (rehydrated && userList.length > 0){
           //var newList = []
           userList.map((value, index)=>{
@@ -87,18 +86,27 @@ export default class UserPortfolio extends React.Component {
             }
           );
         }
+        this.setState({
+          userList: newList})
+      }
+
+      render(){
+
+        var newList = this.state.userList;
+        console.log(this.state)
         //this.setTotal()
         var sumValueBTC = newList.reduce((s, a) => s + a.price_btc, 0);
         var sumValueUSD = newList.reduce((s, a) => s + a.price_usd, 0);
         var sumChangeBTC = newList.reduce((s, a) => s + a.change_btc, 0);
         var sumChangeUSD = newList.reduce((s, a) => s + a.change_usd, 0);
         var totalChange = (sumChangeUSD/sumValueUSD)* 100;
+        var color =  totalChange > 0 ? '#03C9A9' : '#D64541';
+        var colorChange = function() {
+            return {
+              color: color
+              };
+            };
 
-        console.log(newList)
-
-        //this.updatePortfolio(newList)
-        //this.setTotal(sumValueBTC, sumValueUSD)
-        //console.log(sumValueBTC)
 
       return (
 
@@ -110,7 +118,7 @@ export default class UserPortfolio extends React.Component {
       </TouchableHighlight>
           <Text style={styles.textPrice}>${sumValueUSD.toFixed(2)}</Text>
           <Text style={styles.textPercentage}>{totalChange.toFixed(2)}%</Text>
-          <Text style={styles.textChange}>({sumChangeUSD.toFixed(2)})</Text>
+          <Text style={[styles.textChange, colorChange()]}>({sumChangeUSD.toFixed(2)})</Text>
         </View>
 
 
@@ -144,7 +152,7 @@ const styles = StyleSheet.create({
     //flex: 1,
     color: 'white',
     fontFamily: 'HelveticaNeue-Thin',
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'center'
     },
   textPercentage: {
