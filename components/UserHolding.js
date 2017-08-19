@@ -119,8 +119,8 @@ export default class UserHolding extends React.Component {
       colorChange = function() {
         return {
             color: color
-          }
-      }
+          };
+      };
 
 
       return (
@@ -180,7 +180,7 @@ export default class UserHolding extends React.Component {
                   <TextInput
                     style={{height: 40, borderColor: 'gray', borderWidth: 1, borderRadius: 7, color: 'black', backgroundColor: '#D3D3D3', textAlign: 'center'}}
                     onChangeText={(text) => {this.setState({text})}}
-                    value={this.state.text}/>
+                    value={this.state.text.toString()}/>
                 </View>
 
                 <Text style={styles.text}>total value: ${usd_value} </Text>

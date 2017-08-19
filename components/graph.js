@@ -108,7 +108,7 @@ class StockLineChartBasic extends Component {
           />
 
         { !error ? <StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' /> :
-        <View style = {styles.errorBox}><Text style ={styles.errorText}>historical information not available</Text></View>}
+        <View style = {styles.errorBox}><Text style ={styles.errorText}>loading</Text></View>}
 
 <ScrollView>
 

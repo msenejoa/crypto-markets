@@ -9,6 +9,12 @@ class SearchView extends Component {
     this.state = {text: ''};
   }
 
+  textChange(text){
+    this.setState({
+      text: text
+    })
+  }
+
 /*
 var a = [1, 2, 3], b = [101, 2, 1, 10];
 var c = a.concat(b.filter(function (item) {
@@ -30,7 +36,7 @@ var c = a.concat(b.filter(function (item) {
     <View style ={styles.mainContainer}>
       <TextInput
         style={{height: 40, borderColor: 'gray', borderWidth: 1, color: 'white'}}
-        onChangeText={(text) => {this.setState({text})}}/>
+        onChangeText={(text) => {this.textChange(text)}}/>
           <View style={styles.container}>
             <FlatList
               data={coins}

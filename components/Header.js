@@ -49,9 +49,10 @@ class Header extends Component {
           <View style={styles.containerTopLeft}>
           {(this.props.userInfo.view != 'home') &&
                 <TouchableHighlight
-                  onPress = {()=> {this.props.callbackHomeView()}}
-                  >
-                  <Ionicons name="ios-arrow-back" size={32} color={colorGains}/>
+                  onPress = {()=> {this.props.callbackHomeView()}}>
+                  <View style={styles.containerIcon}
+                    <Ionicons name="ios-arrow-back" size={32} color={colorGains}/>
+                  </View>
                 </TouchableHighlight>
     }
           </View>
@@ -72,26 +73,29 @@ class Header extends Component {
 
           { (this.props.userInfo.view == 'coin' && !inList) &&
                 <TouchableHighlight
-                  onPress = {()=> {}}
-                  >
-                  <Ionicons name="ios-add-circle-outline" size={32} color={colorGains} onPress={()=> this.props.addCoin()}/>
+                  onPress={()=> this.props.addCoin()}>
+                  <View style={styles.containerIcon}>
+                    <Ionicons name="ios-add-circle-outline" size={32} color={colorGains} />
+                  </View>
                 </TouchableHighlight>
           }
 
           {   (this.props.userInfo.view == 'coin' && inList) &&
                 <TouchableHighlight
-                  onPress = {()=> {this.props.callbackRemoveCoin()}}
-                  >
-                  <Ionicons name="ios-checkmark-circle" size={32} color={colorGains}/>
+                  onPress = {()=> {this.props.callbackRemoveCoin()}}>
+                  <View style={styles.containerIcon}>
+                    <Ionicons name="ios-checkmark-circle" size={32} color={colorGains}/>
+                  </View>
                 </TouchableHighlight>
           }
 
               { (this.props.userInfo.view == 'home') &&
 
                 <TouchableHighlight
-                  onPress = {()=> {this.props.callbackSearchView()}}
-                  >
-                  <Ionicons name="ios-search-outline" size={32} color={colorGains}/>
+                  onPress = {()=> {this.props.callbackSearchView()}}>
+                  <View style={styles.containerIcon}>
+                    <Ionicons name="ios-search-outline" size={32} color={colorGains}/>
+                  </View>
                 </TouchableHighlight>
 }
           </View>
@@ -110,7 +114,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
   },
-  container: {
+  containerIcon: {
+    height: 35,
+    width: 35
 
   },
   containerTopLeft: {

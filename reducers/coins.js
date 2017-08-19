@@ -3,8 +3,8 @@ import {REHYDRATE} from 'redux-persist/constants'
 
 const initialState = {
   coins: [{
-    symbol: 'BTC',
-    name: 'bitcoin'
+    symbol: '',
+    name: ''
   }],
   marketCap: {},
   isFetching: false,
