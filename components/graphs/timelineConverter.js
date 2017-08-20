@@ -3,27 +3,27 @@ var translate = function (time){
   switch (time){
     case  '1y':
       return {
-        agg: 6,
-        limit: 60,
+        agg: 2,
+        limit: 182,
         time: 'histoday'
       }
       //month needs to be calculated
     case  '1m':
       return {
-        agg: 6,
-        limit: 60,
-        time: 'histoday'
+        agg: 4,
+        limit: 180,
+        time: 'histohour'
       }
     case  '1w':
       return {
-        agg: 2,
-        limit: 84,
+        agg: 1,
+        limit: 168,
         time: 'histohour'
       }
     case  '1d':
       return {
-        agg: 30,
-        limit: 48,
+        agg: 8,
+        limit: 180,
         time: 'histominute'
       }
     case  '1h':

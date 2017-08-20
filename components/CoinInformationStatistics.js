@@ -3,12 +3,51 @@ import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
 export default class CoinInformationStatistics extends React.Component {
 
+      constructor(props) {
+        super(props);
+        this.state = {
+          marketCap: 0,
+          total_supply: 0,
+          rank: 0,
+          percent_change_1h: 0,
+          percent_change_24h: 0,
+          percent_change_7d: 0
+        };
+      }
+
+      componentWillReceiveProps(){
+
+        let rehydrated = this.props.rehydrated;
+        //let loaded = this.coinInfo.isLoaded;
+        if (rehydrated){
+          let obj = this.props.coinInfo;
+            if (typeof obj != 'undefined'){
+          this.onLoad()
+          }
+        }
+      }
+      onLoad(){
+        let mkt_cap = this.props.coinInfo.market_cap_usd;
+        let total_supply = this.props.coinInfo.total_supply;
+        let rank = this.props.coinInfo.rank;
+        let percent_change_1h = this.props.coinInfo.percent_change_1h;
+        let percent_change_7d = this.props.coinInfo.percent_change_7d;
+        let percent_change_24h = this.props.coinInfo.percent_change_24h;
+        this.setState({
+          marketCap: mkt_cap,
+          total_supply: total_supply,
+          percent_change_24h: percent_change_24h,
+          percent_change_7d: percent_change_7d,
+          percent_change_1h: percent_change_1h
+        });
+      }
+
       render(){
-        var mkt_cap = this.props.coinInfo.market_cap_usd;
+        var mkt_cap = this.state.marketCap;
         mkt_cap = mkt_cap/1000000;
         mkt_cap = mkt_cap.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-        var total_supply = this.props.coinInfo.total_supply;
+        var total_supply = this.state.total_supply;
         total_supply = total_supply/1000000;
         total_supply = total_supply.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
@@ -39,13 +78,13 @@ export default class CoinInformationStatistics extends React.Component {
             <View style={styles.statsBodyRowLeft}>
               <View style ={styles.statsBodyContent}>
                 <Text style={styles.text}>rank</Text>
-                <Text style={styles.values}>{this.props.coinInfo.rank}</Text>
+                <Text style={styles.values}>{this.state.rank}</Text>
               </View>
             </View>
             <View style={styles.statsBodyRow}>
               <View style ={styles.statsBodyContent}>
                 <Text style={styles.text}>1h</Text>
-                <Text style={styles.values}>{this.props.coinInfo.percent_change_1h}%</Text>
+                <Text style={styles.values}>{this.state.percent_change_1h}%</Text>
               </View>
             </View>
           </View>
@@ -54,13 +93,13 @@ export default class CoinInformationStatistics extends React.Component {
             <View style={styles.statsBodyRowLeft}>
               <View style ={styles.statsBodyContent}>
                 <Text style={styles.text}>1d</Text>
-                <Text style={styles.values}>{this.props.coinInfo.percent_change_24h}%</Text>
+                <Text style={styles.values}>{this.state.percent_change_24h}%</Text>
               </View>
             </View>
             <View style={styles.statsBodyRow}>
               <View style ={styles.statsBodyContent}>
                 <Text style={styles.text}>1w</Text>
-                <Text style={styles.values}>{this.props.coinInfo.percent_change_7d}%</Text>
+                <Text style={styles.values}>{this.state.percent_change_7d}%</Text>
               </View>
             </View>
           </View>

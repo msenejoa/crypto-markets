@@ -17,7 +17,8 @@ export default class UserHolding extends React.Component {
           total_usd: 0,
           name: '',
           isLoaded: false,
-          index: -1
+          index: -1,
+          price_usd: 0
         };
   }
 
@@ -80,6 +81,7 @@ export default class UserHolding extends React.Component {
               let total_btc = list[index].price_btc;
               let total_usd = list[index].price_usd;
               let change = this.props.coinInfo.coinInfo[0].percent_change_24h/100;
+              let price_usd = this.props.coinInfo.coinInfo[0].price_usd;
 
               this.setState({
                 holding: holdings,
@@ -88,7 +90,8 @@ export default class UserHolding extends React.Component {
                 isLoaded: true,
                 text: holdings,
                 change: change,
-                index: index
+                index: index,
+                price_usd: price_usd
                 });
 
               //coinAmount = list[index].holding;
@@ -121,6 +124,7 @@ export default class UserHolding extends React.Component {
             color: color
           };
       };
+      var newValue = this.state.text * this.state.price_usd
 
 
       return (
@@ -183,7 +187,7 @@ export default class UserHolding extends React.Component {
                     value={this.state.text.toString()}/>
                 </View>
 
-                <Text style={styles.text}>total value: ${usd_value} </Text>
+                <Text style={styles.text}>{"\n"} value: ${newValue.toFixed(2)} {"\n"}</Text>
 
                   <TouchableHighlight style={styles.button} onPress={() => this.submitHoldings(this.state.text)}>
                     <Text style={{ textAlign: 'center'}}>add to portfolio</Text>
@@ -307,7 +311,7 @@ const styles = StyleSheet.create({
     fontFamily: 'HelveticaNeue-Thin'
   },
   button: {
-    backgroundColor: '#03C9A9',
+    backgroundColor: 'grey',
     justifyContent: 'center',
     height: 50,
     //borderWidth: 4,

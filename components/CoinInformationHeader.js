@@ -5,11 +5,48 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 export default class CoinInformationHeader extends React.Component {
-
-      state = {
-        switchValue: true,
-        price: 0
+      constructor(props) {
+        super(props);
+        this.state = {
+          switchValue: true,
+          price: 0,
+          price_btc: 0,
+          price_usd: 0,
+          rehydrated: false,
+          isLoaded: false,
+          hour: 0,
+          day: 0,
+          week: 0,
+        };
       }
+
+      componentWillReceiveProps(){
+        let obj = this.props.coinInfo.coinInfo[0];
+
+
+        let rehydrated = this.props.rehydrated;
+        if (rehydrated){
+          let obj = this.props.coinInfo.coinInfo[0];
+            if (typeof obj != 'undefined'){
+          this.onLoad()
+          } else {this.setState({ price: 0, price_btc: 0, price_usd: 0})}
+        }
+      }
+
+      componentWillUnmount(){
+        this.setState({
+          switchValue: true,
+          price: 0,
+          price_btc: 0,
+          price_usd: 0,
+          rehydrated: false,
+          isLoaded: false,
+          hour: 0,
+          day: 0,
+          week: 0,
+        })
+      }
+
 
       clickFunction() {
         this.setState({switchValue: !this.state.switchValue});
@@ -17,26 +54,41 @@ export default class CoinInformationHeader extends React.Component {
 
       changeFunction(value){
         if (this.props.coinData.time === '1h'){
-          return this.props.coinInfo.coinInfo[0].percent_change_1h;
+          return this.state.hour;
         }
         if (this.props.coinData.time === '1d'){
-          return this.props.coinInfo.coinInfo[0].percent_change_24h;
+          return this.state.day;
         }
         if (this.props.coinData.time === '1w'){
-          return this.props.coinInfo.coinInfo[0].percent_change_7d;
+          return this.state.week;
         }
         else {
           return value;
         }
       };
 
+      onLoad(){
+        //console.log(this.props.coinInfo.coinInfo[0])
+        let price_btc = this.props.coinInfo.coinInfo[0].price_btc;
+        let price_usd =this.props.coinInfo.coinInfo[0].price_usd;
+        let hour = this.props.coinInfo.coinInfo[0].percent_change_1h;
+        let day = this.props.coinInfo.coinInfo[0].percent_change_24h;
+        let week = this.props.coinInfo.coinInfo[0].percent_change_7d;
+        this.setState({
+          price_btc: price_btc,
+          price_usd: price_usd,
+          hour: hour,
+          day: day,
+          week: week,
+        });
+      }
+
       render(){
 //      price_btc = (this.props.coinInfo.coinInfo[0].price_btc || 0);
 
-
-      var price_btc = (this.props.coinInfo.coinInfo[0].price_btc === undefined) ? 0 : this.props.coinInfo.coinInfo[0].price_btc;
-      //var price_btc = this.props.coinInfo.coinInfo[0].price_btc;
-      var price_usd = (this.props.coinInfo.coinInfo[0].price_usd === undefined) ? 0 : this.props.coinInfo.coinInfo[0].price_usd;
+      var price_btc = this.state.price_btc;
+      //var price_btc = (this.props.coinInfo.coinInfo[0].price_btc.length > 0) ? this.props.coinInfo.coinInfo[0].price_btc: 0;
+      var price_usd = this.state.price_usd;
 
       //var price_usd = this.props.coinInfo.coinInfo[0].price_usd;
       change = this.props.coinData.change;
@@ -50,7 +102,7 @@ export default class CoinInformationHeader extends React.Component {
           <TouchableHighlight
             onPress = {() => this.clickFunction()}>
                   <Text style={styles.textPrice}>
-                        {!this.state.switchValue?(price_btc || null) + ' BTC':'$' + price_usd}
+                        {!this.state.switchValue? price_btc + ' BTC':'$' + price_usd}
                   </Text>
           </TouchableHighlight>
           <Text style={styles.text}> {this.changeFunction(change)} %</Text>

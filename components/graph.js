@@ -47,7 +47,7 @@ class StockLineChartBasic extends Component {
       }],
     ]
     let options = {
-      //width: 300,
+      //width: 500,
       height: 180,
       color: change,
       margin: {
@@ -102,12 +102,14 @@ class StockLineChartBasic extends Component {
 
 
         <CoininformationHeader
+          rehydrated = {this.props.rehydrated}
           coinData = {this.props.coinData}
           coinInfo = {this.props.coinInfo}
           gains = {this.gains}
           />
 
-        { !error ? <StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' /> :
+        { !error ?
+          <View style= {styles.graph}><StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' /></View> :
         <View style = {styles.errorBox}><Text style ={styles.errorText}>loading</Text></View>}
 
 <ScrollView>
@@ -215,6 +217,9 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: 'grey'
+  },
+  graph: {
+    //alignSelf: 'stretch'
   }
 });
 

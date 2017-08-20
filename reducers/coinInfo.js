@@ -2,7 +2,7 @@ import { FETCHING_COIN_INFO_SUCCESS } from '../constants'
 import {REHYDRATE} from 'redux-persist/constants'
 
 const initialState = {
-  coinInfo: [],
+  coinInfo: [{price_btc: 0, price_usd: 0}],
   isLoaded: false,
   name: '',
   symbol: ''

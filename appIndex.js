@@ -131,6 +131,7 @@ const AppIndex = (props) => {
         isFetching && <Text>Loading</Text>
       }
       {isLoaded && (props.userInfo.view == 'coin') ? <Graphs
+          rehydrated = {props.persistedState.rehydrated}
           coinData = {props.coinData}
           coinInfo = {props.coinInfo}
           callbackParent={(time) => props.getCoinHistory(props.coinInfo.symbol, time)}
