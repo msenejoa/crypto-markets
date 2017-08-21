@@ -1,4 +1,4 @@
-import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, MARKETCAP, SEARCH, COINLIST, USERCOINLIST, FETCHING_COIN_HISTORY_FAILURE } from './constants';
+import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, MARKETCAP, SEARCH, COINLIST, USERCOINLIST, FETCHING_COIN_HISTORY_FAILURE, FORCE_REHYDRATE } from './constants';
 import Converter from './components/graphs/dateConverter';
 import translate from './components/graphs/timelineConverter';
 
@@ -34,6 +34,7 @@ export function updateUserCoinList(list) {
 
 export function addCoinToUserList(list, coin) {
   return (dispatch) => {
+    dispatch(forceRehydrate())
     var newUserCoinList = []
     newUserCoinList = list
     newUserCoinList.push({name: coin.name, symbol: coin.symbol, holding: 0, price_btc: 0, price_usd: 0})
@@ -105,6 +106,11 @@ export function fetchCoinView() {
   }
 }
 
+export function forceRehydrate(){
+  return{
+    type: FORCE_REHYDRATE
+  }
+}
 
 export function getHomeView() {
   return {
@@ -141,6 +147,7 @@ export function getCoinsFailure() {
 export function fetchCoinInfoFromAPI(name, time) {
   console.log(name)
   return (dispatch) => {
+
     //dispatch(getCoins())
     let coinName = name.name
     let coinLowerCase = coinName.replace(/\s+/g, '-').toLowerCase();

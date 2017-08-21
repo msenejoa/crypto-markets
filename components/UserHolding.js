@@ -43,7 +43,7 @@ export default class UserHolding extends React.Component {
             list[index].holding = newHolding;
             list[index].price_usd = total_usd;
             list[index].price_btc = total_btc;
-            console.log(list)
+            //console.log(list)
 
             this.props.updateUserList(list)
             this.setState({ modalVisible: false})

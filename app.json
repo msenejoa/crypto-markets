@@ -1,5 +1,16 @@
+
 {
-  "expo": {
-    "sdkVersion": "18.0.0"
-  }
-}
+   "expo": {
+    "name": "cryptomarket",
+    "icon": "./path/to/your/app-icon.png",
+    "version": "1.0.0",
+    "slug": "cryptomarket",
+    "sdkVersion": "18.0.0",
+    "ios": {
+      "bundleIdentifier": "github.com/msenejoa"
+    },
+    "android": {
+      "package": "com.yourcompany.yourappname"
+    }
+   }
+ }

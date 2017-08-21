@@ -18,7 +18,7 @@ export default class App extends React.Component {
   componentWillMount() {
     //persistStore(store, {storage: AsyncStorage});
     //console.log(store)
-    console.log('--------------------------------------')
+    //console.log('--------------------------------------')
   }
 
   render() {

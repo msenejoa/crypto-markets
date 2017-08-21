@@ -12,7 +12,7 @@ export default function configureStore() {
   let store = compose(
     applyMiddleware(thunk, logger),
     autoRehydrate({log: true})
-    )(createStore)(app, undefined);
+    )(createStore)(app);
   persistStore(store, {storage: AsyncStorage, whitelist: ['userInfo']});
   return store
 }

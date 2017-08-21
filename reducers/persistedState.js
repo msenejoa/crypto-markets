@@ -1,4 +1,4 @@
-import { ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN} from '../constants'
+import { ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, FORCE_REHYDRATE} from '../constants'
 import {REHYDRATE} from 'redux-persist/constants'
 
 const initialState = {
@@ -17,6 +17,10 @@ export default function persistedState (state = initialState, action) {
           ...incoming,
           rehydrated: true
         }
+    case FORCE_REHYDRATE:
+      return {
+        rehydrated: true
+      }
     default:
       return state
   }

@@ -47,7 +47,7 @@ class StockLineChartBasic extends Component {
       }],
     ]
     let options = {
-      //width: 500,
+      width: 370,
       height: 180,
       color: change,
       margin: {

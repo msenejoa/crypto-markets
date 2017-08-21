@@ -19,7 +19,7 @@ import UserHolding from './components/UserHolding'
 
 
 import { connect } from 'react-redux';
-import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView, fetchMarketCapFromAPI, getSearchView, addCoinToUserList, removeCoinfromUserList, updateUserCoinList } from './actions';
+import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView, fetchMarketCapFromAPI, getSearchView, addCoinToUserList, removeCoinfromUserList, updateUserCoinList, forceRehydrate } from './actions';
 
 let styles
 
@@ -55,7 +55,8 @@ const AppIndex = (props) => {
     <Header
       symbol = {props.coinInfo.symbol}
       callbackHomeView = {() => {props.getHomeView(); props.getCoinList(props.userInfo.userCoinList);}}
-      callbackSearchView = {() => props.getSearchView()}
+      callbackSearchView = {() => {props.getSearchView(); props.forceRehydrate()}
+}
       callbackParent = {() => {props.onInitialization(props.coinInfo, props.coinData.time, props.userInfo.userCoinList)}}
       callbackRemoveCoin = {() => {props.removeCoinFromList(props.userInfo.userCoinList, props.coinInfo)}}
       userInfo= {props.userInfo}
@@ -140,7 +141,9 @@ const AppIndex = (props) => {
       {isLoaded && (props.userInfo.view == 'coin') &&
 
       <CoinInformationStatistics
-          coinInfo = {props.coinInfo.coinInfo[0]}/>
+          coinInfo = {props.coinInfo.coinInfo[0]}
+          loaded = {props.coinInfo.isLoaded}
+          rehydrated = {props.persistedState.rehydrated}/>
 
       }
       { (props.userInfo.view == 'home') &&
@@ -291,7 +294,9 @@ function mapDispatchToProps (dispatch) {
     getSearchView: () => dispatch(getSearchView()),
     addCoinToList: (list, coin) => dispatch(addCoinToUserList(list, coin)),
     removeCoinFromList: (list, coin) => dispatch(removeCoinfromUserList(list, coin)),
-    updateUserList: (list) => dispatch(updateUserCoinList(list))
+    updateUserList: (list) => dispatch(updateUserCoinList(list)),
+    forceRehydrate: () => dispatch(forceRehydrate())
+
   }
 }
 

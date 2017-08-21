@@ -16,12 +16,17 @@ export default class CoinInformationStatistics extends React.Component {
       }
 
       componentWillReceiveProps(){
+        //let obj = this.props.coinInfo;
 
         let rehydrated = this.props.rehydrated;
-        //let loaded = this.coinInfo.isLoaded;
+        //console.log('here now')
+        //console.log(rehydrated)
+        let loaded = this.props.loaded;
+        //console.log(loaded)
         if (rehydrated){
-          let obj = this.props.coinInfo;
-            if (typeof obj != 'undefined'){
+          //let obj = this.props.coinInfo;
+            if (rehydrated && loaded){
+              //console.log('here now now')
           this.onLoad()
           }
         }
@@ -55,7 +60,7 @@ export default class CoinInformationStatistics extends React.Component {
 
         <View style={styles.container}>
 
-          <Text style={styles.textHeader}>Stats</Text>
+          <Text style={styles.textHeader}>stats</Text>
           <View style={styles.bottomBorder}/>
 
           <View style={styles.statsBody}>
