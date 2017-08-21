@@ -1,10 +1,10 @@
 
 {
    "expo": {
-    "name": "cryptomarket",
+    "name": "tokendex",
     "icon": "./path/to/your/app-icon.png",
     "version": "1.0.0",
-    "slug": "cryptomarket",
+    "slug": "tokendex",
     "sdkVersion": "18.0.0",
     "ios": {
       "bundleIdentifier": "github.com/msenejoa"

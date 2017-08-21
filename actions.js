@@ -17,7 +17,7 @@ export function fetchInitialData(name, time, list) {
 export function fetchCoinsFromAPI() {
   return (dispatch) => {
     var newList = []
-    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=150')
+    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=250')
     .then(data => data.json())
     .then(data => data.map((i, f) => newList.push({name: i.name, symbol: i.symbol, key: f})))
     .then(() => dispatch(fetchCoinList(newList)))

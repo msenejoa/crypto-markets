@@ -55,8 +55,7 @@ const AppIndex = (props) => {
     <Header
       symbol = {props.coinInfo.symbol}
       callbackHomeView = {() => {props.getHomeView(); props.getCoinList(props.userInfo.userCoinList);}}
-      callbackSearchView = {() => {props.getSearchView(); props.forceRehydrate()}
-}
+      callbackSearchView = {() => {props.getSearchView(); props.forceRehydrate()}}
       callbackParent = {() => {props.onInitialization(props.coinInfo, props.coinData.time, props.userInfo.userCoinList)}}
       callbackRemoveCoin = {() => {props.removeCoinFromList(props.userInfo.userCoinList, props.coinInfo)}}
       userInfo= {props.userInfo}
@@ -163,6 +162,7 @@ const AppIndex = (props) => {
 }
 
 {/*
+
       <TouchableHighlight style={button} onPress={() => console.log(props)}>
         <Text style={buttonText}>Print Object</Text>
       </TouchableHighlight>
@@ -170,6 +170,7 @@ const AppIndex = (props) => {
       <TouchableHighlight style={button} onPress={() => props.getCoinHistory(props.coinInfo, props.coinData.time)}>
         <Text style={buttonText}>Print history</Text>
       </TouchableHighlight>
+
     */}
 
 {(coins.length && props.userInfo.view == 'home') ?
@@ -181,7 +182,7 @@ const AppIndex = (props) => {
 
 : null}
 {
-        (coins.length && props.userInfo.view == 'home') ? (
+        (props.userInfo.userCoinList.length > 0 && coins.length && props.userInfo.view == 'home') && (
           props.userInfo.userCoinList.map((coin, i) => {
             if (coin.name.length > 0){
               return <View key={i} >
@@ -194,7 +195,14 @@ const AppIndex = (props) => {
                   totalUSD = {coin.price_usd}/>
               </View>}
           })
-        ) : null
+        )
+      }
+
+      {
+      (props.userInfo.userCoinList.length == 0 && coins.length && props.userInfo.view == 'home') && (
+      <TouchableHighlight style={button} onPress={() => {props.getSearchView(); props.forceRehydrate(); props.getCoins()}}>
+        <Text style={buttonText}>you have no coins in your portfolio {"\n"} add some coins</Text>
+      </TouchableHighlight>)
       }
 </ScrollView>
 
@@ -243,12 +251,16 @@ styles = StyleSheet.create({
   },
   button: {
     height: 60,
+    //paddingTop: 7,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#336E7B'
+    backgroundColor: 'grey',
+    borderRadius: 7
   },
   buttonText: {
-    color: 'white'
+    color: 'black',
+    textAlign: 'center',
+
   },
   textHeader: {
     textAlign: 'left',

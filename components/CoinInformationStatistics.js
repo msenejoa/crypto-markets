@@ -39,6 +39,7 @@ export default class CoinInformationStatistics extends React.Component {
         let percent_change_7d = this.props.coinInfo.percent_change_7d;
         let percent_change_24h = this.props.coinInfo.percent_change_24h;
         this.setState({
+          rank: rank,
           marketCap: mkt_cap,
           total_supply: total_supply,
           percent_change_24h: percent_change_24h,

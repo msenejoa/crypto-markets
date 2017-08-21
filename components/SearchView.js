@@ -1,6 +1,7 @@
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableHighlight,TextInput, FlatList, ScrollView } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 class SearchView extends Component {
@@ -51,8 +52,8 @@ var c = a.concat(b.filter(function (item) {
               }/>
         </View>
 
-      <TouchableHighlight style={{height: 50, backgroundColor: '#336E7B'}} onPress={() => this.props.callbackGetCoins()}>
-        <Text style={styles.textBottom}>Get List</Text>
+      <TouchableHighlight style={styles.button} onPress={() => this.props.callbackGetCoins()}>
+        <Text style={styles.textBottom}>sync coins</Text>
       </TouchableHighlight>
 
 
@@ -70,12 +71,17 @@ const styles = StyleSheet.create({
     //paddingRight: 10,
     //flex:1
   },
+  button: {
+    height: 45,
+    backgroundColor: 'grey',
+    borderRadius: 7
+  },
   textField: {
     borderBottomColor: 'grey',
     borderBottomWidth: .75
   },
   container: {
-    height: 500
+    height: 520
     //flex: 1
   },
   containerBottom:{

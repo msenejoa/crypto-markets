@@ -93,7 +93,7 @@ class Header extends Component {
                 <TouchableHighlight
                   onPress = {()=> {this.props.callbackRemoveCoin()}}>
                   <View style={styles.containerIcon}>
-                    <Ionicons name="ios-checkmark-circle" size={32} color={colorGains}/>
+                    <Ionicons name="ios-add-circle-outline" size={32} color={colorGains}/>
                   </View>
                 </TouchableHighlight>
          */ }
@@ -106,7 +106,7 @@ class Header extends Component {
                     this.setModalVisible(true)
                   }}>
                   <View style={styles.containerIcon}>
-                    <Ionicons name="ios-checkmark-circle" size={32} color={colorGains}/>
+                    <Ionicons name="ios-remove-circle" size={32} color={colorGains}/>
                   </View>
                 </TouchableHighlight>
 
