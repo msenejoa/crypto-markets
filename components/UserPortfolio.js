@@ -43,7 +43,7 @@ export default class UserPortfolio extends React.Component {
               if (newList.length == userCoinlist.length){
 
                 if (index+ 1 == newList.length)
-                  {console.log('here')}
+                  {}
                   this.updatePortfolio(newList)
               }
             }
@@ -62,9 +62,9 @@ export default class UserPortfolio extends React.Component {
           }
 
       updatePortfolio(list){
-        console.log(list)
-        console.log(this.props.persistedState.rehydrated)
-        console.log(this.state.isLoaded)
+        //console.log(list)
+        //console.log(this.props.persistedState.rehydrated)
+        //console.log(this.state.isLoaded)
         if (this.props.persistedState.rehydrated && !this.state.isLoaded){
           //console.log(newList)
           this.props.callbackParent(list);
@@ -93,7 +93,7 @@ export default class UserPortfolio extends React.Component {
       render(){
 
         var newList = this.state.userList;
-        console.log(this.state)
+        //console.log(this.state)
         //this.setTotal()
         var sumValueBTC = newList.reduce((s, a) => s + a.price_btc, 0);
         var sumValueUSD = newList.reduce((s, a) => s + a.price_usd, 0);

@@ -10,8 +10,8 @@ import { autoRehydrate, persistStore, createPersistor } from 'redux-persist'
 
 export default function configureStore() {
   let store = compose(
-    applyMiddleware(thunk, logger),
-    autoRehydrate({log: true})
+    applyMiddleware(thunk),
+    autoRehydrate({log: false})
     )(createStore)(app);
   persistStore(store, {storage: AsyncStorage, whitelist: ['userInfo']});
   return store

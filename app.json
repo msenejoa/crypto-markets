@@ -2,12 +2,26 @@
 {
    "expo": {
     "name": "tokendex",
-    "icon": "./path/to/your/app-icon.png",
+    "icon": "./icon.png",
     "version": "1.0.0",
     "slug": "tokendex",
     "sdkVersion": "18.0.0",
+    orientation: "portrait",
+    loading: {
+      icon: "",
+      backgroundColor: "#ffffff",
+      exponentIconGrayscale: 0,
+      backgroundImage: "./iPhone.png",
+      hideExponentText: true,
+      splash: {
+        backgroundColor: "#000000",
+        image: {
+          backgroundImage: "./iPhone.png"
+        }
+      }
+    },
     "ios": {
-      "bundleIdentifier": "github.com/msenejoa"
+      "bundleIdentifier": "com.github.msenejoa"
     },
     "android": {
       "package": "com.yourcompany.yourappname"
