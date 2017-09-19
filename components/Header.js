@@ -11,14 +11,53 @@ import { createPersistor } from 'redux-persist'
 
 
 class Header extends Component {
-  componentDidMount (){
-    this.props.callbackParent()
-  }
+
   constructor(props) {
         super(props);
         this.state = {
-          modalVisible: false
+          modalVisible: false,
+          rehydrated: false,
+          loaded: false,
+          userCoinList: [],
+          change: 0,
+          coinName: '',
+          view: '',
+          symbol: ''
         };
+  }
+  componentWillReceiveProps(nextprops){
+      console.log(nextprops.userInfo.view);
+      if (this.state.rehydrated && this.state.loaded){
+        console.log(this.props.userInfo.view)
+        console.log('changed')
+        this.setState({
+          loaded: true,
+          userCoinList: nextprops.userInfo.userCoinList,
+          change: nextprops.change,
+          coinName: nextprops.coinInfo.name,
+          view: nextprops.userInfo.view,
+          symbol: nextprops.symbol
+      });
+      }
+      this.setState({
+        rehydrated: this.props.persistedState.rehydrated
+          },this.onLoad
+        );
+      }
+
+  onLoad(){
+    if (this.state.rehydrated && !this.state.loaded){
+      this.props.callbackParent()
+      console.log(this.state)
+      this.setState({
+        loaded: true,
+        userCoinList: this.props.userInfo.userCoinList,
+        change: this.props.change,
+        coinName: this.props.coinInfo.name,
+        view: this.props.userInfo.view,
+        symbol: this.props.symbol
+      });
+    }
   }
 
   setModalVisible(visible) {
@@ -40,12 +79,13 @@ class Header extends Component {
 
   render() {
 
-    var gains = this.props.change;
+    var gains = this.state.change;
     var colorGains = gains > 0 ? '#03C9A9' : '#D64541';
 
-    var userCoinList = this.props.userInfo.userCoinList;
-    var coinName = this.props.coinInfo.name;
-
+    var userCoinList = this.state.userCoinList;
+    var coinName = this.state.coinName;
+    //var view = this.state.view;
+    console.log(this.state.view)
     var inList = false;
     inList = this.checkList(userCoinList, coinName)
 ;
@@ -73,7 +113,7 @@ class Header extends Component {
           {(this.props.userInfo.view == 'search') &&
             <Text style={styles.textHeader}>search</Text>
           }
-          {(this.props.userInfo.view == 'home') &&
+          {(this.state.view == 'home') &&
             <Text style={styles.textHeader}>portfolio</Text>
           }
           </View>

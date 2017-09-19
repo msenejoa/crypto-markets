@@ -53,6 +53,7 @@ export function removeCoinfromUserList(list, coin){
 
 export function fetchCoinListFromAPI(list=[]) {
   return (dispatch) => {
+    console.log(list)
     var newMap = []
     list.map((i, f) => {
       let name = i.name;

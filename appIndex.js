@@ -17,6 +17,8 @@ import UserPortfolio from './components/UserPortfolio';
 
 import UserHolding from './components/UserHolding'
 
+import HomeView from './components/HomeView'
+
 
 import { connect } from 'react-redux';
 import { fetchCoinsFromAPI, fetchCoinInfoFromAPI, fetchCoinHistoryFromAPI, changeCoinHistorySuccess, fetchHomeView, fetchCoinListFromAPI, fetchInitialData, fetchCoinView, fetchMarketCapFromAPI, getSearchView, addCoinToUserList, removeCoinfromUserList, updateUserCoinList, forceRehydrate } from './actions';
@@ -25,6 +27,9 @@ let styles
 
 
 const AppIndex = (props) => {
+
+
+
   const {
     container,
     text,
@@ -53,6 +58,7 @@ const AppIndex = (props) => {
     <View style={mainContainer}>
 
     <Header
+      persistedState = {props.persistedState}
       symbol = {props.coinInfo.symbol}
       callbackHomeView = {() => {props.getHomeView(); props.getCoinList(props.userInfo.userCoinList);}}
       callbackSearchView = {() => {props.getSearchView(); props.forceRehydrate()}}
@@ -64,9 +70,25 @@ const AppIndex = (props) => {
       addCoin = {() => props.addCoinToList(props.userInfo.userCoinList, props.coinInfo)}
     />
 
+{ props.userInfo.view == 'home' &&
+    <HomeView
+      userInfo = {props.userInfo}
+      coinInfo = {props.coins}
+      persistedState = {props.persistedState}
+      callbackUserPortfolio = {(list) => {props.updateUserList(list)}}
+      callbackMarketCap = {() => {props.getCoinList(props.userInfo.userCoinList)}}
+    />
+}
 
-    {/*
+{/* (props.userInfo.view == 'home') &&
+      <MarketCapInfo
+        coins = {props.coins}
+        isLoaded = {props.persistedState.rehydrated}
+        callbackParent = {() => {props.getCoinList(props.userInfo.userCoinList)}}
+      />
+
 */}
+
 
 { props.userInfo.view == 'search' &&
     <SearchView
@@ -108,14 +130,14 @@ const AppIndex = (props) => {
 */}
 
       <ScrollView >
-{ props.userInfo.view == 'home' &&
+{/* props.userInfo.view == 'home' &&
     <UserPortfolio
       userInfo = {props.userInfo}
       coinInfo = {props.coins}
       persistedState = {props.persistedState}
       callbackParent = {(list) => {props.updateUserList(list)}}
     />
-}
+*/}
 
 {/*
 
@@ -145,14 +167,8 @@ const AppIndex = (props) => {
           rehydrated = {props.persistedState.rehydrated}/>
 
       }
-      { (props.userInfo.view == 'home') &&
-      <MarketCapInfo
-        coins = {props.coins}
-        isLoaded = {props.persistedState.rehydrated}
-        callbackParent = {() => {props.getCoinList(props.userInfo.userCoinList)}}
-      />
 
-}{props.userInfo.view == 'coin' &&
+{props.userInfo.view == 'coin' &&
       <UserHolding
         holding={props.userInfo.userCoinList}
         coinInfo={props.coinInfo}
@@ -175,12 +191,12 @@ const AppIndex = (props) => {
 
 {(coins.length && props.userInfo.view == 'home') ?
   <View>
-  <Text style = {styles.textHeader}>coins</Text>
-  <View style={styles.bottomBorder}/>
-</View>
+    <Text style = {styles.textHeader}>coins</Text>
+    <View style={styles.bottomBorder}/>
+  </View>
+  : null
+  }
 
-
-: null}
 {
         (props.userInfo.userCoinList.length > 0 && coins.length && props.userInfo.view == 'home') && (
           props.userInfo.userCoinList.map((coin, i) => {
@@ -197,6 +213,7 @@ const AppIndex = (props) => {
           })
         )
       }
+
 
       {
       (props.userInfo.userCoinList.length == 0 && coins.length && props.userInfo.view == 'home') && (

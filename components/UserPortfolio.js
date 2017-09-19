@@ -8,7 +8,9 @@ export default class UserPortfolio extends React.Component {
         super(props);
         this.state = {
           isLoaded: false,
-          userList: []
+          userList: [],
+          rehydrated: false,
+          coins: []
         };
       }
 
@@ -68,26 +70,34 @@ export default class UserPortfolio extends React.Component {
         if (this.props.persistedState.rehydrated && !this.state.isLoaded){
           //console.log(newList)
           this.props.callbackParent(list);
+          //this.props.callbackUserPortfolio(list);
           this.setState({
             isLoaded: true
           })
         }
       }
 
-      componentWillReceiveProps(){
-        let coinInfo = this.props.coinInfo.coins
-        let rehydrated =this.props.persistedState.rehydrated
+      componentWillReceiveProps(nextprops){
+        console.log(nextprops);
+        if (this.props.coinInfo){
+          this.setState({coins: nextprops.coinInfo.coins})
+          //console.log()
+        }
+        let coinInfo = this.state.coins;
+        let rehydrated =this.props.persistedState.rehydrated;
         let userList = this.props.userInfo.userCoinList;
         let newList = []
         if (rehydrated && userList.length > 0){
-          //var newList = []
           userList.map((value, index)=>{
             this.isLoaded(coinInfo, userList, index, newList);
             }
           );
         }
         this.setState({
-          userList: newList})
+          userList: newList,
+          rehydrated: this.props.persistedState.rehydrated,
+          //coins: nextprops.coinInfo.coins
+        })
       }
 
       render(){
@@ -113,9 +123,9 @@ export default class UserPortfolio extends React.Component {
 
         <View style={styles.container}>
 
-      <TouchableHighlight onPress={() => console.log(this.state)}>
-        <Text style={styles.text}>Print Object</Text>
-      </TouchableHighlight>
+          <TouchableHighlight onPress={() => console.log(this.props)}>
+            <Text style={styles.text}>Print Object</Text>
+          </TouchableHighlight>
           <Text style={styles.textPrice}>${sumValueUSD.toFixed(2)}</Text>
           <Text style={styles.textPercentage}>{totalChange.toFixed(2)}%</Text>
           <Text style={[styles.textChange, colorChange()]}>({sumChangeUSD.toFixed(2)})</Text>
@@ -141,6 +151,9 @@ const styles = StyleSheet.create({
     //alignItems: 'center'
     justifyContent: 'center',
     },
+  text: {
+    color: 'white'
+  },
   textPrice: {
     //flex: 1,
     color: 'white',
