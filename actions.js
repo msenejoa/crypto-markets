@@ -148,10 +148,21 @@ export function getCoinsFailure() {
 export function fetchCoinInfoFromAPI(name, time) {
   console.log(name)
   return (dispatch) => {
+    let coinName = name.name
+    if (coinName === 'Bytecoin'){ coinName = 'bytecoin-bcn'}
+    if (coinName === 'Golem'){ coinName = 'golem-network-tokens'}
+    if (coinName === 'Gnosis'){ coinName = 'gnosis-gno'}
+    if (coinName === 'I/0 Coin'){ coinName = 'iocoin'}
+    if (coinName === 'Cofound.it'){ coinName = 'cofound-it'}
+    if (coinName === 'iExec RLC'){ coinName = 'rlc'}
+    if (coinName === 'Agrello'){ coinName = 'agrello-delta'}
+    if (coinName === 'AdEx'){ coinName = 'adx-ne'}
+    if (coinName === 'SuperNet'){ coinName = 'supernet-unity'}
+    if (coinName === 'Po.et'){ coinName = 'poet'}
 
     //dispatch(getCoins())
-    let coinName = name.name
     let coinLowerCase = coinName.replace(/\s+/g, '-').toLowerCase();
+    console.log(coinLowerCase)
     fetch('https://api.coinmarketcap.com/v1/ticker/' + coinLowerCase)
     .then(data => data.json())
     .then(json => {

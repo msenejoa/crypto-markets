@@ -122,10 +122,6 @@ export default class UserPortfolio extends React.Component {
 
 
         <View style={styles.container}>
-
-          <TouchableHighlight onPress={() => console.log(this.props)}>
-            <Text style={styles.text}>Print Object</Text>
-          </TouchableHighlight>
           <Text style={styles.textPrice}>${sumValueUSD.toFixed(2)}</Text>
           <Text style={styles.textPercentage}>{totalChange.toFixed(2)}%</Text>
           <Text style={[styles.textChange, colorChange()]}>({sumChangeUSD.toFixed(2)})</Text>

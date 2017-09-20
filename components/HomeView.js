@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, RefreshControl } from 'react-native';
 
 import UserPortfolio from './UserPortfolio';
 import MarketCapInfo from './MarketCapInfo';
+import CoinInformation from './CoinInformation';
 
 
 
@@ -10,7 +11,8 @@ export default class HomeView extends React.Component {
       constructor(props) {
         super(props);
         this.state = {
-          persistedState: false
+          persistedState: false,
+          refreshing: false
         };
       }
 
@@ -20,13 +22,24 @@ export default class HomeView extends React.Component {
         //if this.props.persistedState.rehydrated;
       }
 
+      onRefresh(){
+        this.setState({refreshing:true})
+        setTimeout(()=>this.setState({refreshing:false}), 700)
+        this.props.callbackParent()
+        console.log('refreshing')
 
+      }
 
       render(){
-      console.log(this.props)
 
       return (
-        <ScrollView>
+        <ScrollView
+          refreshControl = {
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh.bind(this)}
+              />
+          }>
           <UserPortfolio
               userInfo = {this.props.userInfo}
               coinInfo = {this.props.coinInfo}
@@ -39,6 +52,43 @@ export default class HomeView extends React.Component {
             isLoaded = {this.props.persistedState.rehydrated}
             callbackParent = {() => {this.props.callbackMarketCap()}}
           />
+
+
+          {(this.props.coinInfo) ?
+            <View>
+              <Text style = {styles.textHeader}>coins</Text>
+              <View style={styles.bottomBorder}/>
+            </View>
+            : null
+            }
+
+          {
+                  (this.props.userInfo.userCoinList.length > 0 && this.props.coinInfo) && (
+                    this.props.userInfo.userCoinList.map((coin, i) => {
+                      if (coin.name.length > 0){
+                        return <View key={i} >
+                          <CoinInformation
+                            callbackParent={(coin) => this.props.callbackCoinInformation(coin)}
+                            symbol = {coin.symbol}
+                            name = {coin.name}
+                            difference ={coin.change_percent}
+                            holding = {coin.holding}
+                            totalUSD = {coin.price_usd}/>
+                        </View>}
+                    })
+                  )
+                }
+
+
+                {/*
+                (this.props.userInfo.userCoinList.length == 0 && this.props.coinInfo.length) && (
+                <TouchableHighlight style={button} onPress={() => {props.getSearchView(); props.forceRehydrate(); props.getCoins()}}>
+                  <Text style={buttonText}>you have no coins in your portfolio {"\n"} add some coins</Text>
+                </TouchableHighlight>)
+                */}
+
+
+
         </ScrollView>
         );
       }
@@ -58,7 +108,20 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'grey',
     fontFamily: 'HelveticaNeue-Thin'
-  }
+  },
+  textHeader: {
+    textAlign: 'left',
+    fontSize: 28,
+    color: '#ffffff',
+    paddingTop: 15,
+    paddingLeft: 7,
+    fontFamily: 'HelveticaNeue-Thin'
+  },
+  bottomBorder: {
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1,
+    paddingBottom: 10,
+  },
 });
 
 

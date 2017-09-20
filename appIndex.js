@@ -77,6 +77,8 @@ const AppIndex = (props) => {
       persistedState = {props.persistedState}
       callbackUserPortfolio = {(list) => {props.updateUserList(list)}}
       callbackMarketCap = {() => {props.getCoinList(props.userInfo.userCoinList)}}
+      callbackCoinInformation = {(coin) => {props.getCoinInfo(coin, props.coinData.time); props.getCoinView();}}
+      callbackParent = {() => {props.onInitialization(props.coinInfo, props.coinData.time, props.userInfo.userCoinList)}}
     />
 }
 
@@ -189,7 +191,7 @@ const AppIndex = (props) => {
 
     */}
 
-{(coins.length && props.userInfo.view == 'home') ?
+{/*(coins.length && props.userInfo.view == 'home') ?
   <View>
     <Text style = {styles.textHeader}>coins</Text>
     <View style={styles.bottomBorder}/>
@@ -220,7 +222,7 @@ const AppIndex = (props) => {
       <TouchableHighlight style={button} onPress={() => {props.getSearchView(); props.forceRehydrate(); props.getCoins()}}>
         <Text style={buttonText}>you have no coins in your portfolio {"\n"} add some coins</Text>
       </TouchableHighlight>)
-      }
+    */  }
 </ScrollView>
 
 
