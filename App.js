@@ -11,14 +11,11 @@ import AppIndex from './appIndex'
 
 const store = configureStore()
 
-//persistStore(store, {storage: AsyncStorage});
 
 export default class App extends React.Component {
 
   componentWillMount() {
-    //persistStore(store, {storage: AsyncStorage});
-    //console.log(store)
-    //console.log('--------------------------------------')
+
   }
 
   render() {
