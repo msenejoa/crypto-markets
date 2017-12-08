@@ -26,10 +26,7 @@ class Header extends Component {
         };
   }
   componentWillReceiveProps(nextprops){
-      console.log(nextprops.userInfo.view);
       if (this.state.rehydrated && this.state.loaded){
-        console.log(this.props.userInfo.view)
-        console.log('changed')
         this.setState({
           loaded: true,
           userCoinList: nextprops.userInfo.userCoinList,
@@ -48,7 +45,6 @@ class Header extends Component {
   onLoad(){
     if (this.state.rehydrated && !this.state.loaded){
       this.props.callbackParent()
-      console.log(this.state)
       this.setState({
         loaded: true,
         userCoinList: this.props.userInfo.userCoinList,
@@ -84,13 +80,9 @@ class Header extends Component {
 
     var userCoinList = this.state.userCoinList;
     var coinName = this.state.coinName;
-    //var view = this.state.view;
-    console.log(this.state.view)
     var inList = false;
     inList = this.checkList(userCoinList, coinName)
 ;
-
-
     return (
       <View style={styles.container}>
         <View style={styles.containerTop}>
@@ -128,16 +120,6 @@ class Header extends Component {
                   </View>
                 </TouchableHighlight>
           }
-
-          {/*   (this.props.userInfo.view == 'coin' && inList) &&
-                <TouchableHighlight
-                  onPress = {()=> {this.props.callbackRemoveCoin()}}>
-                  <View style={styles.containerIcon}>
-                    <Ionicons name="ios-add-circle-outline" size={32} color={colorGains}/>
-                  </View>
-                </TouchableHighlight>
-         */ }
-
 
           {   (this.props.userInfo.view == 'coin' && inList) &&
                 <View>

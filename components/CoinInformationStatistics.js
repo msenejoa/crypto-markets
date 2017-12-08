@@ -16,19 +16,12 @@ export default class CoinInformationStatistics extends React.Component {
       }
 
       componentWillReceiveProps(){
-        //let obj = this.props.coinInfo;
-
         let rehydrated = this.props.rehydrated;
-        //console.log('here now')
-        //console.log(rehydrated)
         let loaded = this.props.loaded;
-        //console.log(loaded)
         if (rehydrated){
-          //let obj = this.props.coinInfo;
             if (rehydrated && loaded){
-              //console.log('here now now')
-          this.onLoad()
-          }
+              this.onLoad()
+            }
         }
       }
       onLoad(){

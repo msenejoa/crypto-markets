@@ -28,8 +28,6 @@ let styles
 
 const AppIndex = (props) => {
 
-
-
   const {
     container,
     text,
@@ -47,186 +45,69 @@ const AppIndex = (props) => {
   const { view } = props.userInfo;
 
   function getInitialData () {
-
     props.getCoinInfo(props.coinInfo, props.coinData.time);
-
   };
 
 
   return (
 
     <View style={mainContainer}>
-
-    <Header
-      persistedState = {props.persistedState}
-      symbol = {props.coinInfo.symbol}
-      callbackHomeView = {() => {props.getHomeView(); props.getCoinList(props.userInfo.userCoinList);}}
-      callbackSearchView = {() => {props.getSearchView(); props.forceRehydrate()}}
-      callbackParent = {() => {props.onInitialization(props.coinInfo, props.coinData.time, props.userInfo.userCoinList)}}
-      callbackRemoveCoin = {() => {props.removeCoinFromList(props.userInfo.userCoinList, props.coinInfo)}}
-      userInfo= {props.userInfo}
-      change = {props.coinData.change}
-      coinInfo = {props.coinInfo}
-      addCoin = {() => props.addCoinToList(props.userInfo.userCoinList, props.coinInfo)}
-    />
-
-{ props.userInfo.view == 'home' &&
-    <HomeView
-      userInfo = {props.userInfo}
-      coinInfo = {props.coins}
-      persistedState = {props.persistedState}
-      callbackUserPortfolio = {(list) => {props.updateUserList(list)}}
-      callbackMarketCap = {() => {props.getCoinList(props.userInfo.userCoinList)}}
-      callbackCoinInformation = {(coin) => {props.getCoinInfo(coin, props.coinData.time); props.getCoinView();}}
-      callbackParent = {() => {props.onInitialization(props.coinInfo, props.coinData.time, props.userInfo.userCoinList)}}
-    />
-}
-
-{/* (props.userInfo.view == 'home') &&
-      <MarketCapInfo
-        coins = {props.coins}
-        isLoaded = {props.persistedState.rehydrated}
-        callbackParent = {() => {props.getCoinList(props.userInfo.userCoinList)}}
-      />
-
-*/}
-
-
-{ props.userInfo.view == 'search' &&
-    <SearchView
-      data = {props.userInfo.coinList}
-      callbackParent ={(coin) => {props.getCoinInfo(coin, props.coinData.time); props.getCoinView();}}
-      callbackGetCoins = {() => {props.getCoins(); console.log('pressed')}}
-    />
-}
-       {/*
-
-      <TouchableHighlight style={button} onPress={() => props.getCoins()}>
-        <Text style={buttonText}>Print Object</Text>
-      </TouchableHighlight>
-
-      <TouchableHighlight style={button} onPress={() => console.log(props)}>
-        <Text style={buttonText}>Get List</Text>
-      </TouchableHighlight>
-
-      */}
-{/*
-      <TouchableHighlight style={button} onPress={() => console.log(props)}>
-        <Text style={buttonText}>DEFAULT</Text>
-      </TouchableHighlight>
-
-      <TouchableHighlight style={button} onPress={() => props.getCoinInfo(props.coinInfo, props.coinData.time)}>
-        <Text style={buttonText}>DEFAULT</Text>
-      </TouchableHighlight>
- */}
-
-    {
-      !isLoaded &&
-        <Text style={text}>CryptoMarkets</Text>
-
-      }
-
-
-      {/*
-      <Text style = {text}> Always view</Text>
-*/}
-
-      <ScrollView >
-{/* props.userInfo.view == 'home' &&
-    <UserPortfolio
-      userInfo = {props.userInfo}
-      coinInfo = {props.coins}
-      persistedState = {props.persistedState}
-      callbackParent = {(list) => {props.updateUserList(list)}}
-    />
-*/}
-
-{/*
-
-      {!isFetching &&
-
-      <TouchableHighlight style={button} onPress={() => props.getCoins()}>
-        <Text style={buttonText}>Load Coins</Text>
-      </TouchableHighlight>
-    }
-*/}
-
+      <Header
+        persistedState = {props.persistedState}
+        symbol = {props.coinInfo.symbol}
+        callbackHomeView = {() => {props.getHomeView(); props.getCoinList(props.userInfo.userCoinList);}}
+        callbackSearchView = {() => {props.getSearchView(); props.forceRehydrate()}}
+        callbackParent = {() => {props.onInitialization(props.coinInfo, props.coinData.time, props.userInfo.userCoinList)}}
+        callbackRemoveCoin = {() => {props.removeCoinFromList(props.userInfo.userCoinList, props.coinInfo)}}
+        userInfo= {props.userInfo}
+        change = {props.coinData.change}
+        coinInfo = {props.coinInfo}
+        addCoin = {() => props.addCoinToList(props.userInfo.userCoinList, props.coinInfo)}/>
+        {
+        props.userInfo.view == 'home' &&
+        <HomeView
+          userInfo = {props.userInfo}
+          coinInfo = {props.coins}
+          persistedState = {props.persistedState}
+          callbackUserPortfolio = {(list) => {props.updateUserList(list)}}
+          callbackMarketCap = {() => {props.getCoinList(props.userInfo.userCoinList)}}
+          callbackCoinInformation = {(coin) => {props.getCoinInfo(coin, props.coinData.time); props.getCoinView();}}
+          callbackParent = {() => {props.onInitialization(props.coinInfo, props.coinData.time, props.userInfo.userCoinList)}}/>
+        }
+        {
+        props.userInfo.view == 'search' &&
+          <SearchView
+            data = {props.userInfo.coinList}
+            callbackParent ={(coin) => {props.getCoinInfo(coin, props.coinData.time); props.getCoinView();}}
+            callbackGetCoins = {() => {props.getCoins(); console.log('pressed')}}/>
+        }
+        <ScrollView >
       {
         isFetching && <Text>Loading</Text>
       }
-      {isLoaded && (props.userInfo.view == 'coin') ? <Graphs
-          rehydrated = {props.persistedState.rehydrated}
-          coinData = {props.coinData}
-          coinInfo = {props.coinInfo}
-          callbackParent={(time) => props.getCoinHistory(props.coinInfo.symbol, time)}
-          /> : null}
-
-      {isLoaded && (props.userInfo.view == 'coin') &&
-
+      {
+      isLoaded && (props.userInfo.view == 'coin') ? <Graphs
+        rehydrated = {props.persistedState.rehydrated}
+        coinData = {props.coinData}
+        coinInfo = {props.coinInfo}
+        callbackParent={(time) => props.getCoinHistory(props.coinInfo.symbol, time)}/> : null
+      }
+      {
+      isLoaded && (props.userInfo.view == 'coin') &&
       <CoinInformationStatistics
           coinInfo = {props.coinInfo.coinInfo[0]}
           loaded = {props.coinInfo.isLoaded}
           rehydrated = {props.persistedState.rehydrated}/>
-
       }
-
-{props.userInfo.view == 'coin' &&
+      {
+      props.userInfo.view == 'coin' &&
       <UserHolding
         holding={props.userInfo.userCoinList}
         coinInfo={props.coinInfo}
         rehydrated={props.persistedState.rehydrated}
-        updateUserList={(list) => {props.updateUserList(list)}}
-      />
-}
-
-{/*
-
-      <TouchableHighlight style={button} onPress={() => console.log(props)}>
-        <Text style={buttonText}>Print Object</Text>
-      </TouchableHighlight>
-
-      <TouchableHighlight style={button} onPress={() => props.getCoinHistory(props.coinInfo, props.coinData.time)}>
-        <Text style={buttonText}>Print history</Text>
-      </TouchableHighlight>
-
-    */}
-
-{/*(coins.length && props.userInfo.view == 'home') ?
-  <View>
-    <Text style = {styles.textHeader}>coins</Text>
-    <View style={styles.bottomBorder}/>
-  </View>
-  : null
-  }
-
-{
-        (props.userInfo.userCoinList.length > 0 && coins.length && props.userInfo.view == 'home') && (
-          props.userInfo.userCoinList.map((coin, i) => {
-            if (coin.name.length > 0){
-              return <View key={i} >
-                <CoinInformation
-                  callbackParent={(coin) => {props.getCoinInfo(coin, props.coinData.time); props.getCoinView();}}
-                  symbol = {coin.symbol}
-                  name = {coin.name}
-                  difference ={coin.change_percent}
-                  holding = {coin.holding}
-                  totalUSD = {coin.price_usd}/>
-              </View>}
-          })
-        )
+        updateUserList={(list) => {props.updateUserList(list)}}/>
       }
-
-
-      {
-      (props.userInfo.userCoinList.length == 0 && coins.length && props.userInfo.view == 'home') && (
-      <TouchableHighlight style={button} onPress={() => {props.getSearchView(); props.forceRehydrate(); props.getCoins()}}>
-        <Text style={buttonText}>you have no coins in your portfolio {"\n"} add some coins</Text>
-      </TouchableHighlight>)
-    */  }
-</ScrollView>
-
-
-
+      </ScrollView>
     </View>
   )
 }
@@ -312,12 +193,10 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-
     getCoins: () => dispatch(fetchCoinsFromAPI()),
     onInitialization:(name, time) => dispatch(fetchInitialData(name, time)),
     getCoinInfo: (name, time) => dispatch(fetchCoinInfoFromAPI(name, time)),
     getCoinHistory: (name, time) => dispatch(fetchCoinHistoryFromAPI(name, time)),
-//    updateGetCoinHistory: (name, time) =>dispatch(changeCoinHistorySuccess(name, time))
     getHomeView: () => dispatch(fetchHomeView()),
     getCoinView: () => dispatch(fetchCoinView()),
     getCoinList: (list) => dispatch(fetchCoinListFromAPI(list)),
@@ -327,7 +206,6 @@ function mapDispatchToProps (dispatch) {
     removeCoinFromList: (list, coin) => dispatch(removeCoinfromUserList(list, coin)),
     updateUserList: (list) => dispatch(updateUserCoinList(list)),
     forceRehydrate: () => dispatch(forceRehydrate())
-
   }
 }
 

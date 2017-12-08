@@ -22,8 +22,6 @@ export default class CoinInformationHeader extends React.Component {
 
       componentWillReceiveProps(){
         let obj = this.props.coinInfo.coinInfo[0];
-
-
         let rehydrated = this.props.rehydrated;
         if (rehydrated){
           let obj = this.props.coinInfo.coinInfo[0];
@@ -68,7 +66,6 @@ export default class CoinInformationHeader extends React.Component {
       };
 
       onLoad(){
-        //console.log(this.props.coinInfo.coinInfo[0])
         let price_btc = this.props.coinInfo.coinInfo[0].price_btc;
         let price_usd =this.props.coinInfo.coinInfo[0].price_usd;
         let hour = this.props.coinInfo.coinInfo[0].percent_change_1h;
@@ -84,13 +81,8 @@ export default class CoinInformationHeader extends React.Component {
       }
 
       render(){
-//      price_btc = (this.props.coinInfo.coinInfo[0].price_btc || 0);
-
       var price_btc = this.state.price_btc;
-      //var price_btc = (this.props.coinInfo.coinInfo[0].price_btc.length > 0) ? this.props.coinInfo.coinInfo[0].price_btc: 0;
       var price_usd = this.state.price_usd;
-
-      //var price_usd = this.props.coinInfo.coinInfo[0].price_usd;
       change = this.props.coinData.change;
 
       this.changeFunction(this.props.coinData.time)

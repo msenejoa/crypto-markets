@@ -17,16 +17,12 @@ export default class HomeView extends React.Component {
       }
 
       componentWillReceiveProps(){
-        console.log('homeview');
-        console.log(this.props.persistedState.rehydrated);
-        //if this.props.persistedState.rehydrated;
       }
 
       onRefresh(){
         this.setState({refreshing:true})
         setTimeout(()=>this.setState({refreshing:false}), 700)
         this.props.callbackParent()
-        console.log('refreshing')
 
       }
 

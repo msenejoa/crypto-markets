@@ -96,73 +96,63 @@ class StockLineChartBasic extends Component {
 
 
     return (
-      //var something = this.props.timeFrame;
       <View style={styles.container}>
-
-
-
         <CoininformationHeader
           rehydrated = {this.props.rehydrated}
           coinData = {this.props.coinData}
           coinInfo = {this.props.coinInfo}
-          gains = {this.gains}
-          />
-
-        { !error ?
+          gains = {this.gains}/>
+        {
+        !error ?
           <View style= {styles.graph}><StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' /></View> :
-        <View style = {styles.errorBox}><Text style ={styles.errorText}>loading</Text></View>}
-
-<ScrollView>
-
-        <View style={{flexDirection: 'row', marginBottom: 5}}>
-          <View style={styles.toolbar}>
-          <Button
-            onPress= {() => this.props.callbackParent(hour)}
-            containerStyle={styles.toolbarbutton}
-            //style = {timeFrame === '1h'? styles.toolbarbuttonActive : styles.buttonText}>
-            style = {timeFrame === '1h'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
-            1h
-          </Button>
-          </View>
-          <View style={styles.toolbar}>
-          <Button
-            onPress= {() => this.props.callbackParent(day)}
-            containerStyle={styles.toolbarbutton}
-            style = {timeFrame === '1d'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
-            1d
-          </Button>
-          </View>
-          <View style={styles.toolbar}>
-          <Button
-            onPress= {() => this.props.callbackParent(week)}
-            containerStyle={styles.toolbarbutton}
-            style = {timeFrame === '1w'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
-            1w
-          </Button>
-          </View>
-          <View style={styles.toolbar}>
-          <Button
-            onPress= {() => this.props.callbackParent(month)}
-            containerStyle={styles.toolbarbutton}
-            style = {timeFrame === '1m'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
-            1m
-          </Button>
-          </View>
-          <View style={styles.toolbar}>
-          <Button
-            onPress= {() => this.props.callbackParent(year)}
-            containerStyle={styles.toolbarbutton}
-            style = {timeFrame === '1y'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
-            1y
-          </Button>
+          <View style = {styles.errorBox}><Text style ={styles.errorText}>loading</Text></View>
+        }
+        <ScrollView>
+          <View style={{flexDirection: 'row', marginBottom: 5}}>
+            <View style={styles.toolbar}>
+              <Button
+                onPress= {() => this.props.callbackParent(hour)}
+                containerStyle={styles.toolbarbutton}
+                //style = {timeFrame === '1h'? styles.toolbarbuttonActive : styles.buttonText}>
+                style = {timeFrame === '1h'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
+                1h
+              </Button>
+            </View>
+            <View style={styles.toolbar}>
+              <Button
+                onPress= {() => this.props.callbackParent(day)}
+                containerStyle={styles.toolbarbutton}
+                style = {timeFrame === '1d'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
+                1d
+              </Button>
+            </View>
+            <View style={styles.toolbar}>
+              <Button
+                onPress= {() => this.props.callbackParent(week)}
+                containerStyle={styles.toolbarbutton}
+                style = {timeFrame === '1w'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
+                1w
+              </Button>
+            </View>
+            <View style={styles.toolbar}>
+              <Button
+                onPress= {() => this.props.callbackParent(month)}
+                containerStyle={styles.toolbarbutton}
+                style = {timeFrame === '1m'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
+                1m
+              </Button>
+            </View>
+            <View style={styles.toolbar}>
+            <Button
+              onPress= {() => this.props.callbackParent(year)}
+              containerStyle={styles.toolbarbutton}
+              style = {timeFrame === '1y'? styles.toolbarbuttonActive : [styles.buttonText, colorChange(change)]}>
+              1y
+            </Button>
           </View>
         </View>
-        {/*
-          <CoinInformationStatistics
-          coinInfo = {this.props.coinInfo.coinInfo[0]}/>
-        */}
-          </ScrollView>
-      </View>
+      </ScrollView>
+    </View>
     )
   }
 }

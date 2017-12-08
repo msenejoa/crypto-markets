@@ -64,13 +64,8 @@ export default class UserPortfolio extends React.Component {
           }
 
       updatePortfolio(list){
-        //console.log(list)
-        //console.log(this.props.persistedState.rehydrated)
-        //console.log(this.state.isLoaded)
         if (this.props.persistedState.rehydrated && !this.state.isLoaded){
-          //console.log(newList)
           this.props.callbackParent(list);
-          //this.props.callbackUserPortfolio(list);
           this.setState({
             isLoaded: true
           })
@@ -81,7 +76,6 @@ export default class UserPortfolio extends React.Component {
         console.log(nextprops);
         if (this.props.coinInfo){
           this.setState({coins: nextprops.coinInfo.coins})
-          //console.log()
         }
         let coinInfo = this.state.coins;
         let rehydrated =this.props.persistedState.rehydrated;
@@ -103,8 +97,6 @@ export default class UserPortfolio extends React.Component {
       render(){
 
         var newList = this.state.userList;
-        //console.log(this.state)
-        //this.setTotal()
         var sumValueBTC = newList.reduce((s, a) => s + a.price_btc, 0);
         var sumValueUSD = newList.reduce((s, a) => s + a.price_usd, 0);
         var sumChangeBTC = newList.reduce((s, a) => s + a.change_btc, 0);
@@ -126,46 +118,36 @@ export default class UserPortfolio extends React.Component {
           <Text style={styles.textPercentage}>{totalChange.toFixed(2)}%</Text>
           <Text style={[styles.textChange, colorChange()]}>({sumChangeUSD.toFixed(2)})</Text>
         </View>
-
-
-
       );
     }
 }
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 1,
     flexDirection: 'column',
     borderBottomColor: 'grey',
     borderBottomWidth: .75,
-    //paddingTop:20,
     paddingBottom: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    //height: 50,
-    //alignItems: 'center'
     justifyContent: 'center',
     },
   text: {
     color: 'white'
   },
   textPrice: {
-    //flex: 1,
     color: 'white',
     fontFamily: 'HelveticaNeue-Thin',
     fontSize: 35,
     textAlign: 'center'
     },
   textChange: {
-    //flex: 1,
     color: 'white',
     fontFamily: 'HelveticaNeue-Thin',
     fontSize: 18,
     textAlign: 'center'
     },
   textPercentage: {
-    //flex: 1,
     color: 'white',
     fontFamily: 'HelveticaNeue-Thin',
     fontSize: 20,

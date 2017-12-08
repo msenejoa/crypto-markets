@@ -4,18 +4,19 @@ import SmallGraph from './SmallGraph';
 
 
 export default class CoinInformation extends React.Component {
-      render(){
-      var change =this.props.difference;
-      change = change * 100;
-      var change = change > 0 ? '#03C9A9' : '#D64541';
-      colorChange = function(change) {
-        return {
-            backgroundColor: change
-          }
+  componentWillMount(){
+    console.log('this is a mounting')
+  }
+  render(){
+    var change =this.props.difference;
+    change = change * 100;
+    var change = change > 0 ? '#03C9A9' : '#D64541';
+    colorChange = function(change) {
+      return {
+        backgroundColor: change
+        }
       }
-
       return (
-
         <View style={styles.container}>
           <TouchableHighlight onPress={() => this.props.callbackParent(this.props)}>
           <View style={{flexDirection: 'row'}}>
