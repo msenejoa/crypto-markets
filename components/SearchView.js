@@ -16,12 +16,6 @@ class SearchView extends Component {
     })
   }
 
-/*
-var a = [1, 2, 3], b = [101, 2, 1, 10];
-var c = a.concat(b.filter(function (item) {
-    return a.indexOf(item) < 0;
-}));
-*/
 
   render() {
 

@@ -10,7 +10,6 @@ export default class UserHolding extends React.Component {
         super(props);
         this.state = {
           text: 'new holding',
-          //textLoaded: false,
           modalVisible: false,
           holding: 0,
           total_btc: 0,
