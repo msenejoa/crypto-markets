@@ -103,7 +103,8 @@ export function removeCoin(data){
 
 export function fetchCoinView() {
   return {
-    type: COIN
+    type: COIN,
+    isLoaded: false
   }
 }
 

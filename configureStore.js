@@ -7,7 +7,6 @@ import { AsyncStorage } from 'react-native'
 
 import { autoRehydrate, persistStore, createPersistor } from 'redux-persist'
 
-
 export default function configureStore() {
   let store = compose(
     applyMiddleware(thunk, logger),

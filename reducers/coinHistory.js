@@ -16,7 +16,8 @@ export default function coinsReducer (state = initialState, action) {
         Data: action.Data,
         time: action.time,
         change: action.change,
-        error: false
+        error: false,
+        loaded: true
       }
     case CHANGE_COIN_HISTORY_SUCCESS:
       return {

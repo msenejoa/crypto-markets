@@ -75,62 +75,66 @@ class Header extends Component {
 
   render() {
 
-    var gains = this.state.change;
-    var colorGains = gains > 0 ? '#03C9A9' : '#D64541';
+    let gains = this.state.change;
+    let colorGains = gains > 0 ? '#03C9A9' : '#D64541';
 
-    var userCoinList = this.state.userCoinList;
-    var coinName = this.state.coinName;
-    var inList = false;
+    let userCoinList = this.state.userCoinList;
+    let coinName = this.state.coinName;
+    let inList = false;
     inList = this.checkList(userCoinList, coinName)
 ;
     return (
       <View style={styles.container}>
         <View style={styles.containerTop}>
-
           <View style={styles.containerTopLeft}>
-          {(this.props.userInfo.view != 'home') &&
-                <TouchableHighlight
-                  onPress = {()=> {this.props.callbackHomeView()}}>
-                  <View style={styles.containerIcon}>
-                    <Ionicons name="ios-arrow-back" size={32} color={colorGains} />
-                  </View>
-                </TouchableHighlight>
-    }
+            {
+            (this.props.userInfo.view != 'home') &&
+            <TouchableHighlight
+              onPress = {()=> {this.props.callbackHomeView()}}>
+              <View style={styles.containerIcon}>
+                <Ionicons name="ios-arrow-back" size={32} color={colorGains} />
+              </View>
+            </TouchableHighlight>
+            }
           </View>
 
           <View style={styles.containerTopCenter}>
-          {(this.props.userInfo.view == 'coin') &&
-            <Text style={styles.textHeader}>{this.props.symbol}</Text>
-          }
-          {(this.props.userInfo.view == 'search') &&
-            <Text style={styles.textHeader}>search</Text>
-          }
-          {(this.state.view == 'home') &&
-            <Text style={styles.textHeader}>portfolio</Text>
-          }
+            {
+            (this.props.userInfo.view == 'coin') &&
+              <Text style={styles.textHeader}>{this.props.symbol}</Text>
+            }
+            {
+            (this.props.userInfo.view == 'search') &&
+              <Text style={styles.textHeader}>search</Text>
+            }
+            {
+            (this.state.view == 'home') &&
+              <Text style={styles.textHeader}>portfolio</Text>
+            }
           </View>
 
           <View style={styles.containerTopRight}>
-
-          { (this.props.userInfo.view == 'coin' && !inList) &&
-                <TouchableHighlight
-                  onPress={()=> this.props.addCoin()}>
-                  <View style={styles.containerIcon}>
-                    <Ionicons name="ios-add-circle-outline" size={32} color={colorGains} />
-                  </View>
-                </TouchableHighlight>
-          }
-
-          {   (this.props.userInfo.view == 'coin' && inList) &&
-                <View>
+            {
+            (this.props.userInfo.view == 'coin' && !inList) &&
+            <TouchableHighlight
+              onPress={()=> this.props.addCoin()}>
+              <View style={styles.containerIcon}>
+                <Ionicons name="ios-add-circle-outline" size={32} color={colorGains} />
+              </View>
+            </TouchableHighlight>
+            }
+            {
+            (this.props.userInfo.view == 'coin' && inList) &&
+              <View>
                 <TouchableHighlight
                   onPress = {() => {
                     this.setModalVisible(true)
-                  }}>
+                    }}>
                   <View style={styles.containerIcon}>
                     <Ionicons name="ios-remove-circle" size={32} color={colorGains}/>
                   </View>
                 </TouchableHighlight>
+
 
                 <View>
                   <View>
@@ -140,13 +144,9 @@ class Header extends Component {
                       visible={this.state.modalVisible}
                       onRequestClose={() => {alert("Modal has been closed.")}}
                       >
-                     <View style={{marginTop: 200}}>
-
-
-
+                      <View style={{marginTop: 200}}>
                       <View style={styles.containerModal}>
                         <View style = {styles.modalMainContainer}>
-
                           <View style = {styles.modalIcon}>
                             <TouchableHighlight onPress={() => {
                               this.setModalVisible(!this.state.modalVisible)
@@ -154,48 +154,38 @@ class Header extends Component {
                               <Ionicons name="ios-close-circle" size={32} color='grey'/>
                             </TouchableHighlight>
                           </View>
-
                           <View>
                             <View style={styles.body}>
-
                               <Text style={styles.text}> remove coin from portfolio? </Text>
                             </View>
-
                             <View style={styles.button}>
                                 <TouchableHighlight onPress={()=> {this.props.callbackRemoveCoin()}}>
                                   <Text style ={styles.textButton}>ok</Text>
                                 </TouchableHighlight>
                             </View>
-
-                            </View>
+                          </View>
                         </View>
                       </View>
-
                      </View>
                     </Modal>
-
                   </View>
                 </View>
-
-                </View>
-          }
-
-
-              { (this.props.userInfo.view == 'home') &&
-
+              </View>
+              }
+              {
+              (this.props.userInfo.view == 'home') &&
                 <TouchableHighlight
                   onPress = {()=> {this.props.callbackSearchView()}}>
                   <View style={styles.containerIcon}>
                     <Ionicons name="ios-search-outline" size={32} color={colorGains}/>
                   </View>
                 </TouchableHighlight>
-}
+              }
+            </View>
           </View>
-
         </View>
-      </View>
-    )
-  }
+      )
+    }
 }
 
 const styles = StyleSheet.create({

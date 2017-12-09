@@ -11,19 +11,18 @@ export default class CoinInformationStatistics extends React.Component {
           rank: 0,
           percent_change_1h: 0,
           percent_change_24h: 0,
-          percent_change_7d: 0
+          percent_change_7d: 0,
+          loaded: false
         };
       }
 
-      componentWillReceiveProps(){
-        let rehydrated = this.props.rehydrated;
-        let loaded = this.props.loaded;
-        if (rehydrated){
-            if (rehydrated && loaded){
-              this.onLoad()
-            }
+      componentWillReceiveProps(nextProps){
+        console.log(nextProps)
+        if (this.props.rehydrated & this.props.loaded & !this.state.loaded & !nextProps.error){
+          this.onLoad()
         }
       }
+
       onLoad(){
         let mkt_cap = this.props.coinInfo.market_cap_usd;
         let total_supply = this.props.coinInfo.total_supply;
@@ -37,16 +36,17 @@ export default class CoinInformationStatistics extends React.Component {
           total_supply: total_supply,
           percent_change_24h: percent_change_24h,
           percent_change_7d: percent_change_7d,
-          percent_change_1h: percent_change_1h
+          percent_change_1h: percent_change_1h,
+          loaded: true
         });
       }
 
       render(){
-        var mkt_cap = this.state.marketCap;
+        let mkt_cap = this.state.marketCap;
         mkt_cap = mkt_cap/1000000;
         mkt_cap = mkt_cap.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
-        var total_supply = this.state.total_supply;
+        let total_supply = this.state.total_supply;
         total_supply = total_supply/1000000;
         total_supply = total_supply.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 

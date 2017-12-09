@@ -96,6 +96,7 @@ const AppIndex = (props) => {
       isLoaded && (props.userInfo.view == 'coin') &&
       <CoinInformationStatistics
           coinInfo = {props.coinInfo.coinInfo[0]}
+          error = {props.coinInfo.error}
           loaded = {props.coinInfo.isLoaded}
           rehydrated = {props.persistedState.rehydrated}/>
       }

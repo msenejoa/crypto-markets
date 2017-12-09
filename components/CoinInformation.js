@@ -8,12 +8,11 @@ export default class CoinInformation extends React.Component {
     console.log('this is a mounting')
   }
   render(){
-    var change =this.props.difference;
-    change = change * 100;
-    var change = change > 0 ? '#03C9A9' : '#D64541';
+    let change =this.props.difference * 100;
+    let color = change > 0 ? '#03C9A9' : '#D64541';
     colorChange = function(change) {
       return {
-        backgroundColor: change
+        backgroundColor: color
         }
       }
       return (
@@ -21,10 +20,9 @@ export default class CoinInformation extends React.Component {
           <TouchableHighlight onPress={() => this.props.callbackParent(this.props)}>
           <View style={{flexDirection: 'row'}}>
             <View style ={styles.columnLeft}>
-
-                <Text style={styles.text}>
-                  {this.props.symbol}
-                </Text>
+              <Text style={styles.text}>
+                {this.props.symbol}
+              </Text>
             </View>
               <View style={styles.columnCenter}>
                 <Text style ={styles.text}>

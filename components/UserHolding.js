@@ -42,7 +42,6 @@ export default class UserHolding extends React.Component {
             list[index].holding = newHolding;
             list[index].price_usd = total_usd;
             list[index].price_btc = total_btc;
-            //console.log(list)
 
             this.props.updateUserList(list)
             this.setState({ modalVisible: false})
@@ -57,7 +56,6 @@ export default class UserHolding extends React.Component {
       }
 
       componentWillUnmount(){
-        console.log('unmounted')
         this.setState({
           holding: 0,
           total_btc: 0,

@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity, ScrollView } from 'react-native';
 
 import { StockLine } from 'react-native-pathjs-charts';
 
@@ -12,6 +12,10 @@ import SmallGraph from './SmallGraph';
 import Button from 'react-native-button';
 
 class StockLineChartBasic extends Component {
+
+  handlePress(evt){
+  console.log(`x coord = ${evt.nativeEvent.locationX}`);
+  }
 
 
   static navigationOptions = ({ navigation }) => ({
@@ -104,7 +108,11 @@ class StockLineChartBasic extends Component {
           gains = {this.gains}/>
         {
         !error ?
-          <View style= {styles.graph}><StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' /></View> :
+          <TouchableOpacity onPress={(evt) => this.handlePress(evt)} activeOpacity={1} >
+            <View style= {styles.graph}>
+              <StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' />
+            </View>
+          </TouchableOpacity> :
           <View style = {styles.errorBox}><Text style ={styles.errorText}>loading</Text></View>
         }
         <ScrollView>

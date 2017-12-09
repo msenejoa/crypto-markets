@@ -73,7 +73,6 @@ export default class UserPortfolio extends React.Component {
       }
 
       componentWillReceiveProps(nextprops){
-        console.log(nextprops);
         if (this.props.coinInfo){
           this.setState({coins: nextprops.coinInfo.coins})
         }
@@ -90,7 +89,6 @@ export default class UserPortfolio extends React.Component {
         this.setState({
           userList: newList,
           rehydrated: this.props.persistedState.rehydrated,
-          //coins: nextprops.coinInfo.coins
         })
       }
 

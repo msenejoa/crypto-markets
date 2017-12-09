@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight, Switch } from 'react-native';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';

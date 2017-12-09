@@ -20,14 +20,11 @@ export default class CoinInformationHeader extends React.Component {
         };
       }
 
-      componentWillReceiveProps(){
+      componentWillReceiveProps(nextProps){
         let obj = this.props.coinInfo.coinInfo[0];
         let rehydrated = this.props.rehydrated;
-        if (rehydrated){
-          let obj = this.props.coinInfo.coinInfo[0];
-            if (typeof obj != 'undefined'){
+        if (rehydrated & nextProps.coinInfo.isLoaded & !this.state.isLoaded & !nextProps.coinData.error) {
           this.onLoad()
-          } else {this.setState({ price: 0, price_btc: 0, price_usd: 0})}
         }
       }
 
@@ -44,7 +41,6 @@ export default class CoinInformationHeader extends React.Component {
           week: 0,
         })
       }
-
 
       clickFunction() {
         this.setState({switchValue: !this.state.switchValue});
@@ -71,35 +67,35 @@ export default class CoinInformationHeader extends React.Component {
         let hour = this.props.coinInfo.coinInfo[0].percent_change_1h;
         let day = this.props.coinInfo.coinInfo[0].percent_change_24h;
         let week = this.props.coinInfo.coinInfo[0].percent_change_7d;
+        this.changeFunction(this.props.coinData.time)
         this.setState({
           price_btc: price_btc,
           price_usd: price_usd,
           hour: hour,
           day: day,
           week: week,
+          isLoaded: true
         });
       }
 
       render(){
-      var price_btc = this.state.price_btc;
-      var price_usd = this.state.price_usd;
-      change = this.props.coinData.change;
+        let { price_btc, price_usd, switchValue } = this.state
+        let change = this.props.coinData.change;
+        let colorGains = change > 0 ? '#03C9A9' : '#D64541';
 
-      this.changeFunction(this.props.coinData.time)
-      var colorGains = change > 0 ? '#03C9A9' : '#D64541';
 
-      return (
-        <View style={styles.container}>
-          <Text style={styles.text}> {this.props.coinInfo.name}</Text>
-          <TouchableHighlight
-            onPress = {() => this.clickFunction()}>
-                  <Text style={styles.textPrice}>
-                        {!this.state.switchValue? price_btc + ' BTC':'$' + price_usd}
-                  </Text>
-          </TouchableHighlight>
-          <Text style={styles.text}> {this.changeFunction(change)} %</Text>
-        </View>
-      );
+        return (
+          <View style={styles.container}>
+            <Text style={styles.text}> {this.props.coinInfo.name}</Text>
+            <TouchableHighlight
+              onPress = {() => this.clickFunction()}>
+                    <Text style={styles.textPrice}>
+                          {!switchValue? this.state.price_btc + ' BTC':'$' + this.state.price_usd}
+                    </Text>
+            </TouchableHighlight>
+            <Text style={styles.text}> {this.changeFunction(change)} %</Text>
+          </View>
+        );
     }
 }
 
