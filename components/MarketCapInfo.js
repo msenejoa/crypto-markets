@@ -9,6 +9,13 @@ export default class MarketCapInfo extends React.Component {
           }
         }
 
+      componentWillReceiveProps(nextProps){
+        if (nextProps.isLoaded && !this.state.isLoaded){
+          this.props.callbackParent();
+          this.setState({ isLoaded: true});
+       }      
+      }  
+
       render(){
 
         var mkt_cap = this.props.coins.marketCap.total_market_cap_usd;
@@ -18,11 +25,6 @@ export default class MarketCapInfo extends React.Component {
         var vol = this.props.coins.marketCap.total_24h_volume_usd;
         vol = vol/1000000;
         vol = vol.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-       if (this.props.isLoaded && !this.state.isLoaded){
-        this.props.callbackParent();
-        this.setState({ isLoaded: true});
-       }
 
       return (
       <View>

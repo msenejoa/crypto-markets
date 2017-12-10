@@ -1,20 +1,43 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 import SmallGraph from './SmallGraph';
+import {connect } from 'react-redux'
 
 
-export default class CoinInformation extends React.Component {
-  componentWillMount(){
-    console.log('this is a mounting')
-  }
-  render(){
-    let change =this.props.difference * 100;
-    let color = change > 0 ? '#03C9A9' : '#D64541';
-    colorChange = function(change) {
-      return {
-        backgroundColor: color
-        }
+class CoinInformation extends React.Component {
+  constructor(props) {
+        super(props);
+        this.state = {
+          change: 0, 
+          loaded: false, 
+          color: '#000000'
+        };
       }
+
+  componentWillMount(){
+    console.log(this.props)
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.coinInfo.isLoaded & !this.state.loaded){
+      let change =(this.props.difference * 100).toFixed(2)
+      let color = change > 0 ? '#03C9A9' : '#D64541';
+      this.setState({
+        change: change,
+        color: color,
+        loaded: true
+      })
+    }
+  }
+
+  colorChange(){
+    return {
+      backgroundColor: this.state.color
+    }
+  }
+
+  render(){
+
       return (
         <View style={styles.container}>
           <TouchableHighlight onPress={() => this.props.callbackParent(this.props)}>
@@ -37,8 +60,8 @@ export default class CoinInformation extends React.Component {
             </View>
 
             <View style={styles.columnRight}>
-              <View style={[styles.changeBox, colorChange(change)]}>
-                <Text style={styles.textChange}>{(this.props.difference*100).toFixed(2)}%</Text>
+              <View style={[styles.changeBox, this.colorChange()]}>
+                <Text style={styles.textChange}>{this.state.change}%</Text>
               </View>
             </View>
             </View>
@@ -111,5 +134,20 @@ const styles = StyleSheet.create({
     borderBottomWidth: .75,
   }
 });
+
+
+function mapStateToProps (state) {
+  return {
+    coinInfo: state.coinInfo
+
+  }
+}
+
+
+
+export default connect(
+  mapStateToProps,
+  null
+)(CoinInformation)
 
 

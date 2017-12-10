@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 
 import { StockLine } from 'react-native-pathjs-charts';
 
@@ -12,9 +12,47 @@ import SmallGraph from './SmallGraph';
 import Button from 'react-native-button';
 
 class StockLineChartBasic extends Component {
+  constructor(props) {
+        super(props);
+        this.state = {
+          loaded: false,
+          width: 0,
+          data: [[{x: 0, y: 0}]],
+          ratio: 0,
+          indexVarable: 0, 
+          time: ''
+        };
+      }
 
   handlePress(evt){
-  console.log(`x coord = ${evt.nativeEvent.locationX}`);
+    let indexVarable = (evt.nativeEvent.locationX / this.state.ratio) - 1;
+    this.setState({
+      indexVarable: Number((indexVarable).toFixed(0))
+    })
+    let data = this.state.data[0]
+    console.log(data[Number((indexVarable).toFixed(0))])
+
+
+  }
+
+  componentDidMount(){
+    let w = Dimensions.get("window").width
+    this.setState({ width: w})
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log(nextProps.coinData)
+    if((nextProps.coinData.loaded & !this.state.loaded)|| (nextProps.coinDatatime != this.state.time)){
+      let ratio = this.state.width / nextProps.coinData.Data[0].length
+      console.log(this.props.coinData.Data)
+      console.log(this.state.data)
+      this.setState({
+        data: nextProps.coinData.Data,
+        ratio: ratio,
+        time: nextProps.coinData.time,
+        loaded: true
+      })
+    }
   }
 
 
@@ -41,17 +79,8 @@ class StockLineChartBasic extends Component {
     let month = '1m';
     let year = '1y';
 
-    let data = [
-      [{
-        "x": 0,
-        "y": 132189
-      }, {
-        "x": 1,
-        "y": 61705
-      }],
-    ]
     let options = {
-      width: 370,
+      width: this.state.width-5,
       height: 180,
       color: change,
       margin: {
@@ -96,11 +125,9 @@ class StockLineChartBasic extends Component {
       }
     }
 
-
-
-
     return (
       <View style={styles.container}>
+
         <CoininformationHeader
           rehydrated = {this.props.rehydrated}
           coinData = {this.props.coinData}
@@ -109,8 +136,9 @@ class StockLineChartBasic extends Component {
         {
         !error ?
           <TouchableOpacity onPress={(evt) => this.handlePress(evt)} activeOpacity={1} >
+
             <View style= {styles.graph}>
-              <StockLine data={this.props.coinData.Data} options={options} xKey='x' yKey='y' />
+              <StockLine data={this.state.data} options={options} xKey='x' yKey='y' />
             </View>
           </TouchableOpacity> :
           <View style = {styles.errorBox}><Text style ={styles.errorText}>loading</Text></View>
