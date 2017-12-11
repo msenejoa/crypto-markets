@@ -1,6 +1,15 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  TouchableHighlight, 
+  TouchableOpacity, 
+  ScrollView, 
+  Dimensions, 
+  PanResponder 
+    } from 'react-native';
 
 import { StockLine } from 'react-native-pathjs-charts';
 
@@ -14,23 +23,43 @@ import Button from 'react-native-button';
 class StockLineChartBasic extends Component {
   constructor(props) {
         super(props);
+
+        const panResponder = PanResponder.create({
+          onStartShouldSetPanResponder: () => {
+            this.activatePrice();
+            return true
+            },
+          onPanResponderMove: (event, gesture) => {
+            this.handleDrag(gesture.moveX)
+          },
+          onPanResponderRelease: ()=>{
+            this.deactivatePrice();
+          }
+        });
         this.state = {
           loaded: false,
           width: 0,
           data: [[{x: 0, y: 0}]],
           ratio: 0,
           indexVarable: 0, 
-          time: ''
+          time: '',
+          panResponder,
+          price: 0,
+          active: false,
+          xCoordinate: 0
         };
       }
 
-  handlePress(evt){
-    let indexVarable = (evt.nativeEvent.locationX / this.state.ratio) - 1;
+  handleDrag(xCoordinate){
+    let indexVarable = (xCoordinate / this.state.ratio) - 1;
     this.setState({
-      indexVarable: Number((indexVarable).toFixed(0))
+      indexVarable: Number((indexVarable).toFixed(0)),
+      xCoordinate: xCoordinate
     })
     let data = this.state.data[0]
-    console.log(data[Number((indexVarable).toFixed(0))])
+    this.setState({
+      price: data[Number((indexVarable).toFixed(0))].y
+    })
 
 
   }
@@ -41,11 +70,8 @@ class StockLineChartBasic extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log(nextProps.coinData)
     if((nextProps.coinData.loaded & !this.state.loaded)|| (nextProps.coinDatatime != this.state.time)){
       let ratio = this.state.width / nextProps.coinData.Data[0].length
-      console.log(this.props.coinData.Data)
-      console.log(this.state.data)
       this.setState({
         data: nextProps.coinData.Data,
         ratio: ratio,
@@ -53,6 +79,20 @@ class StockLineChartBasic extends Component {
         loaded: true
       })
     }
+  }
+
+  activatePrice(){
+    console.log('pressed')
+    this.setState({
+      active: true
+    })
+  }
+
+  deactivatePrice(){
+    console.log('released')
+    this.setState({
+      active: false
+    })
   }
 
 
@@ -63,7 +103,6 @@ class StockLineChartBasic extends Component {
     var timeFrame = this.props.coinData.time;
     var gains = this.props.coinData.change;
     var error = this.props.coinData.error;
-
     var change = gains > 0 ? '#03C9A9' : '#D64541';
 
     colorChange = function(change) {
@@ -71,6 +110,12 @@ class StockLineChartBasic extends Component {
         color: change
         }
       }
+
+    timelinePosition = function(number){
+      return {
+        paddingLeft: number,
+      }
+    }
 
 
     let hour = '1h';
@@ -124,20 +169,24 @@ class StockLineChartBasic extends Component {
         }
       }
     }
-
     return (
       <View style={styles.container}>
 
         <CoininformationHeader
+          active = {this.state.active}
+          price = {this.state.price}
           rehydrated = {this.props.rehydrated}
           coinData = {this.props.coinData}
           coinInfo = {this.props.coinInfo}
           gains = {this.gains}/>
         {
         !error ?
-          <TouchableOpacity onPress={(evt) => this.handlePress(evt)} activeOpacity={1} >
-
-            <View style= {styles.graph}>
+          <TouchableOpacity activeOpacity={1}>
+            <View style= {styles.graph} {...this.state.panResponder.panHandlers} >
+              {this.state.active ?
+                <View style={[styles.overlayBox, timelinePosition(this.state.xCoordinate)]}/>:
+                null
+              }
               <StockLine data={this.state.data} options={options} xKey='x' yKey='y' />
             </View>
           </TouchableOpacity> :
@@ -244,6 +293,23 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'grey'
   },
+  overlay: {
+    paddingTop: 60,
+    //position: 'absolute',
+    color: 'grey'
+  },
+  overlayBox: {
+    position: 'absolute',
+    paddingTop: 10,
+    //paddingLeft: 10,
+    //color: 'grey',
+    borderRightColor: 'grey',
+    borderRightWidth: 1, 
+    height: 200,
+    zIndex: 0,
+    justifyContent: 'center'
+  },
+
   graph: {
     //alignSelf: 'stretch'
   }

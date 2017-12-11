@@ -17,6 +17,8 @@ export default class CoinInformationHeader extends React.Component {
           hour: 0,
           day: 0,
           week: 0,
+          loaded: false,
+          active: false
         };
       }
 
@@ -26,6 +28,12 @@ export default class CoinInformationHeader extends React.Component {
         if (rehydrated & nextProps.coinInfo.isLoaded & !this.state.isLoaded & !nextProps.coinData.error) {
           this.onLoad()
         }
+        if (nextProps.active != this.state.active){
+          this.setState({
+            active: nextProps.active
+            }
+          )}
+
       }
 
       componentWillUnmount(){
@@ -39,6 +47,7 @@ export default class CoinInformationHeader extends React.Component {
           hour: 0,
           day: 0,
           week: 0,
+          loaded: true
         })
       }
 
@@ -89,9 +98,15 @@ export default class CoinInformationHeader extends React.Component {
             <Text style={styles.text}> {this.props.coinInfo.name}</Text>
             <TouchableHighlight
               onPress = {() => this.clickFunction()}>
+                    {!this.props.active ?
                     <Text style={styles.textPrice}>
                           {!switchValue? this.state.price_btc + ' BTC':'$' + this.state.price_usd}
+                    </Text>:
+                    <Text style={styles.textPrice}>
+                          ${this.props.price}
                     </Text>
+                    }                   
+
             </TouchableHighlight>
             <Text style={styles.text}> {this.changeFunction(change)} %</Text>
           </View>
