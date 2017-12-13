@@ -14,9 +14,6 @@ class CoinInformation extends React.Component {
         };
       }
 
-  componentWillMount(){
-    console.log(this.props)
-  }
 
   componentWillReceiveProps(nextProps){
     if(nextProps.coinInfo.isLoaded & !this.state.loaded){

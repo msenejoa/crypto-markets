@@ -8,7 +8,8 @@ import {
   TouchableOpacity, 
   ScrollView, 
   Dimensions, 
-  PanResponder 
+  PanResponder,
+  Animated 
     } from 'react-native';
 
 import { StockLine } from 'react-native-pathjs-charts';
@@ -24,29 +25,19 @@ class StockLineChartBasic extends Component {
   constructor(props) {
         super(props);
 
-        const panResponder = PanResponder.create({
-          onStartShouldSetPanResponder: () => {
-            this.activatePrice();
-            return true
-            },
-          onPanResponderMove: (event, gesture) => {
-            this.handleDrag(gesture.moveX)
-          },
-          onPanResponderRelease: ()=>{
-            this.deactivatePrice();
-          }
-        });
         this.state = {
           loaded: false,
           width: 0,
           data: [[{x: 0, y: 0}]],
           ratio: 0,
           indexVarable: 0, 
-          time: '',
-          panResponder,
+          time: '1d',
+          //panResponder,
           price: 0,
-          active: false,
-          xCoordinate: 0
+          active: true,
+          xCoordinate: 0,
+          pan: new Animated.ValueXY()
+
         };
       }
 
@@ -63,6 +54,44 @@ class StockLineChartBasic extends Component {
 
 
   }
+
+
+componentWillMount() {
+  let xCoordinate = 0;
+  this._panResponder = PanResponder.create({
+    onStartShouldSetPanResponder:(evt, gestureState) => true,
+    onPanResponderStart: (evt, gestureState) => {
+      //console.log(gestureState.x0)
+      xCoordinate = gestureState.x0
+      this.state.pan.setValue({x: xCoordinate, y: 0});
+
+
+    },
+    onMoveShouldSetResponderCapture: () => true,
+    onMoveShouldSetPanResponderCapture: () => true,
+
+    onPanResponderGrant: (e, gestureState) => {
+      console.log(this.state.pan.x._value)
+      console.log(gestureState)
+      //this.state.pan.setOffset({x: this.state.pan.x._value, y: this.state.pan.y._value});
+      //this.state.pan.setValue({x: 0, y: 0});
+
+    },
+
+    onPanResponderMove: Animated.event([
+      null, {moveX: this.state.pan.x},
+
+    ]),
+
+    onPanResponderRelease: (e, {vx, vy}) => {
+      this.state.pan.flattenOffset();
+      this.state.pan.setValue({x: 0, y: 0});
+
+    }
+  });
+}
+
+
 
   componentDidMount(){
     let w = Dimensions.get("window").width
@@ -104,6 +133,16 @@ class StockLineChartBasic extends Component {
     var gains = this.props.coinData.change;
     var error = this.props.coinData.error;
     var change = gains > 0 ? '#03C9A9' : '#D64541';
+
+    // Destructure the value of pan from the state
+    let { pan } = this.state;
+
+    // Calculate the x and y transform from the pan value
+    let [translateX, translateY] = [pan.x, pan.y];
+
+    // Calculate the transform property and set it as a value for our style which we add below to the Animated.View component
+    let imageStyle = {transform: [{translateX}, {translateY}]};
+
 
     colorChange = function(change) {
       return {
@@ -181,15 +220,21 @@ class StockLineChartBasic extends Component {
           gains = {this.gains}/>
         {
         !error ?
-          <TouchableOpacity activeOpacity={1}>
-            <View style= {styles.graph} {...this.state.panResponder.panHandlers} >
+
+            <View style= {styles.graph} >
               {this.state.active ?
-                <View style={[styles.overlayBox, timelinePosition(this.state.xCoordinate)]}/>:
+
+                <View style={styles.panContainer} {...this._panResponder.panHandlers}>
+                  <Animated.View style={imageStyle} >
+                    <View style={styles.overlayBox}/>
+                  </Animated.View>
+                </View>:
+
                 null
               }
               <StockLine data={this.state.data} options={options} xKey='x' yKey='y' />
             </View>
-          </TouchableOpacity> :
+          :
           <View style = {styles.errorBox}><Text style ={styles.errorText}>loading</Text></View>
         }
         <ScrollView>
@@ -298,17 +343,28 @@ const styles = StyleSheet.create({
     //position: 'absolute',
     color: 'grey'
   },
+  panContainer: {
+    flex: 1,
+    //justifyContent: 'center',
+    //alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+
+  },
   overlayBox: {
-    position: 'absolute',
-    paddingTop: 10,
+
+
+    //position: 'absolute',
+    //paddingTop: 10,
     //paddingLeft: 10,
     //color: 'grey',
-    borderRightColor: 'grey',
-    borderRightWidth: 1, 
-    height: 200,
-    zIndex: 0,
-    justifyContent: 'center'
-  },
+    //borderRightColor: 'grey',
+    //borderRightWidth: 1, 
+    height: 100,
+    width: 30,
+    backgroundColor: 'blue',
+
+    //zIndex: 0
+    },
 
   graph: {
     //alignSelf: 'stretch'

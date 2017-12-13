@@ -81,7 +81,7 @@ const AppIndex = (props) => {
             callbackParent ={(coin) => {props.getCoinInfo(coin, props.coinData.time); props.getCoinView();}}
             callbackGetCoins = {() => {props.getCoins(); console.log('pressed')}}/>
         }
-        <ScrollView >
+        <ScrollView scrollEnabled={false} >
       {
         isFetching && <Text>Loading</Text>
       }
