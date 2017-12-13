@@ -61,7 +61,7 @@ componentWillMount() {
   this._panResponder = PanResponder.create({
     onStartShouldSetPanResponder:(evt, gestureState) => true,
     onPanResponderStart: (evt, gestureState) => {
-      //console.log(gestureState.x0)
+
       xCoordinate = gestureState.x0
       this.state.pan.setValue({x: xCoordinate, y: 0});
 
@@ -71,17 +71,14 @@ componentWillMount() {
     onMoveShouldSetPanResponderCapture: () => true,
 
     onPanResponderGrant: (e, gestureState) => {
-      console.log(this.state.pan.x._value)
-      console.log(gestureState)
-      //this.state.pan.setOffset({x: this.state.pan.x._value, y: this.state.pan.y._value});
-      //this.state.pan.setValue({x: 0, y: 0});
 
     },
 
-    onPanResponderMove: Animated.event([
-      null, {moveX: this.state.pan.x},
-
-    ]),
+    onPanResponderMove:
+    Animated.event([
+       null, {moveX: this.state.pan.x}],
+    {listener: (event, gestureState) => this.handleDrag(gestureState.moveX)},
+    ),
 
     onPanResponderRelease: (e, {vx, vy}) => {
       this.state.pan.flattenOffset();
