@@ -32,9 +32,8 @@ class StockLineChartBasic extends Component {
           ratio: 0,
           indexVarable: 0, 
           time: '1d',
-          //panResponder,
           price: 0,
-          active: true,
+          active: false,
           xCoordinate: 0,
           pan: new Animated.ValueXY()
 
@@ -61,7 +60,7 @@ componentWillMount() {
   this._panResponder = PanResponder.create({
     onStartShouldSetPanResponder:(evt, gestureState) => true,
     onPanResponderStart: (evt, gestureState) => {
-
+      this.setState({active: true})
       xCoordinate = gestureState.x0
       this.state.pan.setValue({x: xCoordinate, y: 0});
 
@@ -83,7 +82,7 @@ componentWillMount() {
     onPanResponderRelease: (e, {vx, vy}) => {
       this.state.pan.flattenOffset();
       this.state.pan.setValue({x: 0, y: 0});
-
+      this.setState({active: false})
     }
   });
 }
@@ -219,17 +218,15 @@ componentWillMount() {
         !error ?
 
             <View style= {styles.graph} >
-              {this.state.active ?
-
                 <View style={styles.panContainer} {...this._panResponder.panHandlers}>
+                {this.state.active ?
                   <Animated.View style={imageStyle} >
                     <View style={styles.overlayBox}/>
-                  </Animated.View>
-                </View>:
-
-                null
-              }
-              <StockLine data={this.state.data} options={options} xKey='x' yKey='y' />
+                  </Animated.View>: null}
+                </View>
+                <View style={styles.graphOverlay}>
+                  <StockLine data={this.state.data} options={options} xKey='x' yKey='y' />
+                </View> 
             </View>
           :
           <View style = {styles.errorBox}><Text style ={styles.errorText}>loading</Text></View>
@@ -342,28 +339,36 @@ const styles = StyleSheet.create({
   },
   panContainer: {
     flex: 1,
+    height: 220,
+    zIndex: 1, 
+    //position: 'absolute',
     //justifyContent: 'center',
     //alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    //backgroundColor: '#F5FCFF',
 
   },
   overlayBox: {
 
 
     //position: 'absolute',
-    //paddingTop: 10,
+    paddingTop: 20,
     //paddingLeft: 10,
     //color: 'grey',
     //borderRightColor: 'grey',
     //borderRightWidth: 1, 
-    height: 100,
-    width: 30,
-    backgroundColor: 'blue',
+    height: 200,
+    width: 2,
+    backgroundColor: 'grey',
 
     //zIndex: 0
     },
-
+    graphOverlay: {
+    //alignSelf: 'stretch'
+    zIndex: 0, 
+    position: 'absolute'
+    },
   graph: {
+    //position: 'absolute',
     //alignSelf: 'stretch'
   }
 });

@@ -9,7 +9,6 @@ export default function persistedState (state = initialState, action) {
 
   switch (action.type) {
     case REHYDRATE:
-      console.log(action.payload)
       var incoming = action.payload.userInfo
       if (incoming)
         return {

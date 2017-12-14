@@ -25,8 +25,9 @@ class Header extends Component {
           symbol: ''
         };
   }
+
   componentWillReceiveProps(nextprops){
-      if (this.state.rehydrated && this.state.loaded){
+      if (this.state.rehydrated && nextprops.coinInfo.isLoaded){
         this.setState({
           loaded: true,
           userCoinList: nextprops.userInfo.userCoinList,
@@ -36,25 +37,14 @@ class Header extends Component {
           symbol: nextprops.symbol
       });
       }
+    if(nextprops.persistedState.rehydrated & !this.state.rehydrated){
       this.setState({
-        rehydrated: this.props.persistedState.rehydrated
-          },this.onLoad
+        rehydrated: true
+          }
         );
-      }
-
-  onLoad(){
-    if (this.state.rehydrated && !this.state.loaded){
       this.props.callbackParent()
-      this.setState({
-        loaded: true,
-        userCoinList: this.props.userInfo.userCoinList,
-        change: this.props.change,
-        coinName: this.props.coinInfo.name,
-        view: this.props.userInfo.view,
-        symbol: this.props.symbol
-      });
+      }
     }
-  }
 
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
