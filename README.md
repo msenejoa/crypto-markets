@@ -1,6 +1,6 @@
 # crypto-markets 
 
-A react-native cryptomarket ticker using available api's. This project is a work in progress
+A react-native cryptomarket ticker using available api's. Can be found in the iOS app store under the name Tokendex 
 
 
 ## Requirements
@@ -54,10 +54,4 @@ Runs the [jest](https://github.com/facebook/jest) test runner on your tests.
 
 Like `npm start`, but also attempts to open your app in the iOS Simulator if you're on a Mac and have it installed.
 
-### Todo 
 
-- add statistics 
-- add default btc view
-- add default state tree
-- BTC to USD converter
-- change scrollview to include prices
