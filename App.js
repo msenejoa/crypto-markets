@@ -7,7 +7,7 @@ import { autoRehydrate, persistStore } from 'redux-persist'
 import { Provider } from 'react-redux';
 
 import configureStore from './configureStore'
-import AppIndex from './appIndex'
+import  AppIndex  from './appIndex'
 
 const store = configureStore()
 
@@ -32,4 +32,4 @@ export default class App extends React.Component {
 
 
 
-//AppRegistry.registerComponent('rnredux', () => ReduxApp)
+//AppRegistry.registerComponent('redux', () => ReduxApp)

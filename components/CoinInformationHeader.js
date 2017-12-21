@@ -90,6 +90,7 @@ export default class CoinInformationHeader extends React.Component {
       render(){
         let { price_btc, price_usd, switchValue } = this.state
         let change = this.props.coinData.change;
+        //console.log(this.props)
         let colorGains = change > 0 ? '#03C9A9' : '#D64541';
 
 
@@ -108,7 +109,20 @@ export default class CoinInformationHeader extends React.Component {
                     }                   
 
             </TouchableHighlight>
-            <Text style={styles.text}> {this.changeFunction(change)} %</Text>
+
+              {!this.props.active ?
+                    <Text style={styles.text}> {this.changeFunction(change)} %</Text>:
+                    <Text style={styles.text}>
+                          {this.props.date}
+                    </Text>
+                    }    
+
+
+            
+
+
+
+
           </View>
         );
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, RefreshControl, TouchableHighlight } from 'react-native';
 
 import UserPortfolio from './UserPortfolio';
 import MarketCapInfo from './MarketCapInfo';
@@ -16,12 +16,19 @@ export default class HomeView extends React.Component {
         };
       }
 
-      componentWillReceiveProps(){
+      componentWillMount(){
+        this.setState({ refreshing: this.props.coinInfo.isLoading})
+      }
+
+      componentWillReceiveProps(nextProps){
+        if (nextProps.coinInfo.isLoading != this.state.refreshing) {
+          this.setState({refreshing: nextProps.coinInfo.isLoading})
+        }
       }
 
       onRefresh(){
-        this.setState({refreshing:true})
-        setTimeout(()=>this.setState({refreshing:false}), 700)
+        //this.setState({refreshing:true})
+        //setTimeout(()=>this.setState({refreshing:false}), 700)
         this.props.callbackParent()
 
       }
@@ -76,12 +83,12 @@ export default class HomeView extends React.Component {
                 }
 
 
-                {/*
-                (this.props.userInfo.userCoinList.length == 0 && this.props.coinInfo.length) && (
-                <TouchableHighlight style={button} onPress={() => {props.getSearchView(); props.forceRehydrate(); props.getCoins()}}>
-                  <Text style={buttonText}>you have no coins in your portfolio {"\n"} add some coins</Text>
+                {
+                (this.props.userInfo.userCoinList.length == 0) && (
+                <TouchableHighlight onPress={() => {this.props.getSearchView(); this.props.getCoins()}}>
+                  <Text style={styles.text}>you have no coins in your portfolio {"\n"} add some coins</Text>
                 </TouchableHighlight>)
-                */}
+                }
 
 
 

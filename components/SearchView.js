@@ -1,13 +1,27 @@
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableHighlight,TextInput, FlatList, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableHighlight,TextInput, FlatList, ScrollView, RefreshControl } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 class SearchView extends Component {
   constructor(props) {
     super(props);
-    this.state = {text: ''};
+    this.state = {
+      text: '',
+      refreshing: false
+    }
+
+  }
+
+  componentWillMount(){
+    //this.setState({refreshing: this.props.loading})
+  }
+
+  ComponentWillReceiveProps(nextProps){
+   // if (this.state.refreshing == nextProps.loaded){
+   //   this.setState({refreshing: !nextProps.loading})
+   // }
   }
 
   textChange(text){
@@ -16,27 +30,51 @@ class SearchView extends Component {
     })
   }
 
+  onRefresh(){
+        //this.setState({refreshing:true})
+        //setTimeout(()=>this.setState({refreshing:false}), 700)
+        this.props.callbackGetCoins()
+        console.log('refreshing')
+      }
 
   render() {
 
   var coins = this.props.data,
       searchString = this.state.text.trim().toLowerCase();
+  console.log(coins.length)
   if (searchString.length > 0) {
     coinName = coins.filter(coin => coin.name.toLowerCase().match( searchString ));
     coinSymbol = coins.filter(coin => coin.symbol.toLowerCase().match( searchString ));
     coins = coinName.concat(coinSymbol.filter(item => coinName.indexOf(item) < 0));
   }
 
+
+
   return (
     <View style ={styles.mainContainer}>
-      <TextInput
-        style={{height: 40, borderColor: 'gray', borderWidth: 1, color: 'white'}}
-        onChangeText={(text) => {this.textChange(text)}}/>
+      <View style={styles.searchBoxPadding}>
+        <View style={styles.searchBox}>
+          <View style={styles.text}>
+            <TextInput
+
+              style={styles.textFieldInput}
+              onChangeText={(text) => {this.textChange(text)}}/>
+          </View>
+        </View>
+      </View>
           <View style={styles.container}>
-            <FlatList
-              data={coins}
-              renderItem={
-                ({item}) =>(
+            <ScrollView
+            refreshControl = {
+              <RefreshControl
+                refreshing={!this.props.loaded}
+                onRefresh={this.onRefresh.bind(this)}
+                />}>
+              {(coins.length==0) && <Text style={styles.textBottom}> no coins found {"\n"} pull down to refresh </Text>}
+              
+              <FlatList
+                data={coins}
+                renderItem={
+                  ({item}) =>(
                   <TouchableHighlight style ={styles.textField} onPress={()=> this.props.callbackParent(item)}>
                     <Text style={styles.text}>
                       {item.name} {item.symbol}
@@ -44,13 +82,15 @@ class SearchView extends Component {
                   </TouchableHighlight>
                 )
               }/>
+          </ScrollView>
+
         </View>
 
+{/*
       <TouchableHighlight style={styles.button} onPress={() => this.props.callbackGetCoins()}>
         <Text style={styles.textBottom}>sync coins</Text>
       </TouchableHighlight>
-
-
+*/}
       </View>
     )
   }
@@ -59,63 +99,64 @@ class SearchView extends Component {
 const styles = StyleSheet.create({
   mainContainer: {
     //flexDirection: 'row',
-    //paddingTop:34,
+    paddingTop:25,
     //paddingBottom: 3,
     //paddingLeft: 10,
     //paddingRight: 10,
     //flex:1
   },
+  searchBoxPadding: {
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  searchBox: {
+    height: 60,
+    //backgroundColor: '#1C2F2F',
+    paddingLeft: 20,
+    paddingTop: 10,
+    paddingRight: 20,
+    borderRadius: 20,
+    borderColor: 'grey',
+    borderWidth: 1,
+    //flex: 1
+  },
   button: {
     height: 45,
     backgroundColor: 'grey',
-    borderRadius: 7
-  },
-  textField: {
-    borderBottomColor: 'grey',
-    borderBottomWidth: .75
-  },
-  container: {
-    height: 520
+    borderRadius: 7,
     //flex: 1
   },
-  containerBottom:{
-    height: 50,
-    flex: 1
+  textFieldInput: {
+    height: 40, 
+    //borderColor: 'gray', 
+    //borderWidth: 1, 
+    color: 'white'
+
   },
-  containerTopLeft: {
-    flex:3,
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-    paddingLeft: 10
+  textField: {
+    height: 40,
+    paddingTop: 7,
+    paddingLeft: 7,
+    //borderColor: 'gray', 
+    //borderWidth: 1, 
+    borderBottomColor: 'grey',
+    borderBottomWidth: .75,
+    //flex: 1
   },
-  containerTopCenter:{
-    flex:3,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  containerTopRight: {
-    flex:3,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-    paddingRight: 10
-  },
-  textHeader: {
-    textAlign: 'center',
-    fontSize: 28,
-    color: '#ffffff',
-    //paddingTop: 15,
-    fontFamily: 'HelveticaNeue-Thin'
+  container: {
+    height: 570,
+    paddingTop: 20,
+    //flex: 1
   },
   textBottom: {
-    textAlign: 'center',
     fontSize: 20,
     color: '#ffffff',
     paddingTop: 10,
     fontFamily: 'HelveticaNeue-Thin'
   },
   text: {
-    textAlign: 'left',
-    paddingTop: 10,
+    //height: 20,
+    //paddingTop: 5,
     fontSize: 20,
     color: 'white',
     fontFamily: 'HelveticaNeue-Thin'

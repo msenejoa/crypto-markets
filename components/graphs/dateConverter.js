@@ -1,10 +1,11 @@
 const Converter = (data) => {
   var first = data[0].close;
   var last = data[data.length -1].close;
-  var change = (last - first) / last * 100;
+  var change = (last - first) / first * 100;
 
   var obj = [];
   data.forEach((a, i) => {
+
     /*
     var day = new Date(a.time *1000);
     var hours = day.getHours();
@@ -15,7 +16,8 @@ const Converter = (data) => {
 
     obj.push({
       x : i,
-      y : a.close
+      y : a.close,
+      time: a.time
     });
 
   });

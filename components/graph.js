@@ -12,7 +12,9 @@ import {
   Animated 
     } from 'react-native';
 
-import { StockLine } from 'react-native-pathjs-charts';
+import moment from 'moment'
+
+import { StockLine, SmoothLine } from 'react-native-pathjs-charts';
 
 import CoininformationHeader from './CoinInformationHeader';
 import CoinInformationStatistics from './CoinInformationStatistics';
@@ -35,7 +37,8 @@ class StockLineChartBasic extends Component {
           price: 0,
           active: false,
           xCoordinate: 0,
-          pan: new Animated.ValueXY()
+          pan: new Animated.ValueXY(),
+          date: '', 
 
         };
       }
@@ -47,8 +50,13 @@ class StockLineChartBasic extends Component {
       xCoordinate: xCoordinate
     })
     let data = this.state.data[0]
+
+    let utcSeconds = data[Number((indexVarable).toFixed(0))].time
+    //console.log(moment.utc(utcSeconds*1000).local().format('ddd, ll')); // The 0 there is the key, which sets the date to the epoch
+    
     this.setState({
-      price: data[Number((indexVarable).toFixed(0))].y
+      price: data[Number((indexVarable).toFixed(0))].y,
+      date: moment.utc(utcSeconds*1000).local().format("h:mm A, ddd, ll")
     })
 
 
@@ -60,8 +68,9 @@ componentWillMount() {
   this._panResponder = PanResponder.create({
     onStartShouldSetPanResponder:(evt, gestureState) => true,
     onPanResponderStart: (evt, gestureState) => {
-      this.setState({active: true})
-      xCoordinate = gestureState.x0
+      this.props.callbackPan(true);
+      this.setState({active: true});
+      xCoordinate = gestureState.x0;
       this.state.pan.setValue({x: xCoordinate, y: 0});
 
 
@@ -83,6 +92,7 @@ componentWillMount() {
       this.state.pan.flattenOffset();
       this.state.pan.setValue({x: 0, y: 0});
       this.setState({active: false})
+      this.props.callbackPan(false);
     }
   });
 }
@@ -95,7 +105,7 @@ componentWillMount() {
   }
 
   componentWillReceiveProps(nextProps){
-    if((nextProps.coinData.loaded & !this.state.loaded)|| (nextProps.coinDatatime != this.state.time)){
+    if((nextProps.coinData.loaded & !this.state.loaded)|| (nextProps.coinData.time != this.state.time)){
       let ratio = this.state.width / nextProps.coinData.Data[0].length
       this.setState({
         data: nextProps.coinData.Data,
@@ -107,14 +117,14 @@ componentWillMount() {
   }
 
   activatePrice(){
-    console.log('pressed')
+
     this.setState({
       active: true
     })
   }
 
   deactivatePrice(){
-    console.log('released')
+
     this.setState({
       active: false
     })
@@ -129,6 +139,7 @@ componentWillMount() {
     var gains = this.props.coinData.change;
     var error = this.props.coinData.error;
     var change = gains > 0 ? '#03C9A9' : '#D64541';
+    let graphLoaded = this.props.coinData.loaded;
 
     // Destructure the value of pan from the state
     let { pan } = this.state;
@@ -209,13 +220,14 @@ componentWillMount() {
 
         <CoininformationHeader
           active = {this.state.active}
+          date= {this.state.date}
           price = {this.state.price}
           rehydrated = {this.props.rehydrated}
           coinData = {this.props.coinData}
           coinInfo = {this.props.coinInfo}
           gains = {this.gains}/>
         {
-        !error ?
+        (graphLoaded) ?
 
             <View style= {styles.graph} >
                 <View style={styles.panContainer} {...this._panResponder.panHandlers}>
@@ -225,7 +237,7 @@ componentWillMount() {
                   </Animated.View>: null}
                 </View>
                 <View style={styles.graphOverlay}>
-                  <StockLine data={this.state.data} options={options} xKey='x' yKey='y' />
+                  <SmoothLine data={this.state.data} options={options} xKey='x' yKey='y' />
                 </View> 
             </View>
           :
@@ -325,7 +337,7 @@ const styles = StyleSheet.create({
     //flex: 1,
   },
   errorBox: {
-    height: 180,
+    height: 215,
     justifyContent: 'center',
     alignItems: 'center',
   },

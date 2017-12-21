@@ -1,4 +1,4 @@
-import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, MARKETCAP, SEARCH, COINLIST, USERCOINLIST, FETCHING_COIN_HISTORY_FAILURE, FORCE_REHYDRATE } from './constants';
+import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, FETCHING_COIN_INFO_SUCCESS, FETCHING_COIN_HISTORY_SUCCESS, CHANGE_COIN_HISTORY_SUCCESS, ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, MARKETCAP, SEARCH, COINLIST, USERCOINLIST, FETCHING_COIN_HISTORY_FAILURE, FORCE_REHYDRATE, FETCHING_COIN_HISTORY, FETCHING_MARKETCAP, FETCHING_COIN_LIST } from './constants';
 import Converter from './components/graphs/dateConverter';
 import translate from './components/graphs/timelineConverter';
 
@@ -16,8 +16,9 @@ export function fetchInitialData(name, time, list) {
 
 export function fetchCoinsFromAPI() {
   return (dispatch) => {
+    dispatch(fetchingCoinList())
     var newList = []
-    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=250')
+    fetch('https://api.coinmarketcap.com/v1/ticker/?limit=1000')
     .then(data => data.json())
     .then(data => data.map((i, f) => newList.push({name: i.name, symbol: i.symbol, key: f})))
     .then(() => dispatch(fetchCoinList(newList)))
@@ -25,6 +26,11 @@ export function fetchCoinsFromAPI() {
   }
 }
 
+export function fetchingCoinList() {
+  return {
+    type: FETCHING_COIN_LIST
+  }
+}
 export function updateUserCoinList(list) {
   return {
     type: USERCOINLIST,
@@ -160,6 +166,7 @@ export function fetchCoinInfoFromAPI(name, time) {
     if (coinName === 'AdEx'){ coinName = 'adx-ne'}
     if (coinName === 'SuperNet'){ coinName = 'supernet-unity'}
     if (coinName === 'Po.et'){ coinName = 'poet'}
+    //if (coinName === 'Stellar Lumens'){ coinName = ''}
 
     //dispatch(getCoins())
     let coinLowerCase = coinName.replace(/\s+/g, '-').toLowerCase();
@@ -186,6 +193,7 @@ export function getCoinInfoSuccess(data, name, symbol) {
 
 export function fetchCoinHistoryFromAPI(name, time) {
   return (dispatch) => {
+    dispatch(fetchingCoinHistory());
     var timeline = translate(time);
     if (name === 'MIOTA'){ name = 'IOT'}
     fetch('https://min-api.cryptocompare.com/data/' + timeline.time + '?fsym=' + name + '&tsym=USD&limit=' + timeline.limit + '&aggregate='+ timeline.agg + '&e=CCCAGG')
@@ -200,14 +208,27 @@ export function fetchCoinHistoryFromAPI(name, time) {
   }
 }
 
+export function fetchingCoinHistory(){
+  return {
+    type: FETCHING_COIN_HISTORY
+  }
+}
+
 export function getCoinHistoryFailure(){
   return {
     type: FETCHING_COIN_HISTORY_FAILURE
   }
 }
 
+export function fetchingMarketCap(){
+  return {
+    type: FETCHING_MARKETCAP
+  }
+}
+
 export function fetchMarketCapFromAPI() {
   return (dispatch) => {
+    dispatch(fetchingMarketCap())
     fetch('https://api.coinmarketcap.com/v1/global/')
     .then(data => data.json())
     .then(json => {

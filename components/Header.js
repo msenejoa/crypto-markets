@@ -26,6 +26,8 @@ class Header extends Component {
         };
   }
 
+
+
   componentWillReceiveProps(nextprops){
       if (this.state.rehydrated && nextprops.coinInfo.isLoaded){
         this.setState({
@@ -149,7 +151,7 @@ class Header extends Component {
                               <Text style={styles.text}> remove coin from portfolio? </Text>
                             </View>
                             <View style={styles.button}>
-                                <TouchableHighlight onPress={()=> {this.props.callbackRemoveCoin()}}>
+                                <TouchableHighlight onPress={()=> {this.props.callbackRemoveCoin(); this.setModalVisible(!this.state.modalVisible)}}>
                                   <Text style ={styles.textButton}>ok</Text>
                                 </TouchableHighlight>
                             </View>
@@ -181,7 +183,7 @@ class Header extends Component {
 const styles = StyleSheet.create({
   containerTop: {
     flexDirection: 'row',
-    paddingTop:20,
+    paddingTop:30,
     paddingBottom: 3,
     paddingLeft: 10,
     paddingRight: 10,
