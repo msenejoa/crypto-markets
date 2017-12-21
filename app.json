@@ -9,7 +9,7 @@
     orientation: "portrait",
     loading: {
       icon: "",
-      backgroundColor: "#ffffff",
+      backgroundColor: "#000000",
       exponentIconGrayscale: 0,
       backgroundImage: "./iPhone.png",
       hideExponentText: true,
