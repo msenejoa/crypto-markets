@@ -105,6 +105,7 @@ componentWillMount() {
   }
 
   componentWillReceiveProps(nextProps){
+
     if((nextProps.coinData.loaded & !this.state.loaded)|| (nextProps.coinData.time != this.state.time)){
       let ratio = this.state.width / nextProps.coinData.Data[0].length
       this.setState({
@@ -337,7 +338,7 @@ const styles = StyleSheet.create({
     //flex: 1,
   },
   errorBox: {
-    height: 215,
+    height: 220,
     justifyContent: 'center',
     alignItems: 'center',
   },

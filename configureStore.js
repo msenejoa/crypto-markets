@@ -12,7 +12,7 @@ export default function configureStore() {
     	applyMiddleware(thunk, logger),
     	autoRehydrate({log: true})
     	)(createStore)(app);
-  persistStore(store, {storage: AsyncStorage, whitelist: ['userInfo']});
+  persistStore(store, {storage: AsyncStorage, whitelist: ['userInfo']}).purge();
   return store
 }
 

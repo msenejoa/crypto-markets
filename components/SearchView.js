@@ -54,7 +54,7 @@ class SearchView extends Component {
     <View style ={styles.mainContainer}>
       <View style={styles.searchBoxPadding}>
         <View style={styles.searchBox}>
-          <View style={styles.text}>
+          <View>
             <TextInput
 
               style={styles.textFieldInput}
@@ -69,7 +69,7 @@ class SearchView extends Component {
                 refreshing={!this.props.loaded}
                 onRefresh={this.onRefresh.bind(this)}
                 />}>
-              {(coins.length==0) && <Text style={styles.textBottom}> no coins found {"\n"} pull down to refresh </Text>}
+              {(coins.length==0) && <Text style={styles.textBottom}> loading </Text>}
               
               <FlatList
                 data={coins}
@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
   },
   textBottom: {
     fontSize: 20,
+    textAlign: 'center',
     color: '#ffffff',
     paddingTop: 10,
     fontFamily: 'HelveticaNeue-Thin'

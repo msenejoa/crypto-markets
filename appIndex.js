@@ -92,7 +92,7 @@ class AppIndex extends Component {
             loaded = {this.props.userInfo.coinListLoaded}
             data = {this.props.userInfo.coinList}
             callbackParent ={(coin) => {this.props.getCoinInfo(coin, this.props.coinData.time); this.props.getCoinView();}}
-            callbackGetCoins = {() => {this.props.getCoins(); console.log('pressed')}}/>
+            callbackGetCoins = {() => {this.props.getCoins()}}/>
         }
         <ScrollView scrollEnabled={!this.state.panning} >
       {

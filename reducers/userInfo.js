@@ -1,4 +1,4 @@
-import { ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, SEARCH, COINLIST, USERCOINLIST } from '../constants'
+import { ADD_COIN, REMOVE_COIN, VIEW_COIN, SEARCH_COIN, HOME, COIN, SEARCH, COINLIST, USERCOINLIST, FETCHING_COIN_LIST } from '../constants'
 import {REHYDRATE} from 'redux-persist/constants'
 
 
@@ -6,7 +6,8 @@ const initialState = {
   view: 'home',
   userCoinList: [],
   coinList: [],
-  rehydrated: false
+  rehydrated: false,
+  coinListLoaded: true
   //error: false
 }
 
@@ -31,12 +32,18 @@ export default function userInfoReducer (state = initialState, action) {
     case COINLIST:
       return {
         ...state,
-        coinList: action.data
+        coinList: action.data,
+        coinListLoaded: true
       }
     case USERCOINLIST:
       return {
         ...state,
         userCoinList: action.data
+      }
+    case FETCHING_COIN_LIST:
+      return {
+        ...state,
+        coinListLoaded: false
       }
       /*
     case REHYDRATE:

@@ -10,7 +10,8 @@ export default class UserPortfolio extends React.Component {
           isLoaded: false,
           userList: [],
           rehydrated: false,
-          coins: []
+          coins: [],
+          sumChangeUSD: 0
         };
       }
 
@@ -86,9 +87,11 @@ export default class UserPortfolio extends React.Component {
             }
           );
         }
+        let sumChangeUSD = newList.reduce((s, a) => s + a.change_usd, 0);
         this.setState({
           userList: newList,
           rehydrated: this.props.persistedState.rehydrated,
+          sumChangeUSD: sumChangeUSD
         })
       }
 
@@ -114,7 +117,7 @@ export default class UserPortfolio extends React.Component {
         <View style={styles.container}>
           <Text style={styles.textPrice}>${sumValueUSD.toFixed(2)}</Text>
           <Text style={styles.textPercentage}>{totalChange.toFixed(2)}%</Text>
-          <Text style={[styles.textChange, colorChange()]}>({sumChangeUSD.toFixed(2)})</Text>
+          <Text style={[styles.textChange, colorChange()]}>({this.state.sumChangeUSD.toFixed(2)})</Text>
         </View>
       );
     }

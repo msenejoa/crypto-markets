@@ -13,6 +13,19 @@ export function fetchInitialData(name, time, list) {
   }
 }
 
+export function getSearchView(){
+  return(dispatch)=>{
+    dispatch(gettingSearchView())
+    dispatch(fetchCoinListFromAPI())
+  }
+}
+
+export function gettingSearchView() {
+  return {
+    type: SEARCH
+  }
+}
+
 
 export function fetchCoinsFromAPI() {
   return (dispatch) => {
@@ -59,7 +72,6 @@ export function removeCoinfromUserList(list, coin){
 
 export function fetchCoinListFromAPI(list=[]) {
   return (dispatch) => {
-    console.log(list)
     var newMap = []
     list.map((i, f) => {
       let name = i.name;
@@ -126,11 +138,6 @@ export function getHomeView() {
   }
 }
 
-export function getSearchView() {
-  return {
-    type: SEARCH
-  }
-}
 
 export function getCoins() {
   return {
@@ -153,7 +160,7 @@ export function getCoinsFailure() {
 
 
 export function fetchCoinInfoFromAPI(name, time) {
-  console.log(name)
+  //console.log(name)
   return (dispatch) => {
     let coinName = name.name
     if (coinName === 'Bytecoin'){ coinName = 'bytecoin-bcn'}
@@ -166,11 +173,9 @@ export function fetchCoinInfoFromAPI(name, time) {
     if (coinName === 'AdEx'){ coinName = 'adx-ne'}
     if (coinName === 'SuperNet'){ coinName = 'supernet-unity'}
     if (coinName === 'Po.et'){ coinName = 'poet'}
-    //if (coinName === 'Stellar Lumens'){ coinName = ''}
 
-    //dispatch(getCoins())
     let coinLowerCase = coinName.replace(/\s+/g, '-').toLowerCase();
-    console.log(coinLowerCase)
+
     fetch('https://api.coinmarketcap.com/v1/ticker/' + coinLowerCase)
     .then(data => data.json())
     .then(json => {
