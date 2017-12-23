@@ -1,4 +1,4 @@
-import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, MARKETCAP } from '../constants'
+import { FETCHING_COINS, FETCHING_COINS_SUCCESS, FETCHING_COINS_FAILURE, MARKETCAP, FETCHING_MARKETCAP } from '../constants'
 import {REHYDRATE} from 'redux-persist/constants'
 
 const initialState = {
@@ -7,6 +7,7 @@ const initialState = {
     name: ''
   }],
   marketCap: {},
+  marketCapLoaded: false,
   isFetching: false,
   error: false
 }
@@ -31,10 +32,18 @@ export default function coinsReducer (state = initialState, action) {
         isFetching: false,
         error: true
       }
+
+    case FETCHING_MARKETCAP:
+      return {
+        ...state,
+        marketCapLoaded: false
+      }
+
     case MARKETCAP:
       return {
         ...state,
-        marketCap: action.data
+        marketCap: action.data,
+        marketCapLoaded: true
       }
     default:
       return state

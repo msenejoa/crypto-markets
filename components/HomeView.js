@@ -17,12 +17,13 @@ export default class HomeView extends React.Component {
       }
 
       componentWillMount(){
-        this.setState({ refreshing: this.props.coinInfo.isLoading})
+        this.setState({ refreshing: !this.props.coinInfo.marketCapLoaded})
       }
 
       componentWillReceiveProps(nextProps){
-        if (nextProps.coinInfo.isLoading != this.state.refreshing) {
-          this.setState({refreshing: nextProps.coinInfo.isLoading})
+        console.log(nextProps.coinInfo.marketCapLoaded)
+        if (nextProps.coinInfo.marketCapLoaded == this.state.refreshing) {
+          this.setState({refreshing: !nextProps.coinInfo.marketCapLoaded})
         }
       }
 
